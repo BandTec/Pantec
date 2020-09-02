@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="./CSS/Estilo_Site.css">
-    <link rel="stylesheet" href="./CSS/Estilo_menu.css">
+    <link rel="stylesheet" id="document" href="./CSS/Estilo_Site_escuro.css">
+    <link rel="stylesheet" id="document" href="./CSS/Estilo_menu_escuro.css">
     <link rel="stylesheet" href="./CSS/main.css">
 
     <!--Panda como icone-->
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <div class="nav">
+    <div class="nav nab">
 
         <input type="checkbox" id="check">
 
@@ -34,10 +34,8 @@
         <!--Lista-->
         <ul>
             <!--Itens organizados assim pelo fato de gerar um espaçamento-->
-            <li class="aqui01"><a class="active" href="#">Início</a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Serviços</a></li>
-            <li><a href="#">Contato</a></li>
+            <li class="aqui01"><a class="active" href="#">Início</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#servico">Serviços</a></li><li><a href="#">Contato</a></li><div class="modos"><div class="circulo"></div><div class="lua">☾</div><div class="sol">☼</div></div>
+            
         </ul>
     </div>
     <!--Imagem depois do menu-->
@@ -121,7 +119,7 @@
     </div>
 
     <!--Sobre-->
-    <div class="conteudo">
+    <section id="sobre" class="conteudo">
         <div class="historia">
             <h2>Conheça um pouco mais sobre a nossa história:</h2>
             <br>
@@ -205,11 +203,11 @@
             </div>
         </div>
 
-    </div>
+    </section>
 
 
     <!--Serviço-->
-    <div class="div-ser">
+    <section id="servico" class="div-ser">
         <div class="conteudo">
             <div class="texto-ser">
 
@@ -222,11 +220,11 @@
             <iframe class="video" src="https://www.youtube.com/embed/OwSz-PghGPY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
         </div>
-    </div>
+    
+</section>
 
 
-
-    <!--Gifts e funções-->
+        <!--Gifts e funções-->
     <div class="conteudo">
 
 
@@ -267,9 +265,10 @@
           
       </div>
     </div>
+    
 
 
-    <div class="marge-final">
+    <div id="contato" class="marge-final">
         <div class="conteudo">
 
 
@@ -337,4 +336,5 @@
         missao_display.style.display = "none";
         mudar.style.left = "50%";
     }
+
 </script>
