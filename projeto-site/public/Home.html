@@ -10,6 +10,8 @@
     <link rel="stylesheet" id="estilo_menu" href="./CSS/Estilo_menu_escuro.css">
     <link rel="stylesheet" href="./CSS/main.css">
 
+    <script src="./JavaScript/main.js"></script>
+
     <!--Panda como icone-->
     <link rel="icon" href="./Imagem/panda-icon.png">
 
@@ -34,7 +36,7 @@
         <!--Lista-->
         <ul>
             <!--Itens organizados assim pelo fato de gerar um espaçamento-->
-            <li class="aqui01"><a class="active" href="#">Início</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#servico">Serviços</a></li><li><a href="#">Contato</a></li><div class="modos" onclick="fn_muda_tema()"><div class="circulo" onclick="fn_muda_tema()"></div><div class="lua" onclick="fn_muda_tema()">☾</div><div class="sol" onclick="fn_muda_tema()">☼</div></div>
+            <li class="aqui01"><a class="active" href="#">Início</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#servico">Serviços</a></li><li><a href="#">Contato</a></li><div class="modos" onclick="fn_muda_tema()"><div class="circulo"></div><div class="lua">☾</div><div class="sol">☼</div></div>
             
         </ul>
     </div>
@@ -48,7 +50,7 @@
 
             <p>Desenvolvemos o software do seu jeito.</p>
 
-            <button class="btn-imagem">Login</button>
+       
         </div>
 
     </div>
@@ -322,32 +324,3 @@
 </body>
 
 </html>
-
-<script>
-    function visao() {
-        visao_display.style.display = "none";
-        missao_display.style.display = "block";
-
-        mudar.style.left = "0";
-    }
-
-    function misao() {
-        visao_display.style.display = "block";
-        missao_display.style.display = "none";
-        mudar.style.left = "50%";
-    }
-    let teste = 0;
-    function fn_muda_tema(){
-        
-        if(teste == 0){
-            document.getElementById('estilo_site').setAttribute('href', './CSS/Estilo_Site_claro.css');
-            document.getElementById('estilo_menu').setAttribute('href', './CSS/Estilo_menu_claro.css');
-            teste++;
-        }else{
-            document.getElementById('estilo_site').setAttribute('href', './CSS/Estilo_Site_escuro.css');
-            document.getElementById('estilo_menu').setAttribute('href', './CSS/Estilo_menu_escuro.css');
-            teste--;
-        }
-
-    }
-</script>
