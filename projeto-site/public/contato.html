@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="./CSS/Estilo_contato.css">
+    <link rel="stylesheet" href="./CSS/main.css">
+    <title>Contato</title>
+</head>
+
+<body>
+    <div class="div_mensagem" id="div_mensagem">
+        <img src="./Imagem/mensagem.png" class="imagem2">
+        <div class="validado">Mensagem enviada com sucesso</div>
+    </div>
+    <!-- parte do formulário -->
+    <div id="div_formulario" class="div_formulario">
+        <form id="formulario" class="formulario">
+            <input type="text" id="nome" placeholder="Nome"> <br>
+            <input type="text" id="email" placeholder="E-mail"> <br>
+            <input type="text" id="numero" placeholder="Telefone"> <br>
+            <textarea name="Mensagem" id="mensagem" placeholder="Mensagem" rows="10" cols="40" wrap="virtual">
+            </textarea> <br>
+
+        </form>
+        <button onclick="enviar()" class="enviar">
+            <img src="./Imagem/enviar.png" class="imagem">
+        </button>
+    </div>
+</body>
+
+</html>
+<script>
+
+    function enviar() {
+        div_mensagem.style.display = "block";
+        setTimeout(function () {
+            div_mensagem.style.display = "none";
+        }, 1700);
+    }
+
+</script>

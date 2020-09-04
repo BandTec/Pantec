@@ -108,41 +108,5 @@ router.get('/', function(req, res, next) {
   	});
 });
 
-//pontos das avaliações
-router.post('/pontuacao/:idUsuario/:idAula/:pontuacao', function(req, res, next) {
-	console.log('Recuperando usuário por login e senha');
-
-	var idUsuario = req.params.idUsuario; // depois de .body, use o nome (name) do campo em seu formulário de login
-	var idAula = req.params.idAula; // depois de .body, use o nome (name) do campo em seu formulário de login	
-	var pontuacao = req.params.pontuacao;
-
-	//modificar o select de acordo com as minhas tabelas
-	let instrucaoSql = `insert into AlunosAulas values (${idUsuario}, ${idAula}, ${pontuacao}, 0);`;
-	console.log(instrucaoSql);
-
-	sequelize.query(instrucaoSql, {
-		model: AlunosAulas
-	}).then(resultado => {
-		console.log(`Encontrados: ${resultado.length}`);
-
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		// mudar isso pelo amor de deus
-		if(resultado.ok){
-			console.log(`deu certo`);
-		}else{
-			console.log(`deu ruim`);
-		}
-
-	}).catch(erro => {
-		console.error(erro);
-		res.status(500).send(erro.message);
-  	});
-});
-
 module.exports = router;
 

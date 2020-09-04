@@ -1,0 +1,27 @@
+html{
+    background-color: var(--terc-color);
+}
+
+.div_formulario{
+    background-color: var(--primary-color);
+    width: 40%;
+    height: 500px;
+    margin-left: 700px;
+    text-align: center;
+}
+
+.nome{
+    margin-top: 130px;
+}
+
+input{
+    width: 45%;
+    height: 30px;
+    margin-top: 25px;
+}
+
+button{
+    width: 20%;
+    height: 35px;
+    margin-top: 40px;
+}

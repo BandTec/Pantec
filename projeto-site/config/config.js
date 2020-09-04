@@ -10,7 +10,7 @@ module.exports = {
   production: {
     username: 'root',
     password: 'bandtec',
-    database: 'nihonclass',
+    database: 'pantec',
     host: 'localhost',
     dialect: 'mysql',
     xuse_env_variable: 'DATABASE_URL',

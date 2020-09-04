@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+    <form id="form_login" method="post" onsubmit="return entrar()">
+        <input placeholder="E-mail" id="valor_login" name="login"> <br>
+        <input placeholder="Senha" id="valor_senha" name="senha" type="password"><br>
+        <br>
+        <div class="aviso"><b>E-mail ou senha incorretos</b></div>
+        <button class="botao1"><b>Entrar</b></button><br>
+        <br>
+    </form>
+</body>
+</html>
+<script>
+    function entrar() {
+    var formulario = new URLSearchParams(new FormData(form_login));
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        body: formulario
+    }).then(resposta => {
+        
+        if (resposta.ok) {
+
+            resposta.json().then(json => {
+
+                sessionStorage.ra = json.ra;
+                sessionStorage.nome = json.nome;
+                
+                window.location.href = '#';
+            });
+
+        } else {
+            // aviso.style.display = "block";
+
+            console.log('Erro de login!');
+
+            response.text().then(texto => {
+                console.error(texto);
+            });
+        }
+    });
+
+    return false;
+}
+</script>
