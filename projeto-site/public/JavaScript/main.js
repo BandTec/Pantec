@@ -24,3 +24,34 @@
         }
 
     }
+     function fn_home(){
+            opt_home.classList.remove('aqui01');
+            txt_home.classList.remove('active');
+            opt_about.classList.remove('aqui01');
+            txt_about.classList.remove('active');
+            opt_service.classList.remove('aqui01');
+            txt_service.classList.remove('active');
+            opt_home.classList.add('aqui01');
+            txt_home.classList.add('active');
+    }
+    function fn_about(){
+            opt_home.classList.remove('aqui01');
+            txt_home.classList.remove('active');
+            opt_about.classList.remove('aqui01');
+            txt_about.classList.remove('active');
+            opt_service.classList.remove('aqui01');
+            txt_service.classList.remove('active');
+            opt_about.classList.add('aqui01');
+            txt_about.classList.add('active');
+        
+    }
+    function fn_service(){
+            opt_home.classList.remove('aqui01');
+            txt_home.classList.remove('active');
+            opt_about.classList.remove('aqui01');
+            txt_about.classList.remove('active');
+            opt_service.classList.remove('aqui01');
+            txt_service.classList.remove('active');
+            opt_service.classList.add('aqui01');
+            txt_service.classList.add('active');
+    }
