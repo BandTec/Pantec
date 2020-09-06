@@ -9,13 +9,16 @@
     <link rel="stylesheet" id="estilo_site" href="./CSS/Estilo_Site_escuro.css">
     <link rel="stylesheet" id="estilo_menu" href="./CSS/Estilo_menu_escuro.css">
     <link rel="stylesheet" href="./CSS/main.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="./JavaScript/main.js"></script>
 
     <!--Panda como icone-->
     <link rel="icon" href="./Imagem/panda-icon.png">
 
     <title>PANTEC</title>
+    <style>       
+
+    </style>
 </head>
 
 <body>
@@ -36,16 +39,13 @@
         <!--Lista-->
         <ul>
             <!--Itens organizados assim pelo fato de gerar um espaçamento-->
-            <li id="opt_home" class="aqui01">
-                <a href="#" class="active" onclick="fn_home()" id="txt_home">Início</a>
-            </li>
-            <li id="opt_about">
-                <a href="#sobre" onclick="fn_about()" id="txt_about">Sobre</a>
-            </li>
-            <li id="opt_service">
-                <a href="#servico" onclick="fn_service()" id="txt_service">Serviços</a>
-            </li>
-            <li><a href="contato.html">Contato</a></li><div class="modos" onclick="fn_muda_tema()"><div class="circulo"></div><div class="lua">☾</div><div class="sol">☼</div></div>
+            <li id="opt_home">
+                <a href="#" id="txt_home">Início</a>
+            </li><li id="opt_about">
+                <a href="#sobre"id="txt_about">Sobre</a>
+            </li><li id="opt_service">
+                <a href="#servico"id="txt_service">Serviços</a>
+            </li><li><a href="contato.html">Contato</a></li><div class="modos" onclick="fn_muda_tema()"><div class="circulo"></div><div class="lua">☾</div><div class="sol">☼</div></div>
             
         </ul>
     </div>

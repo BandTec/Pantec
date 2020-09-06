@@ -104,6 +104,9 @@ label.pantec {
     height: 76px;
     
 }
+.outras{
+    background: var(--sext-color);
+}
 .nav ul li:hover{
     background: var(--set-color);
     height: 76px;
@@ -161,9 +164,9 @@ label.pantec {
 
 .marge-final {
     width: 100%;
-    padding-bottom: 5%;
+    padding-bottom: 10%;
     background-color: var(--quint-color);
-   
+    padding-top: 5%;
 }
 
 

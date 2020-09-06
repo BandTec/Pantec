@@ -4,16 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>LOGIN</title>
+    <script src="JavaScript/main.js"></script>
+
+
+    <link rel="stylesheet" href="./CSS/Estilo_cadastro.css">
+    <link rel="stylesheet" href="./CSS/main.css">
+    <link rel="stylesheet" href="./bootstrap-4.5.2-dist/css/bootstrap.min.css">
+   
+    <link rel="icon" href="./Imagem/panda-icon.png">
 </head>
 <body>
-    <form id="form_login" method="post" onsubmit="return entrar()">
-        <input placeholder="E-mail" id="valor_login" name="login"> <br>
-        <input placeholder="Senha" id="valor_senha" name="senha" type="password"><br>
+    <form id="form_login" class="espaco" method="post" onsubmit="return entrar()">
+        <img src="./Imagem/usuario-removebg-preview-removebg-preview__1_-removebg-preview.png" alt="">LOGIN
+        <div class="form-group">
+        <label for="valor_login">Endereço de Email</label><br>
+        <input id="valor_login" name="login"> <br>
+        <label for="valor_senha">Senha</label><br>
+        <input  id="valor_senha" name="senha" type="password"><br>
         <br>
-        <div class="aviso"><b>E-mail ou senha incorretos</b></div>
-        <button class="botao1"><b>Entrar</b></button><br>
+        <div class="aviso" style="display: none;"><b>E-mail ou senha incorretos</b></div>
+        <button class="btn align-middle btn-outline-info my-sm-1"><b>Entrar</b></button><br>
         <br>
+    </div>
     </form>
 </body>
 </html>
@@ -32,7 +45,7 @@
                 sessionStorage.ra = json.ra;
                 sessionStorage.nome = json.nome;
                 
-                window.location.href = '#';
+                window.location.href = '/Home.html';
             });
 
         } else {
