@@ -396,7 +396,8 @@
 .caixa-viabilidade{
     width: 35%;
     background: var(--second-color);
-    height: 400px; 
+    color: var(--quint-color);
+    height: 450px; 
     border-radius: 20px;
     margin: 70px auto;
     padding: 5%;
@@ -405,6 +406,10 @@
 	 -Essa propriedade se aplica à elementos flutuantes ou não flutuantes. */
     clear: left;
     text-align: center;
+}
+
+.b_financeiro{
+    color: var(--quint-color);
 }
 
 
@@ -419,7 +424,19 @@
     background: transparent;
 }
 
+.mensagem2{
+    display: none;
+}
 
+.contato_calculadora{
+    color: var(--primary-color);
+    display: none;
+}
+
+.cadastro_calculadora{
+    color: var(--primary-color);
+    display: none;
+} 
 
 
 /*Alterção de acordo com o tamanho da tela*/

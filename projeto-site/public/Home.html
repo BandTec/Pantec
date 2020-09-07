@@ -264,18 +264,30 @@
 
         <img class="gifts flutua-dir" src="./Imagem/computador.gif">
 
-      <div class="caixa-viabilidade">
-
+        
+    <!-- Calculadora financeira -->
+      <div class="caixa-viabilidade" id="caixa_viabilidade">
+          <div id="conteudo1">
         <h2>Viabilidade financeira</h2><br>
+        <b class="b_financeiro">Aqui você poderá fazer um cálculo de uma estimativa de seu lucro com o nosso serviço.</b>
 
-            <input class="inputs" type="text" placeholder="Nome completo" required>
-            <input class="inputs" type="text" placeholder="Email" required>
-            <input class="inputs" type="text" placeholder="Quantidade de máquinas" required>
+            <input id="nome" class="inputs" type="text" placeholder="Nome da empresa" required>
+            <input id="maquinas_valor" class="inputs" type="text" placeholder="Quantidade de máquinas" required>
+            <input id="renda_valor" class="inputs" type="text" placeholder="Renda mensal da empresa" required>
           <br><br>
-            <button class="btn-imagem">Verificar</button>
-          
+            <button onclick="calcular()" class="btn-imagem">Verificar</button>
+        </div>
+            <div id="conteudo2" class="conteudo2">
+                <div><b id="mensagem"></b></div>
+                <button class="contato_calculadora" id="contato_calculadora">
+                    <a href="contato.html"><b>Contato</b></a>
+                </button> <br>
+                <button class="cadastro_calculadora" id="cadastro_calculadora">
+                    <a href="Cadastro.html"><b>Cadastro</b></a>
+                </button>
+            </div>
       </div>
-    </div>
+    </div> 
     
 
 
@@ -333,3 +345,25 @@
 </body>
 
 </html>
+<script> 
+    function calcular(){
+        var maquinas = Number(maquinas_valor.value);
+        var renda = Number(renda_valor.value);
+        // 15 é a porcentagem que o cliente poderá ganhar com nosso produto.
+        var porcentagem = (renda * 15) / 100;
+        //Este 10 é o preço de nosso serviço por máquina.
+        var servico = maquinas * 10;
+
+        conteudo1.style.display = "none";
+
+        contato_calculadora.style.display = "block";
+        cadastro_calculadora.style.display = "block";
+
+        mensagem.innerHTML = `Atualmente a ${nome.value} tem a renda mensal de ${renda},
+        e possui ${maquinas} máquinas, com o serviço da Pantec dariamos um lucro de até 15% em sua renda
+        mensal visando a produtividade da equipe com o bom desenvolvimento das máquinas operando suas
+        atividades, assim evitando atrasos de demandas e ganhando mais confiança de seus clientes.
+        Tendo em vista todos benefícios que podemos lhe oferecer nosso serviço custará ${servico} para
+        a ${nome.value}. Caso esteja interessado entre em contato conosco ou realize o cadastro.`;
+    }
+</script>
