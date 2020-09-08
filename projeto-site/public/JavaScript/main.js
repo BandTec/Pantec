@@ -1,28 +1,3 @@
-//TESTE A SER ARRUMADO P/ CONFERIR O QUE OCORRE APENAS TIRE DO COMENTÁRIO AS LINHAS ABAIXO
-$(function() {
-    $(window).on("scroll", function() {
-     { 
-         if($(window).scrollTop() < 1301) {
-        $("#opt_home").addClass("aqui01");
-      } else {
-        $("#opt_home").removeClass("aqui01");
-      }
-      }{
-        if($(window).scrollTop() > 1302 && $(window).scrollTop() < 2565) {
-            $("#opt_about").addClass("aqui01");
-          } else {
-            $("#opt_about").removeClass("aqui01");
-          }
-      }{
-        if($(window).scrollTop() > 2566 && $(window).scrollTop() < 4320) {
-            $("#opt_service").addClass("aqui01");
-          } else {
-            $("#opt_service").removeClass("aqui01");
-          }
-      }
-    });
-  });
-   
 function visao() {
     visao_display.style.display = "none";
     missao_display.style.display = "block";
@@ -63,3 +38,26 @@ function consultaCep() {
         }
     });
 }
+$(function() {
+  $(window).on("scroll", function() {
+   { 
+       if($(window).scrollTop() < 1301) {
+      $("#opt_home").addClass("aqui01");
+    } else {
+      $("#opt_home").removeClass("aqui01");
+    }
+    }{
+      if($(window).scrollTop() > 1302 && $(window).scrollTop() < 2565) {
+          $("#opt_about").addClass("aqui01");
+        } else {
+          $("#opt_about").removeClass("aqui01");
+        }
+    }{
+      if($(window).scrollTop() > 2566 && $(window).scrollTop() < 4320) {
+          $("#opt_service").addClass("aqui01");
+        } else {
+          $("#opt_service").removeClass("aqui01");
+        }
+    }
+  });
+});

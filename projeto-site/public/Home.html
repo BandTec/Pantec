@@ -224,7 +224,7 @@
 
                 <h2>SIEG SYSTEM</h2><br>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam cum at reprehenderit aliquid animi saepe corporis obcaecati, soluta delectus dolores accusantium molestiae aliquam maiores pariatur nostrum ipsum. Commodi, impedit praesentium?</p>
-                <button class="btn-imagem">Login</button>
+                <button onclick="window.location.href='./Login.html'" class="btn-imagem">Login</button>
             </div>
 
             <!--Link do youtube-->
@@ -278,12 +278,9 @@
             <button onclick="calcular()" class="btn-imagem">Verificar</button>
         </div>
             <div id="conteudo2" class="conteudo2">
-                <div><b id="mensagem"></b></div>
-                <button class="contato_calculadora" id="contato_calculadora">
-                    <a href="contato.html"><b>Contato</b></a>
-                </button> <br>
-                <button class="cadastro_calculadora" id="cadastro_calculadora">
-                    <a href="Cadastro.html"><b>Cadastro</b></a>
+                <div id="mensagem"></div>
+                <button onclick="window.location.href='./Cadastro.html'" id="cadastro_calculadora" class="cadastro_calculadora btn-imagem">
+                    Cadastro
                 </button>
             </div>
       </div>
@@ -356,7 +353,6 @@
 
         conteudo1.style.display = "none";
 
-        contato_calculadora.style.display = "block";
         cadastro_calculadora.style.display = "block";
 
         mensagem.innerHTML = `Atualmente a ${nome.value} tem a renda mensal de ${renda},
@@ -364,6 +360,7 @@
         mensal visando a produtividade da equipe com o bom desenvolvimento das máquinas operando suas
         atividades, assim evitando atrasos de demandas e ganhando mais confiança de seus clientes.
         Tendo em vista todos benefícios que podemos lhe oferecer nosso serviço custará ${servico} para
-        a ${nome.value}. Caso esteja interessado entre em contato conosco ou realize o cadastro.`;
+        a ${nome.value}. Caso esteja interessado realize o cadastro.`;
+        mensagem.style.fontSize="0.9em";
     }
 </script>

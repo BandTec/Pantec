@@ -425,19 +425,13 @@
 }
 
 .mensagem2{
-    display: none;
+    display: none;    
 }
-
-.contato_calculadora{
-    color: var(--primary-color);
-    display: none;
-}
-
 .cadastro_calculadora{
     color: var(--primary-color);
     display: none;
+    margin-left: 17%;
 } 
-
 
 /*Alterção de acordo com o tamanho da tela*/
 

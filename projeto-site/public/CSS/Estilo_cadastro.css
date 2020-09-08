@@ -5,6 +5,23 @@ html{
     font-family: 'fonte';
     src: url('../good-times/good\ times\ rg.ttf');
 }
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+
+/*Define a fundo da barra de rolagem*/
+
+::-webkit-scrollbar-track {
+    background-color: var(--quint-color);
+}
+
+
+/*Define a cor da barra de rolagem*/
+
+::-webkit-scrollbar-thumb {
+    background-color: #17a2b8;
+}
 
 body {
     font-family: "Segoe UI";

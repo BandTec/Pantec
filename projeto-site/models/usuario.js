@@ -38,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		numero:{
+			field: 'numero',
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
 		cidade:{
 			field: 'cidade',
 			type: DataTypes.STRING,

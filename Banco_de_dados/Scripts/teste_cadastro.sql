@@ -10,7 +10,8 @@ senha varchar(80),
 cep int(8),
 logradouro varchar(80),
 bairro varchar(80),
-cidade varchar(30)
+cidade varchar(30),
+numero int
 );
 
 select * from cliente;

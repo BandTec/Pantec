@@ -49,7 +49,8 @@ router.post('/cadastrar', function(req, res, next) {
 		logradouro: req.body.logradouro,
 		cep: req.body.cep,
 		bairro: req.body.bairro,
-		cidade: req.body.cidade
+		cidade: req.body.cidade,
+		numero: req.body.numero
 	}).then(resultado => {
 		console.log(`Registro criado: ${resultado}`)
         res.send(resultado);
