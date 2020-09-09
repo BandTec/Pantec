@@ -15,7 +15,10 @@
     <!-- MENUUUUUUUUU -->
     <div class="div_mensagem" id="div_mensagem">
         <img src="./Imagem/mensagem.png" class="imagem2">
-        <div class="validado">Mensagem enviada com sucesso</div>
+        <div class="validado">
+            Mensagem enviada com sucesso <br>
+            (Você será enviado para o menu em <span id="contagem"></span>)
+        </div>
     </div>
     <!-- parte do formulário -->
     <div id="div_formulario" class="div_formulario">
@@ -41,7 +44,10 @@
         div_mensagem.style.display = "block";
         setTimeout(function () {
             div_mensagem.style.display = "none";
-        }, 1700);
+        }, 5000);
+        setInterval(function(){
+            window.location.href = 'Home.html';
+            }, 5000);
     }
 
 </script>
