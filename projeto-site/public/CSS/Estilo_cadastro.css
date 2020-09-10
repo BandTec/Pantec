@@ -1,3 +1,5 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
 html{
     background-color: var(--terc-color);
 }
@@ -62,6 +64,16 @@ button{
     padding-bottom: 5px;
     margin-right: 20%;
 }
+
+.seta_voltar{
+    font-size: 45px;
+    color: #17a2b8;
+    position: absolute;
+    margin-left: 23%;
+    margin-top: 3%;
+
+}
+
 @media (min-width:600px){
     form{
         margin-top: 3%;
@@ -107,4 +119,5 @@ button{
         margin-left: 20%;
     }
 }
+
 
