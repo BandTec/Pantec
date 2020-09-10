@@ -53,8 +53,9 @@ $(function() {
           $("#opt_about").removeClass("aqui01");
         }
     }{
-      if($(window).scrollTop() > 2566 && $(window).scrollTop() < 4320) {
+      if($(window).scrollTop() > 2566) {
           $("#opt_service").addClass("aqui01");
+       
         } else {
           $("#opt_service").removeClass("aqui01");
         }

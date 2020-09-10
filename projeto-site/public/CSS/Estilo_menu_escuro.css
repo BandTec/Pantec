@@ -101,7 +101,6 @@ label.pantec {
 }
 .aqui01{
     background: var(--primary-color);
-    height: 76px;
     
     }
     .outras{
@@ -140,7 +139,6 @@ label.pantec {
 }
 .nav ul li:hover {
     background: var(--primary-color);
-    height: 76px;
 }
 
 .icone {
@@ -240,10 +238,13 @@ label.pantec {
         font-size: 20px;
     }
     /*Mudança ao passar o mouse, exceto/vai ficar estabelecido no hover na tag a com classe active*/
-    .nav ul li a:hover,
-    .nav ul li a.active {
+    .nav ul li a:hover{
         background: none;
-        color: var(--quart-color);
+        border-bottom: 4px solid black;
+    }
+
+    .aqui01 a{ 
+        border-bottom: 4px solid black;
     }
     /*Ao clicar a ul vai aparecer na página*/
     /*Pegamos o id */
