@@ -42,12 +42,23 @@
 
     function enviar() {
         div_mensagem.style.display = "block";
+
+        //Aparece o aviso durante 5 segundos
         setTimeout(function () {
             div_mensagem.style.display = "none";
-        }, 5000);
-        setInterval(function(){
-            window.location.href = 'index.html';
-            }, 5000);
-    }
+        }, 5200);
 
+        //Contagem regressiva
+        contagem.innerHTML = 5;
+        var tempo = 4;
+        var contagem_regressiva = setInterval(function () {
+            contagem.innerHTML = tempo ;
+            tempo -= 1;
+        }, 1000);
+
+        //Volta para home
+        setInterval(function () {
+            window.location.href = 'index.html';
+        }, 5000);
+    }
 </script>
