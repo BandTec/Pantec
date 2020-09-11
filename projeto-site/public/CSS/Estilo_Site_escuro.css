@@ -57,18 +57,7 @@
     box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
 }
 
-.conteudo {
-    width: 100%;
-    height: auto;
-    color: var(--second-color);
-    /*define a distância do conteudo e a borda,ou seja, marge interna*/
-    padding: 100px 100px 0;
-}
 
-.conteudo P {
-    text-align: justify;
-    font-size: 18px;
-}
 
 .div-valores {
     width: 100%;
@@ -106,25 +95,29 @@
 /*Tamanho icone */
 
 .caixa-valores i {
-    font-size: 190px;
+    font-size: 170px;
     margin-top: 30px;
     transition-duration: 0.9s;
 }
 
 .caixa-valores p {
-    font-size: 15px;
-    margin-top: 10px;
+    margin-top: 50px;
     padding: 25px;
     /*seta*/
     cursor: default;
+ 
 }
 
 .caixa-valores:hover {
+   
     background: var(--primary-color);
     opacity: 1;
 }
 
-
+.caixa-valores:hover p{
+    margin-top: 0px;
+    font-size: 13px;
+}
 /* :HOVER FUNCIONA DA SEGUINTE MANEIRA, QUANDO O CURSOR DO MOUSE
 -- PASSAR PELO ELEMENTO DESCRITO (que no caso é a tag a, ou o nosso botão)
 -- ELE SERÁ ATIVADO, ENTÃO SIGNIFIA QUE A LINHA 59 PEDE PARA QUE QUANDO
@@ -216,11 +209,6 @@
 }
 
 
-/*Sobre*/
-
-.conteudo h2 {
-    color: var(--primary-color);
-}
 
 .historia img {
     float: right;
@@ -349,7 +337,6 @@
 
 .texto-ser p {
     color: var(--terc-color);
-    font-size: 14px;
 }
 
 .texto-ser button {
@@ -361,7 +348,7 @@
 
 .video {
     width: 45%;
-    height: 350px;
+    height: 370px;
     margin-left: 5%;
 }
 
@@ -384,7 +371,7 @@
     float: right;
 }
 
-.caixa-fuc h2 {
+.caixa-fuc h3 {
     margin-top: 15%;
     margin-bottom: 15%;
     font-size: large;
@@ -445,9 +432,7 @@
 }
 
 @media (max-width: 952px) {
-    .conteudo {
-        padding: 40px;
-    }
+  
     .div-frase-braca {
         font-size: 15px;
         padding: 40px;
@@ -455,19 +440,7 @@
     .div-ser {
         padding-bottom: 0;
     }
-}
 
-@media (max-width: 750px) {
-    .caixa-valores {
-        width: 100%;
-        padding: 8px;
-    }
-    .caixa_botoes {
-        width: 70%;
-    }
-    .time {
-        width: 50%;
-    }
     .texto-ser {
         border-right: 0;
         border-bottom: 3px solid var(--primary-color);
@@ -483,6 +456,20 @@
         margin-left: 0;
         margin-top: 10%;
     }
+}
+
+@media (max-width: 750px) {
+    .caixa-valores {
+        width: 100%;
+        padding: 8px;
+    }
+    .caixa_botoes {
+        width: 70%;
+    }
+    .time {
+        width: 50%;
+    }
+   
 
     .caixa-viabilidade{
         width: 100%;
@@ -510,4 +497,6 @@
     .caixa-fuc {
         width: 100%;
     }
+
+  
 }

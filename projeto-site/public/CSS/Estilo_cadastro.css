@@ -1,8 +1,5 @@
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-html{
-    background-color: var(--terc-color);
-}
 @font-face {
     font-family: 'fonte';
     src: url('../good-times/good\ times\ rg.ttf');
@@ -28,6 +25,7 @@ html{
 body {
     font-family: "Segoe UI";
     background-color: var(--terc-color);
+  
 }
 
 form{

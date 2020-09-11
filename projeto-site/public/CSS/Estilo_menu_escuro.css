@@ -84,7 +84,7 @@ label.pantec {
     /*Comparado a display: inline, a principal diferença é que display: inline-block permite definir uma largura e altura no elemento.*/
     display: inline-block;
     /*controla o espaçamento entre as linhas*/
-    line-height: 74px;
+    line-height: 82px;
     /*Tempo da transição*/
     transition: .5s;
     margin-top: 0;
@@ -172,6 +172,27 @@ label.pantec {
     height: 270px;
 }
 
+.conteudo {
+    width: 100%;
+    height: auto;
+    color: var(--second-color);
+    /*define a distância do conteudo e a borda,ou seja, marge interna*/
+    padding: 100px 100px 0;
+}
+
+
+.conteudo P {
+    text-align: justify;
+    font-size: 18px;
+}
+
+/*Sobre*/
+
+.conteudo h2 {
+    color: var(--primary-color);
+}
+
+
 .marge-final p {
     font-size: 17px;
     text-align: right;
@@ -211,6 +232,10 @@ label.pantec {
     }
     .nav ul {
         margin-right: 50px;
+    }
+
+    .conteudo {
+        padding: 30px;
     }
 }
 
