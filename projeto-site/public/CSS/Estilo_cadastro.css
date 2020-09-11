@@ -72,6 +72,24 @@ button{
 
 }
 
+.text-muted{
+    width: 45%;
+    font-size: 12px;
+
+    
+}
+
+#termos{
+    width: 15px;
+    float: left;
+    margin-right: 10px;
+   
+}
+
+
+
+
+
 @media (min-width:600px){
     form{
         margin-top: 3%;

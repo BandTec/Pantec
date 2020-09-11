@@ -34,7 +34,7 @@
 }
 
 .btn-imagem {
-    width: 130px;
+    width: 170px;
     height: 30px;
     /*contorno azul some*/
     outline: none;
@@ -47,7 +47,8 @@
     background-color: transparent;
     border: 0;
     /*Efeitos de sombra em volta de um elemento, lembrete o ultimo define a intensidade*/
-    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: -2px -2px 6px rgba(255, 255, 255, 1),
+    2px  2px 6px  rgba(0, 0, 0, 0.2);
 }
 
 
@@ -113,7 +114,7 @@
 
 .caixa-valores p {
     margin-top: 80px;
-    padding: 25px;
+    padding: 30px;
     /*seta*/
     cursor: default;
 
@@ -425,22 +426,19 @@
     border: 0;
     border-radius: 20px;
     outline: none;
-    box-shadow: inset 1px 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:  inset -2px -2px 6px rgba(255, 255, 255, 1),
+    inset  2px  2px 6px  rgba(0, 0, 0, 0.1);
     background: transparent;
 }
 
-.mensagem2{
-    display: none;
-}
 
-.contato_calculadora{
-    color: var(--primary-color);
-    display: none;
+#mensagem{
+    text-align: justify;
+    margin-bottom: 15%;
 }
-
 .cadastro_calculadora{
-    color: var(--primary-color);
     display: none;
+    margin: auto;
 } 
 
 
