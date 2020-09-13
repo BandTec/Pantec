@@ -20,23 +20,24 @@
 <body>
     <!-- cadastro do cliente -->
      <a href="./index.html"><i class="fa fa-chevron-circle-left seta_voltar" aria-hidden="true"></i></a>
-    <form id="form_cadastro" method="post" onsubmit="return cadastrar()">
+    <form id="form_cadastro" method="post" name="formuser" onsubmit="return cadastrar()">
         <img src="./Imagem/usuario-removebg-preview-removebg-preview__1_-removebg-preview.png" alt="">CADASTRO
         <div id="div_formulario" class="form-group">
             <label for="exampleInputName1">Nome Completo</label><br>
-            <input type="text" name="nome" id="exampleInputName1" class="nome rounded-pill">
+            <input type="text" name="nome" name = " nome " class="nome rounded-pill">
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Endereço de Email</label><br>
-            <input type="email" name="login" class="rounded-pill" id="exampleInputEmail1" >
+            <input type="email" name="login" class="rounded-pill">
             <small id="emailHelp" class="form-text text-muted">Nunca compartilhe seu email e senha.</small>
           </div>
           
         <div class=" form-group">
             <label for="cep">CEP</label><br>
-            <input type="text" name="cep" class="rounded-pill" id="cep1" required: minlength="8">
+            <input type="text" name="cep" class="rounded-pill" id="cep1">
             <button type="button" class="btn button btn-outline-info my-sm-1"
-            onclick="consultaCep()">Consultar</button>        
+            onclick="consultaCep()">Consultar</button><br>
+            <div class="form-text text-muted">Digite o cep sem "." ou "-"</div>     
         </div>
             <div class="form-group" >  
                 <label for="logradouro">Logradouro</label><br>     
@@ -56,22 +57,22 @@
             </div>
         </div>
          <div class="form-group">
-          <label for="exampleInputPassword1">Senha</label><br>
-          <input type="password" name="senha" class="rounded-pill" id="exampleInputPassword1">
+          <label for="senha">Senha</label><br>
+          <input type="password" name="senha" class="rounded-pill">
         </div>
-        <input id="termos" type="checkbox" checked>
+         <div class="form-group">
+          <label for="confirmacao">Confirmação da senha</label><br>
+          <input type="password" name="confirmacao" class="rounded-pill">
+        </div>
+        <input id="termos" type="checkbox" checked required>
         <label class="form-text text-muted">
              Você concorda com nossos
              <a href="termos.html">Termos, Política de Dados e Política de Cookies</a>.</label>
-        <button id="btn_entrar"class="btn align-middle btn-outline-info my-sm-1">Cadastrar</button>
+             <span  id = "mensagemErro"></span>
+        <button id="btn_entrar"class="btn align-middle btn-outline-info my-sm-1" onclick="return validar ()">Cadastrar</button>
     </form>
         <!-- SETA INDICANDO VOLTAR LADO ESQUERDO NA DIV AZUL MARINHO TOPO -->
 
-   
-
-    <div id="div_erro" style="background-color: sandybrown; color: maroon; display: none;">
-        Erro no cadastro
-    </div>
 </body>
 
 </html>
@@ -89,12 +90,9 @@
                 window.location.href = 'login.html';
 
             } else {
-
                 console.log('Erro de cadastro!');
-                response.text().then(function (resposta) {
-                    div_erro.innerHTML = resposta;
-                });
                 finalizar_aguardar();
+                validar();
             }
         });
 
@@ -104,5 +102,35 @@
         btn_entrar.disabled = false;
         div_erro.style.display = 'block';
     }
+    function validar() {
+        var nome = form_cadastro.nome.value;
+        var email = form_cadastro.login.value;
+        var senha = form_cadastro.senha.value;
+        var confirmacao = form_cadastro.confirmacao.value;
+        var number = form_cadastro.numero.value;
+        var cep = form_cadastro.cep.value;
+        mensagemErro.innerHTML = "";
+            if (nome == "" || nome.length < 3) {
+                mensagemErro.innerHTML += 'Preencha o nome do campo <br>';
+            }
 
+            if (email == "" || email.indexOf('@') == - 1) {
+                mensagemErro.innerHTML += 'Preencha o campo E-mail <br>';
+            }
+
+            if(number==""){
+                mensagemErro.innerHTML += 'Prencha o campo número<br>';
+            }
+            if(cep!=cep.length==8){
+                mensagemErro.innerHTML += 'Prencha o campo cep com 8 digítos<br>';
+            }
+
+            if (senha == "" || senha.length <= 5) {
+                mensagemErro.innerHTML += 'Preencha o campo senha com minimo 6 caracteres <br>';
+            }
+            
+            if(senha!=confirmacao){
+                mensagemErro.innerHTML += 'Senhas não conferem<br>';
+            }
+    }
 </script>
