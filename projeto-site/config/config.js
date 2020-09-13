@@ -8,11 +8,11 @@ module.exports = {
     storage: ":memory:"
   },
   production: {
-    username: 'root',
-    password: 'bandtec',
+    username: 'adminlocal',
+    password: '#Pantec123',
     database: 'pantec',
-    host: 'localhost',
-    dialect: 'mysql',
+    host: 'svrpantec.database.windows.net',
+    dialect: 'mssql',
     xuse_env_variable: 'DATABASE_URL',
     dialectOptions: {
       options: {
