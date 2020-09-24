@@ -42,16 +42,18 @@ router.post('/autenticar', function(req, res, next) {
 router.post('/cadastrar', function(req, res, next) {
 	console.log('Criando um usuário');
 	
+	const {nome, login, senha, logradouro, cep, bairro, cidade, numero, telefone} = req.body;
+
 	Usuario.create({
-		nome : req.body.nome,
-		login : req.body.login,
-		senha: req.body.senha,
-		logradouro: req.body.logradouro,
-		cep: req.body.cep,
-		bairro: req.body.bairro,
-		cidade: req.body.cidade,
-		numero: req.body.numero,
-		telefone: req.body.telefone
+		nome: nome, 
+		login: login,
+		senha: senha,
+		logradouro: logradouro,
+		cep: cep,
+		bairro: bairro,
+		cidade:cidade,
+		numero: numero,
+		telefone:telefone
 	}).then(resultado => {
 		console.log(`Registro criado: ${resultado}`)
         res.send(resultado);
