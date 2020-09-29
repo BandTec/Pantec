@@ -1,5 +1,5 @@
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @font-face {
     font-family: 'fonte';
     src: url('../good-times/good\ times\ rg.ttf');
@@ -23,7 +23,7 @@
 }
 
 body {
-    font-family: "Segoe UI";
+    font-family: 'Montserrat', sans-serif;
     background-color: var(--terc-color);
   
 }
