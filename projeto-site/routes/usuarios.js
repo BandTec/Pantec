@@ -2,12 +2,11 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
 var Usuario = require('../models').Usuario;
-var AlunosAulas = require('../models').AlunosAulas;
 
 let sessoes = [];
 
 /* Recuperar usuário por login e senha */
-router.post('/autenticar', function(req, res, next) {
+router.post('/autenticar', (req, res, next)=> {
 	console.log('Recuperando usuário por login e senha');
 
 	var login = req.body.login; // depois de .body, use o nome (name) do campo em seu formulário de login
@@ -39,7 +38,7 @@ router.post('/autenticar', function(req, res, next) {
 });
 
 /* Cadastrar usuário */
-router.post('/cadastrar', function(req, res, next) {
+router.post('/cadastrar', (req, res, next)=> {
 	console.log('Criando um usuário');
 	
 	const {nome, login, senha, logradouro, cep, bairro, cidade, numero, telefone} = req.body;
@@ -65,7 +64,7 @@ router.post('/cadastrar', function(req, res, next) {
 
 
 /* Verificação de usuário */
-router.get('/sessao/:login', function(req, res, next) {
+router.get('/sessao/:login', (req, res, next)=> {
 	let login = req.params.login;
 	console.log(`Verificando se o usuário ${login} tem sessão`);
 	
@@ -89,7 +88,7 @@ router.get('/sessao/:login', function(req, res, next) {
 
 
 /* Logoff de usuário */
-router.get('/sair/:login', function(req, res, next) {
+router.get('/sair/:login', (req, res, next)=> {
 	let login = req.params.login;
 	console.log(`Finalizando a sessão do usuário ${login}`);
 	let nova_sessoes = []
@@ -104,7 +103,7 @@ router.get('/sair/:login', function(req, res, next) {
 
 
 /* Recuperar todos os usuários */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next)=> {
 	console.log('Recuperando todos os usuários');
 	Usuario.findAndCountAll().then(resultado => {
 		console.log(`${resultado.count} registros`);

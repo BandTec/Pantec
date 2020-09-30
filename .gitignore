@@ -63,4 +63,4 @@ typings/
 .directory
 package-lock.json
 
-OSHI/
+projeto-site/node_modules

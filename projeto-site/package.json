@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "babel ./public/JavaScript/main.js -o ./public/JavaScript/bundle.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -15,5 +19,11 @@
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.2",
     "tedious": "^6.6.0"
+  },
+  "devDependencies": {
+    "babel-loader": "8.0.0-beta.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
