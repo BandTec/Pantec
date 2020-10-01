@@ -1,7 +1,9 @@
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #2e4ead;;
+    background-color: var(--quart-color);
     margin: 0;
     padding: 0;
 }
@@ -9,6 +11,7 @@ body {
 
 .caixa_menu{
     position: relative;
+   
   
 }
 
@@ -20,18 +23,19 @@ body {
     font-size: 30px;
     cursor: pointer;
     color: white;
-    margin-left: 10px;
+    margin-left: 15px;
     margin-top: 20px;
 }
 
 .caixa_menu nav{
     background-color: var(--quint-color);
     color: white;
-    width: 290px;
+    width: 250px;
     height: 100vh;
     position: absolute;
     transition: all .5s;
     overflow: hidden;
+
 }
 
 
@@ -72,4 +76,48 @@ body {
 
 .local-menu.muda02{
     display: none;
+}
+.redes{
+    width: 15%;
+    height: auto;
+    float: right;
+    margin-top: 37%;
+}
+.social{
+    margin: 5%;
+    padding: 8px;
+    font-size: 30px;
+    border-radius: 50%;
+    color: black;
+    background-color:white;
+    cursor: pointer;
+   
+   
+}
+
+.social:hover{
+
+opacity: 0.6;
+  
+}
+
+
+.div-logo{
+    width: 100%;
+    height: 70px;
+    background-color: white;
+   float: right;
+}
+
+label.sieg {
+    color: var(--primary-color);
+    /*Negrito*/
+    font-weight: bold;
+    /*Tamanho da fonte*/
+    font-size: 37px;
+    /*controla o espaçamento entre as linhas*/
+    line-height: 70px;
+    margin-right: 100px;
+    font-family: fonte;
+    float: right;
 }
