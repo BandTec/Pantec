@@ -13,11 +13,11 @@ Jar inicial rodando em Linux VM:  Alexander
 Projeto individual:(todos)
 Telas Swing: Diovana
 BPMN:  Vitoria
-Mockup de Tela:   Sarah
+Mockup de Tela:   Sarah-feito
 Diagrama de Solução de Software: Leonardo
 Jar inicial de 1 Tela swing:   Diovana
 
 Funcionalidades do usuario(front)/menu: Vitoria
 Http requisições func.usu(back): Alexander
-ES6: Sarah
+ES6: Sarah- feito
 
