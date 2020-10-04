@@ -9,11 +9,7 @@ body {
 }
 
 
-.caixa_menu{
-    position: relative;
-   
-  
-}
+
 
 
 
@@ -23,18 +19,18 @@ body {
     font-size: 30px;
     cursor: pointer;
     color: white;
-    margin-left: 15px;
-    margin-top: 20px;
+    padding: 20px 10px;
 }
 
 .caixa_menu nav{
     background-color: var(--quint-color);
     color: white;
-    width: 250px;
+    width: 300px;
     height: 100vh;
-    position: absolute;
+    float: left;
     transition: all .5s;
-    overflow: hidden;
+    text-align: left;
+  
 
 }
 
@@ -42,9 +38,7 @@ body {
 
 .caixa_menu nav ul{
     list-style: none;
-    position: absolute;
     width: 100%;
-    position: relative;
     padding: 0;
     
 
@@ -54,9 +48,9 @@ body {
     display: block;
     text-decoration: none;
     color: white;
-    padding: 20px 20px;
+    padding: 20px 10.5px;
     letter-spacing: 1px;
-    font: 20px Verdana, sans-serif;
+    font: 25px Verdana, sans-serif;
     transition: all .5s;
 
    
@@ -71,7 +65,8 @@ body {
 
 
 .caixa_nav.muda01{
-    width: 65px;
+    width: 51px;
+    text-align: center;
 }
 
 .local-menu.muda02{
@@ -86,7 +81,7 @@ body {
 .social{
     margin: 5%;
     padding: 8px;
-    font-size: 30px;
+    font-size: 20px;
     border-radius: 50%;
     color: black;
     background-color:white;
@@ -103,10 +98,17 @@ opacity: 0.6;
 
 
 .div-logo{
-    width: 100%;
+    width: calc(100% - 300px);
     height: 70px;
     background-color: white;
-   float: right;
+    float: left;
+   
+    transition: all .5s;
+ 
+}
+
+.div-logo.muda03{
+    width: calc(100% - 51px);
 }
 
 label.sieg {
@@ -117,7 +119,40 @@ label.sieg {
     font-size: 37px;
     /*controla o espaçamento entre as linhas*/
     line-height: 70px;
-    margin-right: 100px;
+    margin-left: 5%;
     font-family: fonte;
-    float: right;
+    
+
+
 }
+
+
+@media (max-width: 858px) {
+    label.sieg {
+        font-size: 14px;
+    }
+
+    .social{
+        margin: 3%;
+        padding: 4px;
+    }
+
+
+}
+
+@media(max-width: 600px) {
+
+    .caixa_menu nav{
+        position: absolute;
+        width: 100%;
+    }
+
+    .caixa_nav.muda01{
+        position: relative;
+        width: auto;
+        text-align: center;
+    }
+
+    
+}
+
