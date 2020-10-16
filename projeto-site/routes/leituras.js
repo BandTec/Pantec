@@ -14,9 +14,9 @@
  	const instrucaoSql = `select top ${limite_linhas} 
  						temperatura, 
  						umidade, 
- 						data_hora,
- 						FORMAT(data_hora,'HH:mm:ss') as momento_grafico 
- 						from dados_sensor order by id_dados desc`;
+ 						momento,
+ 						FORMAT(momento,'HH:mm:ss') as momento_grafico 
+ 						from leitura order by id desc`;
 
  	sequelize.query(instrucaoSql, {
  		model: Leitura,
@@ -37,8 +37,8 @@
 	
  	console.log(`Recuperando a última leitura`);
 
- 	const instrucaoSql = `select top 1 temperatura, umidade, FORMAT(data_hora,'HH:mm:ss') as momento_grafico  
- 						from dados_sensor order by id_dados desc`;
+ 	const instrucaoSql = `select top 1 temperatura, umidade, FORMAT(momento,'HH:mm:ss') as momento_grafico  
+ 						from leitura order by id desc`;
 
  	sequelize.query(instrucaoSql, { type: sequelize.QueryTypes.SELECT })
  		.then(resultado => {

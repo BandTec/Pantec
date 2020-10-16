@@ -1,9 +1,9 @@
 const configuracoes = {
     banco: {
-        server: "ninthgroup.database.windows.net",
+        server: "svrpantec.database.windows.net",
         user: "adminlocal",
-        password: "Ninth0909!",
-        database: "ProjetoNith",
+        password: "#Pantec123",
+        database: "pantec",
         options: {
             encrypt: true
         },
