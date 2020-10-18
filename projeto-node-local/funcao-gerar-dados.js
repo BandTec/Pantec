@@ -5,7 +5,7 @@ const intervalo_geracao_aleatoria_segundos = 10; // intervalo, em segundos, no q
 function gerar_dados() {
     console.log('\nGerando valores aleatórios!');
 
-    comandos.registrar_leitura(Math.random(102)-50, Math.random(100)); // exemplo para temperatura e umidade
+    comandos.registrar_registro(Math.random()*100, Math.random()*100, Math.random()*100, Math.random()*100); // exemplo para temperatura e umidade
     // registrar_leitura(Math.random(1023)+1); // exemplo para luminosidade
     // registrar_leitura(parseInt(Math.random(2))); // exemplo para presença
     

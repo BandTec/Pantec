@@ -3,22 +3,26 @@ const banco = require(`./configuracoes-banco`);
 
 // função que recebe valores do sensor ou aleatórios
 // e faz um insert no banco de dados
-function registrar_leitura(temperatura, umidade) {
+function registrar_registro(uso, disco, mem ,gpu) {
 
     console.log('Iniciando inclusão de novo registro...');
 
-    console.log(`temperatura: ${temperatura}`);
-    console.log(`umidade: ${umidade}`);
+    console.log(`uso: ${uso}`);
 
     
-    const registros_mantidos_tabela_leitura = 8;
+    const registros_mantidos_tabela_registro = 8;
     
     const instrucao_sql = `
-        INSERT into leitura (temperatura, umidade, momento)
-        values (${temperatura}, ${umidade}, CONVERT(Datetime, '${agora()}', 120));
-        
-        delete from leitura where id not in 
-        (select top ${registros_mantidos_tabela_leitura} id from leitura order by id desc);
+        INSERT into registro (componente, uso, momento)
+        values (1, ${uso}, CONVERT(Datetime, '${agora()}', 120));
+        INSERT into registro (componente, uso, momento)
+        values (2, ${disco}, '${agora()}');
+
+        INSERT into registro (componente, uso, momento)
+        values (3, ${mem}, '${agora()}');
+
+        INSERT into registro (componente, uso, momento)
+        values (4, ${gpu}, '${agora()}');
     `
         
     console.log(`Executando a instrução: \n ${instrucao_sql}`);
@@ -47,22 +51,27 @@ function registrar_leitura(temperatura, umidade) {
 
 // função que recebe valores do sensor ou aleatórios
 // e faz um insert no banco de dados
-function registrar_leitura_teste_loko(temperatura, umidade) {
+function registrar_registro_teste_loko(uso, disco, mem ,gpu) {
 
     console.log('Iniciando inclusão de novo registro...');
 
-    console.log(`temperatura: ${temperatura}`);
-    console.log(`umidade: ${umidade}`);
+    console.log(`uso: ${uso} disco:${disco} mem: ${mem} gpu: ${gpu}`);
     
     
     let instrucoes = [
-        `INSERT into leitura (temperatura, umidade, momento)
-        values (${temperatura}, ${umidade}, '${agora()}');`,
-        
-        `delete from leitura where id not in 
-        (select top ${registros_mantidos_tabela_leitura} id from leitura order by id desc);`,
-        
-        'select * from leitura'
+        `INSERT into registro (componente, uso, momento)
+        values (1, ${uso}, '${agora()}');`,
+
+        `INSERT into registro (componente, uso, momento)
+        values (2, ${disco}, '${agora()}');`,
+
+        `INSERT into registro (componente, uso, momento)
+        values (3, ${mem}, '${agora()}');`,
+
+        `INSERT into registro (componente, uso, momento)
+        values (4, ${gpu}, '${agora()}');`,
+
+        'select * from registro'
     ]
     
     if (instrucoes.length==0) {
@@ -72,7 +81,11 @@ function registrar_leitura_teste_loko(temperatura, umidade) {
 
     
     executar(0);
-    
+    executar(2);
+    executar(4);
+    executar(6);
+    for(i=0; i<instrucoes.length; i=i+2){
+
     function executar(i) {
         const instrucao_atual = instrucoes[i];
         console.log(`Executando a instrução #${i}: \n ${instrucao_atual}`);
@@ -94,7 +107,7 @@ function registrar_leitura_teste_loko(temperatura, umidade) {
             });
         });
     }
-
+}
 
     
 }
@@ -109,5 +122,5 @@ function agora() {
 
 
 module.exports = {
-    registrar_leitura: registrar_leitura
+    registrar_registro: registrar_registro
 }

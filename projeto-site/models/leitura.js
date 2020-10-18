@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 			autoIncrement: true
 		},	
-		temperatura: {
-			field: 'temperatura',
-			type: DataTypes.REAL,
+		componente: {
+			field: 'componente',
+			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		umidade: {
-			field: 'umidade',
+		uso: {
+			field: 'uso',
 			type: DataTypes.REAL,
 			allowNull: false
 		},
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	}, 
 	{
-		tableName: 'leitura', 
+		tableName: 'registro', 
 		freezeTableName: true, 
 		underscored: true,
 		timestamps: false,
