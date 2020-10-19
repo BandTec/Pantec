@@ -6,6 +6,10 @@
 package com.mycompany.pantec;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -19,6 +23,17 @@ public class Graficos extends javax.swing.JFrame {
         
     
     public Graficos() {
+         try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
         
     }
@@ -78,6 +93,9 @@ public class Graficos extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 17, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pgbMemoria.setForeground(new java.awt.Color(4, 242, 28));
+        pgbMemoria.setStringPainted(true);
         jPanel1.add(pgbMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 320, 25));
 
         btnProcessos.setBackground(new java.awt.Color(204, 204, 204));
@@ -132,10 +150,18 @@ public class Graficos extends javax.swing.JFrame {
         lblPlacaDeVideo.setText("PLACA DE VÍDEO");
         jPanel1.add(lblPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
-        pgbCpu.setForeground(new java.awt.Color(0, 204, 0));
+        pgbCpu.setForeground(new java.awt.Color(4, 242, 28));
         pgbCpu.setToolTipText("");
+        pgbCpu.setValue(10);
+        pgbCpu.setStringPainted(true);
         jPanel1.add(pgbCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 320, 25));
+
+        pgbDisco.setForeground(new java.awt.Color(4, 242, 28));
+        pgbDisco.setStringPainted(true);
         jPanel1.add(pgbDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 320, 25));
+
+        pgbPlacaDeVideo.setForeground(new java.awt.Color(4, 242, 28));
+        pgbPlacaDeVideo.setStringPainted(true);
         jPanel1.add(pgbPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 320, 25));
 
         lblUsoDisco.setBackground(new java.awt.Color(255, 255, 255));
@@ -326,6 +352,7 @@ public class Graficos extends javax.swing.JFrame {
 
     private void btnModoClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModoClaroActionPerformed
         // TODO add your handling code here:
+        Integer contador = 1;
         jPanel1.setBackground(Color.white);
         jLabel9.setForeground(Color.black);
         jLabel10.setForeground(Color.black);
@@ -347,10 +374,13 @@ public class Graficos extends javax.swing.JFrame {
         lblDisco.setForeground(Color.black);
         lblMemoria.setForeground(Color.black);
         lblPlacaDeVideo.setForeground(Color.black);
-        
         Color cor = new Color(0, 128, 128);
         btnExit.setBackground(cor);
         btnProcessos.setBackground(cor);
+        pgbCpu.setForeground(cor);
+        pgbDisco.setForeground(cor);
+        pgbMemoria.setForeground(cor);
+        pgbPlacaDeVideo.setForeground(cor);
         
         lblMaxCpu.setForeground(Color.black);
         lblMediaCpu.setForeground(Color.black);
