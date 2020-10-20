@@ -19,7 +19,7 @@
 
 <body>
     <!-- cadastro do cliente -->
-    <a href="./index.html"><i class="fa fa-chevron-circle-left seta_voltar" aria-hidden="true"></i></a>
+    <a href="./Index.html"><i class="fa fa-chevron-circle-left seta_voltar" aria-hidden="true"></i></a>
     <form id="form_cadastro" method="post" name="formuser" onsubmit="return cadastrar()">
         <img src="./Imagem/usuario-removebg-preview-removebg-preview__1_-removebg-preview.png" alt="">CADASTRO
         <div id="div_formulario" class="form-group">
@@ -70,7 +70,7 @@
         <input id="termos" type="checkbox" checked required>
         <label class="form-text text-muted">
             Você concorda com nossos
-            <a href="termos.html">Termos, Política de Dados e Política de Cookies</a>.</label>
+            <a href="Termos.html">Termos, Política de Dados e Política de Cookies</a>.</label>
         <span id="mensagemErro"></span>
         <button id="btn_entrar" class="btn align-middle btn-outline-info my-sm-1"
             onclick="return validar ()">Cadastrar</button>
@@ -91,7 +91,7 @@
 
             if (response.ok) {
 
-                window.location.href = 'login.html';
+                window.location.href = 'Login.html';
 
             } else {
                 console.log('Erro de cadastro!');
