@@ -6,6 +6,7 @@ $(document).ready(function(){
        $(".sieg").toggleClass("muda03");
        $(".Informa").toggleClass("muda04");
        $(".conteiner-altera").toggleClass("muda-imagem");
+       $(".conteiner-grafico").toggleClass("mudar-grafico");
 
     });
 });
