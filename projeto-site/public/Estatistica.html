@@ -34,9 +34,9 @@
    
    
      <div class="div-logo"><label class="sieg">SIEG SYSTEM</label></div>
-    <div class="conteiner-grafico">
+   <br>
     <center>
-        <div style="width:75%;">
+        <div style="width:75%; margin-top: 5%;">
             <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
             <div style="display: inline-block;" id="div_grafico_two">Dados sendo obtidos...</div>
         </div>
@@ -45,7 +45,7 @@
             <div style="display: inline-block;" id="div_grafico_four">Dados sendo obtidos...</div>
         </div>
     </center>
-</div>
+
     <script>
         google.load('visualization', '1', {
             packages: ['corechart', 'SteppedArea'],
@@ -63,7 +63,7 @@
         // altere aqui as configurações do gráfico
         // (tamanhos, cores, textos, etc)
         function configurarGraficoOne() {
-            var altura = 200;
+            var altura = 300;
             var largura = 400;
             var configuracoes = {
                 tooltip: {
@@ -86,14 +86,13 @@
                     }
                 },
                 hAxis: {
-                    slantedText: false,
                     slantedTextAngle: 45,
                     textStyle: {
                         fontSize: 10
                     }
                 },
                 chartArea: {
-                    left: 200,
+                    left: 30,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
@@ -164,7 +163,7 @@
         // altere aqui as configurações do gráfico
         // (tamanhos, cores, textos, etc)
         function configurarGraficoTwo() {
-            var altura = 200;
+            var altura = 300;
             var largura = 400;
             var configuracoes = {
                 tooltip: {
@@ -187,14 +186,13 @@
                     }
                 },
                 hAxis: {
-                    slantedText: false,
                     slantedTextAngle: 45,
                     textStyle: {
                         fontSize: 10
                     }
                 },
                 chartArea: {
-                    left: 200,
+                    left: 30,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
@@ -266,7 +264,7 @@
         // altere aqui as configurações do gráfico
         // (tamanhos, cores, textos, etc)
         function configurarGraficoTree() {
-            var altura = 200;
+            var altura = 300;
             var largura = 400;
             var configuracoes = {
                 tooltip: {
@@ -289,14 +287,13 @@
                     }
                 },
                 hAxis: {
-                    slantedText: false,
                     slantedTextAngle: 45,
                     textStyle: {
                         fontSize: 10
                     }
                 },
                 chartArea: {
-                    left: 200,
+                    left: 30,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
@@ -367,7 +364,7 @@
         // altere aqui as configurações do gráfico
         // (tamanhos, cores, textos, etc)
         function configurarGraficoFour() {
-            var altura = 200;
+            var altura = 300;
             var largura = 400;
             var configuracoes = {
                 tooltip: {
@@ -390,14 +387,13 @@
                     }
                 },
                 hAxis: {
-                    slantedText: false,
                     slantedTextAngle: 45,
                     textStyle: {
                         fontSize: 10
                     }
                 },
                 chartArea: {
-                    left: 200,
+                    left: 30    ,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
@@ -412,7 +408,7 @@
         function obterDadosGraficoFour() {
             var dados = new google.visualization.DataTable();
             dados.addColumn('string', 'Momento');
-            dados.addColumn('number', 'Uso');
+            dados.addColumn('number', 'Temperatura'+" °C");
 
             fetch('/leituras/gpu', { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
