@@ -2,16 +2,39 @@
 <html>
 
 <head>
-	<title>Line Chart</title>
+    <title>Line Chart</title>
     <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
-	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<style>
-	
-	</style>
+    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="./CSS/Estilo_sieg_graficos.css">
+    <link rel="icon" href="./Imagem/engrenagem.jpg">
+    <link rel="stylesheet" href="./CSS/main.css">
+    <link rel="stylesheet" href="./CSS/Estilo_menu_sieg.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
 <body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour()">
+    <div class="caixa_menu">
+       
+            
+        <nav class="caixa_nav">
+         <i class="fa fa-bars" aria-hidden="true"></i>
+            <ul>
+                <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i> <span  class="local-menu"> Perfil</span></a></li>
+                <li><a href="/Estatistica.html"><i class="fa fa-line-chart" aria-hidden="true"></i> <span class="local-menu"> Estatísticas</span> </a></li>
+                <li><a href=""><i class="fa fa-history" aria-hidden="true"></i> <span class="local-menu"> Histórico</span></a></li>
+                <li><a href=""><i class="fa fa-question-circle" aria-hidden="true"></i> <span class="local-menu"> Suporte</span></a></li>
+                <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i> <span class="local-menu"> Configuração</span></a></li>
+                <li><a href="Login.html"><i class="fa fa-sign-out" aria-hidden="true"></i> <span class="local-menu"> Sair</span></a></li>
+             
+            </ul>
+        </nav>
+     </div> 
+   
+   
+     <div class="div-logo"><label class="sieg">SIEG SYSTEM</label></div>
+    <div class="conteiner-grafico">
     <center>
         <div style="width:75%;">
             <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
@@ -22,414 +45,415 @@
             <div style="display: inline-block;" id="div_grafico_four">Dados sendo obtidos...</div>
         </div>
     </center>
-	<script>
-google.load('visualization', '1', {
-        packages: ['corechart','SteppedArea'],
-        callback: obterDadosGraficoOne
-    });
-    // Não mexa nessas 3 linhas! 
-
-    // só mexer se quiser alterar o tempo de atualização
-    // ou se souber o que está fazendo!
-    function atualizarGraficoOne() {
-        obterDadosGraficoOne();
-        setTimeout(atualizarGraficoOne, 5000);
-    }
-
-    // altere aqui as configurações do gráfico
-    // (tamanhos, cores, textos, etc)
-    function configurarGraficoOne() {
-        var altura = 200;
-        var largura = 400;
-        var configuracoes = {
-            tooltip: {
-                isHtml: true
-            },
-            trendlines: {
-                0: {
-                    labelInLegend: 'uso'
-                }
-            },
-            title: 'CPU',
-            legend: { position: 'bottom' },
-            colors: ['red'],            
-            isStacked: true,
-            width: largura,
-            height: altura,
-            vAxis: {
-                textStyle: {
-                    fontSize: 12
-                }
-            },
-            hAxis: {
-                slantedText: false,
-                slantedTextAngle: 45,
-                textStyle: {
-                    fontSize: 10
-                }
-            },
-            chartArea: {
-                left: 200,
-                top: 20,
-                width: (largura - 10),
-                height: (altura - 90)
-            }
-        };
-
-        return configuracoes;
-    }
-
-    // altere aqui como os dados serão exibidos
-    // e como são recuperados do BackEnd
-    function obterDadosGraficoOne() {
-        var dados = new google.visualization.DataTable();
-        dados.addColumn('string', 'Momento');
-        dados.addColumn('number', 'Uso');
-
-        fetch('/leituras/cpu', {cache:'no-store'}).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    
-                    console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
-
-                    resposta.reverse();
-
-                    for (i = 0; i < resposta.length; i++) {
-                        var registro = resposta[i];
-                        // aqui, após registro. use os nomes 
-                        // dos atributos que vem no JSON 
-                        // que gerou na consulta ao banco de dados
-                        dados.addRow([
-                            registro.momento, 
-                            registro.uso
-                        ]);
-                    }
-
-                    plotarGraficoOne(dados);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+</div>
+    <script>
+        google.load('visualization', '1', {
+            packages: ['corechart', 'SteppedArea'],
+            callback: obterDadosGraficoOne
         });
+        // Não mexa nessas 3 linhas! 
 
-    }
+        // só mexer se quiser alterar o tempo de atualização
+        // ou se souber o que está fazendo!
+        function atualizarGraficoOne() {
+            obterDadosGraficoOne();
+            setTimeout(atualizarGraficoOne, 5000);
+        }
 
-    // só altere aqui se souber o que está fazendo!
-    function plotarGraficoOne(dados) {
-        console.log('iniciando plotagem do gráfico...');
-
-        var chart = new google.visualization.SteppedAreaChart(div_grafico_one);
-        chart.draw(dados, configurarGraficoOne());
-    }
-    google.load('visualization', '1', {
-        packages: ['corechart','SteppedArea'],
-        callback: obterDadosGraficoTwo
-    });
-    // Não mexa nessas 3 linhas! 
-
-    // só mexer se quiser alterar o tempo de atualização
-    // ou se souber o que está fazendo!
-    function atualizarGraficoTwo() {
-        obterDadosGraficoTwo();
-        setTimeout(atualizarGraficoTwo, 5000);
-    }
-
-    // altere aqui as configurações do gráfico
-    // (tamanhos, cores, textos, etc)
-    function configurarGraficoTwo() {
-        var altura = 200;
-        var largura = 400;
-        var configuracoes = {
-            tooltip: {
-                isHtml: true
-            },
-            trendlines: {
-                0: {
-                    labelInLegend: 'uso'
-                }
-            },
-            title: 'Disco',
-            legend: { position: 'bottom' },
-            colors: ['blue'],            
-            isStacked: true,
-            width: largura,
-            height: altura,
-            vAxis: {
-                textStyle: {
-                    fontSize: 12
-                }
-            },
-            hAxis: {
-                slantedText: false,
-                slantedTextAngle: 45,
-                textStyle: {
-                    fontSize: 10
-                }
-            },
-            chartArea: {
-                left: 200,
-                top: 20,
-                width: (largura - 10),
-                height: (altura - 90)
-            }
-        };
-
-        return configuracoes;
-    }
-
-    // altere aqui como os dados serão exibidos
-    // e como são recuperados do BackEnd
-    function obterDadosGraficoTwo() {
-        var dados = new google.visualization.DataTable();
-        dados.addColumn('string', 'Momento');
-        dados.addColumn('number', 'Uso');
-
-        fetch('/leituras/disco', {cache:'no-store'}).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    
-                    console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
-
-                    resposta.reverse();
-
-                    for (i = 0; i < resposta.length; i++) {
-                        var registro = resposta[i];
-                        // aqui, após registro. use os nomes 
-                        // dos atributos que vem no JSON 
-                        // que gerou na consulta ao banco de dados
-                        dados.addRow([
-                            registro.momento, 
-                            registro.uso
-                        ]);
+        // altere aqui as configurações do gráfico
+        // (tamanhos, cores, textos, etc)
+        function configurarGraficoOne() {
+            var altura = 200;
+            var largura = 400;
+            var configuracoes = {
+                tooltip: {
+                    isHtml: true
+                },
+                trendlines: {
+                    0: {
+                        labelInLegend: 'uso'
                     }
-
-                    plotarGraficoTwo(dados);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-    }
-
-    // só altere aqui se souber o que está fazendo!
-    function plotarGraficoTwo(dados) {
-        console.log('iniciando plotagem do gráfico...');
-
-        var chart = new google.visualization.SteppedAreaChart(div_grafico_two);
-        chart.draw(dados, configurarGraficoTwo());
-    }
-
-google.load('visualization', '1', {
-        packages: ['corechart','SteppedArea'],
-        callback: obterDadosGraficoTree
-    });
-    // Não mexa nessas 3 linhas! 
-
-    // só mexer se quiser alterar o tempo de atualização
-    // ou se souber o que está fazendo!
-    function atualizarGraficoTree() {
-        obterDadosGraficoTree();
-        setTimeout(atualizarGraficoTree, 5000);
-    }
-
-    // altere aqui as configurações do gráfico
-    // (tamanhos, cores, textos, etc)
-    function configurarGraficoTree() {
-        var altura = 200;
-        var largura = 400;
-        var configuracoes = {
-            tooltip: {
-                isHtml: true
-            },
-            trendlines: {
-                0: {
-                    labelInLegend: 'uso'
-                }
-            },
-            title: 'Memória',
-            legend: { position: 'bottom' },
-            colors: ['green'],            
-            isStacked: true,
-            width: largura,
-            height: altura,
-            vAxis: {
-                textStyle: {
-                    fontSize: 12
-                }
-            },
-            hAxis: {
-                slantedText: false,
-                slantedTextAngle: 45,
-                textStyle: {
-                    fontSize: 10
-                }
-            },
-            chartArea: {
-                left: 200,
-                top: 20,
-                width: (largura - 10),
-                height: (altura - 90)
-            }
-        };
-
-        return configuracoes;
-    }
-
-    // altere aqui como os dados serão exibidos
-    // e como são recuperados do BackEnd
-    function obterDadosGraficoTree() {
-        var dados = new google.visualization.DataTable();
-        dados.addColumn('string', 'Momento');
-        dados.addColumn('number', 'Uso');
-
-        fetch('/leituras/mem', {cache:'no-store'}).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    
-                    console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
-
-                    resposta.reverse();
-
-                    for (i = 0; i < resposta.length; i++) {
-                        var registro = resposta[i];
-                        // aqui, após registro. use os nomes 
-                        // dos atributos que vem no JSON 
-                        // que gerou na consulta ao banco de dados
-                        dados.addRow([
-                            registro.momento, 
-                            registro.uso
-                        ]);
+                },
+                title: 'CPU',
+                legend: { position: 'bottom' },
+                colors: ['red'],
+                isStacked: true,
+                width: largura,
+                height: altura,
+                vAxis: {
+                    textStyle: {
+                        fontSize: 12
                     }
-
-                    plotarGraficoTree(dados);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-    }
-
-    // só altere aqui se souber o que está fazendo!
-    function plotarGraficoTree(dados) {
-        console.log('iniciando plotagem do gráfico...');
-
-        var chart = new google.visualization.SteppedAreaChart(div_grafico_tree);
-        chart.draw(dados, configurarGraficoTree());
-    }
-google.load('visualization', '1', {
-        packages: ['corechart','SteppedArea'],
-        callback: obterDadosGraficoFour
-    });
-    // Não mexa nessas 3 linhas! 
-
-    // só mexer se quiser alterar o tempo de atualização
-    // ou se souber o queMemória está fazendo!
-    function atualizarGraficoFour() {
-        obterDadosGraficoFour();
-        setTimeout(atualizarGraficoFour, 5000);
-    }
-
-    // altere aqui as configurações do gráfico
-    // (tamanhos, cores, textos, etc)
-    function configurarGraficoFour() {
-        var altura = 200;
-        var largura = 400;
-        var configuracoes = {
-            tooltip: {
-                isHtml: true
-            },
-            trendlines: {
-                0: {
-                    labelInLegend: 'uso'
-                }
-            },
-            title: 'GPU',
-            legend: { position: 'bottom' },
-            colors: ['orange'],            
-            isStacked: true,
-            width: largura,
-            height: altura,
-            vAxis: {
-                textStyle: {
-                    fontSize: 12
-                }
-            },
-            hAxis: {
-                slantedText: false,
-                slantedTextAngle: 45,
-                textStyle: {
-                    fontSize: 10
-                }
-            },
-            chartArea: {
-                left: 200,
-                top: 20,
-                width: (largura - 10),
-                height: (altura - 90)
-            }
-        };
-
-        return configuracoes;
-    }
-
-    // altere aqui como os dados serão exibidos
-    // e como são recuperados do BackEnd
-    function obterDadosGraficoFour() {
-        var dados = new google.visualization.DataTable();
-        dados.addColumn('string', 'Momento');
-        dados.addColumn('number', 'Uso');
-
-        fetch('/leituras/gpu', {cache:'no-store'}).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    
-                    console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
-
-                    resposta.reverse();
-
-                    for (i = 0; i < resposta.length; i++) {
-                        var registro = resposta[i];
-                        // aqui, após registro. use os nomes 
-                        // dos atributos que vem no JSON 
-                        // que gerou na consulta ao banco de dados
-                        dados.addRow([
-                            registro.momento, 
-                            registro.uso
-                        ]);
+                },
+                hAxis: {
+                    slantedText: false,
+                    slantedTextAngle: 45,
+                    textStyle: {
+                        fontSize: 10
                     }
+                },
+                chartArea: {
+                    left: 200,
+                    top: 20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                }
+            };
 
-                    plotarGraficoFour(dados);
+            return configuracoes;
+        }
+
+        // altere aqui como os dados serão exibidos
+        // e como são recuperados do BackEnd
+        function obterDadosGraficoOne() {
+            var dados = new google.visualization.DataTable();
+            dados.addColumn('string', 'Momento');
+            dados.addColumn('number', 'Uso');
+
+            fetch('/leituras/cpu', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+                            // aqui, após registro. use os nomes 
+                            // dos atributos que vem no JSON 
+                            // que gerou na consulta ao banco de dados
+                            dados.addRow([
+                                registro.momento,
+                                registro.uso
+                            ]);
+                        }
+
+                        plotarGraficoOne(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+        }
+
+        // só altere aqui se souber o que está fazendo!
+        function plotarGraficoOne(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.SteppedAreaChart(div_grafico_one);
+            chart.draw(dados, configurarGraficoOne());
+        }
+        google.load('visualization', '1', {
+            packages: ['corechart', 'SteppedArea'],
+            callback: obterDadosGraficoTwo
         });
+        // Não mexa nessas 3 linhas! 
 
-    }
+        // só mexer se quiser alterar o tempo de atualização
+        // ou se souber o que está fazendo!
+        function atualizarGraficoTwo() {
+            obterDadosGraficoTwo();
+            setTimeout(atualizarGraficoTwo, 5000);
+        }
 
-    // só altere aqui se souber o que está fazendo!
-    function plotarGraficoFour(dados) {
-        console.log('iniciando plotagem do gráfico...');
+        // altere aqui as configurações do gráfico
+        // (tamanhos, cores, textos, etc)
+        function configurarGraficoTwo() {
+            var altura = 200;
+            var largura = 400;
+            var configuracoes = {
+                tooltip: {
+                    isHtml: true
+                },
+                trendlines: {
+                    0: {
+                        labelInLegend: 'uso'
+                    }
+                },
+                title: 'Disco',
+                legend: { position: 'bottom' },
+                colors: ['blue'],
+                isStacked: true,
+                width: largura,
+                height: altura,
+                vAxis: {
+                    textStyle: {
+                        fontSize: 12
+                    }
+                },
+                hAxis: {
+                    slantedText: false,
+                    slantedTextAngle: 45,
+                    textStyle: {
+                        fontSize: 10
+                    }
+                },
+                chartArea: {
+                    left: 200,
+                    top: 20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                }
+            };
 
-        var chart = new google.visualization.SteppedAreaChart(div_grafico_four);
-        chart.draw(dados, configurarGraficoFour());
-    }
+            return configuracoes;
+        }
 
-</script>
+        // altere aqui como os dados serão exibidos
+        // e como são recuperados do BackEnd
+        function obterDadosGraficoTwo() {
+            var dados = new google.visualization.DataTable();
+            dados.addColumn('string', 'Momento');
+            dados.addColumn('number', 'Uso');
+
+            fetch('/leituras/disco', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+                            // aqui, após registro. use os nomes 
+                            // dos atributos que vem no JSON 
+                            // que gerou na consulta ao banco de dados
+                            dados.addRow([
+                                registro.momento,
+                                registro.uso
+                            ]);
+                        }
+
+                        plotarGraficoTwo(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        // só altere aqui se souber o que está fazendo!
+        function plotarGraficoTwo(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.SteppedAreaChart(div_grafico_two);
+            chart.draw(dados, configurarGraficoTwo());
+        }
+
+        google.load('visualization', '1', {
+            packages: ['corechart', 'SteppedArea'],
+            callback: obterDadosGraficoTree
+        });
+        // Não mexa nessas 3 linhas! 
+
+        // só mexer se quiser alterar o tempo de atualização
+        // ou se souber o que está fazendo!
+        function atualizarGraficoTree() {
+            obterDadosGraficoTree();
+            setTimeout(atualizarGraficoTree, 5000);
+        }
+
+        // altere aqui as configurações do gráfico
+        // (tamanhos, cores, textos, etc)
+        function configurarGraficoTree() {
+            var altura = 200;
+            var largura = 400;
+            var configuracoes = {
+                tooltip: {
+                    isHtml: true
+                },
+                trendlines: {
+                    0: {
+                        labelInLegend: 'uso'
+                    }
+                },
+                title: 'Memória',
+                legend: { position: 'bottom' },
+                colors: ['green'],
+                isStacked: true,
+                width: largura,
+                height: altura,
+                vAxis: {
+                    textStyle: {
+                        fontSize: 12
+                    }
+                },
+                hAxis: {
+                    slantedText: false,
+                    slantedTextAngle: 45,
+                    textStyle: {
+                        fontSize: 10
+                    }
+                },
+                chartArea: {
+                    left: 200,
+                    top: 20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                }
+            };
+
+            return configuracoes;
+        }
+
+        // altere aqui como os dados serão exibidos
+        // e como são recuperados do BackEnd
+        function obterDadosGraficoTree() {
+            var dados = new google.visualization.DataTable();
+            dados.addColumn('string', 'Momento');
+            dados.addColumn('number', 'Uso');
+
+            fetch('/leituras/mem', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+                            // aqui, após registro. use os nomes 
+                            // dos atributos que vem no JSON 
+                            // que gerou na consulta ao banco de dados
+                            dados.addRow([
+                                registro.momento,
+                                registro.uso
+                            ]);
+                        }
+
+                        plotarGraficoTree(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        // só altere aqui se souber o que está fazendo!
+        function plotarGraficoTree(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.SteppedAreaChart(div_grafico_tree);
+            chart.draw(dados, configurarGraficoTree());
+        }
+        google.load('visualization', '1', {
+            packages: ['corechart', 'SteppedArea'],
+            callback: obterDadosGraficoFour
+        });
+        // Não mexa nessas 3 linhas! 
+
+        // só mexer se quiser alterar o tempo de atualização
+        // ou se souber o queMemória está fazendo!
+        function atualizarGraficoFour() {
+            obterDadosGraficoFour();
+            setTimeout(atualizarGraficoFour, 5000);
+        }
+
+        // altere aqui as configurações do gráfico
+        // (tamanhos, cores, textos, etc)
+        function configurarGraficoFour() {
+            var altura = 200;
+            var largura = 400;
+            var configuracoes = {
+                tooltip: {
+                    isHtml: true
+                },
+                trendlines: {
+                    0: {
+                        labelInLegend: 'uso'
+                    }
+                },
+                title: 'GPU',
+                legend: { position: 'bottom' },
+                colors: ['orange'],
+                isStacked: true,
+                width: largura,
+                height: altura,
+                vAxis: {
+                    textStyle: {
+                        fontSize: 12
+                    }
+                },
+                hAxis: {
+                    slantedText: false,
+                    slantedTextAngle: 45,
+                    textStyle: {
+                        fontSize: 10
+                    }
+                },
+                chartArea: {
+                    left: 200,
+                    top: 20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                }
+            };
+
+            return configuracoes;
+        }
+
+        // altere aqui como os dados serão exibidos
+        // e como são recuperados do BackEnd
+        function obterDadosGraficoFour() {
+            var dados = new google.visualization.DataTable();
+            dados.addColumn('string', 'Momento');
+            dados.addColumn('number', 'Uso');
+
+            fetch('/leituras/gpu', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+
+                        for (i = 0; i < resposta.length; i++) {
+                            var registro = resposta[i];
+                            // aqui, após registro. use os nomes 
+                            // dos atributos que vem no JSON 
+                            // que gerou na consulta ao banco de dados
+                            dados.addRow([
+                                registro.momento,
+                                registro.uso
+                            ]);
+                        }
+
+                        plotarGraficoFour(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        // só altere aqui se souber o que está fazendo!
+        function plotarGraficoFour(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.SteppedAreaChart(div_grafico_four);
+            chart.draw(dados, configurarGraficoFour());
+        }
+
+    </script>
 </body>
 
 </html>
