@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Aluno
@@ -160,6 +159,33 @@ public class PantecLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//    TrocarTemas trocar = new TrocarTemas();
+    private Integer contador = 0;
+
+    private void changeTheme(Integer tema) {
+        if (tema == 0) {
+            imgEscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
+            imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoclara.PNG")));
+            bg.setBackground(Color.white);
+            jPanel2.setBackground(Color.gray);
+            jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+            lblEmail.setForeground(Color.black);
+            lblSenha.setForeground(Color.black);
+            Color cor = new Color(0, 128, 128);
+            btnEntrar.setBackground(cor);
+        } else {
+            imgEscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
+            imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.PNG")));
+            bg.setBackground(Color.decode("#00113C"));
+            jPanel2.setBackground(Color.decode("#00081D"));
+            jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+            lblEmail.setForeground(Color.white);
+            lblSenha.setForeground(Color.white);
+            btnEntrar.setBackground(Color.decode("#6D90AE"));
+
+        }
+    }
+
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
 //       btn1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,26 +198,35 @@ public class PantecLogin extends javax.swing.JFrame {
 //    }
 //});
     }//GEN-LAST:event_btnEntrarActionPerformed
- 
+
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void imgEscuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imgEscuroActionPerformed
         // TODO add your handling code here:
-        bg.setBackground(Color.white);
-        
-        jPanel2.setBackground(Color.white);
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        
-        lblEmail.setForeground(Color.black);
-        lblSenha.setForeground(Color.black);
-        
-        Color cor = new Color(0, 128, 128);
-        btnEntrar.setBackground(cor);
-       
-        imgEscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
-        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoclara.PNG")));
+
+        if (contador == 0) {
+            changeTheme(contador);
+            ++contador;
+        } else {
+            changeTheme(contador);
+            --contador;
+        }
+
+//        bg.setBackground(Color.white);
+//        
+//        jPanel2.setBackground(Color.white);
+//        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+//        
+//        lblEmail.setForeground(Color.black);
+//        lblSenha.setForeground(Color.black);
+//        
+//        Color cor = new Color(0, 128, 128);
+//        btnEntrar.setBackground(cor);
+//       
+//        imgEscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
+//        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoclara.PNG")));
     }//GEN-LAST:event_imgEscuroActionPerformed
 
     /**
@@ -214,10 +249,8 @@ public class PantecLogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PantecLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        //</editor-fold>
-        
 
+        //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new PantecLogin().setVisible(true);

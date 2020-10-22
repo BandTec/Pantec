@@ -20,10 +20,8 @@ public class Graficos extends javax.swing.JFrame {
     /**
      * Creates new form Graficos
      */
-        
-    
     public Graficos() {
-         try {
+        try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
@@ -35,7 +33,7 @@ public class Graficos extends javax.swing.JFrame {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        
+
     }
 
     /**
@@ -345,57 +343,110 @@ public class Graficos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private Integer contador = 0;
+    private void changeTheme(Integer tema) {
+        if (tema == 0) {
+            jPanel1.setBackground(Color.white);
+            jLabel9.setForeground(Color.black);
+            jLabel10.setForeground(Color.black);
+            jLabel11.setForeground(Color.black);
+            jLabel12.setForeground(Color.black);
+            jLabel13.setForeground(Color.black);
+            jLabel14.setForeground(Color.black);
+            jLabel18.setForeground(Color.black);
+            jLabel15.setForeground(Color.black);
+            jLabel16.setForeground(Color.black);
+            jLabel17.setForeground(Color.black);
+            jLabel19.setForeground(Color.black);
+            jLabel20.setForeground(Color.black);
+            jLabel21.setForeground(Color.black);
+            lblUsoDisco.setForeground(Color.black);
+            lblCapaciMem.setForeground(Color.black);
+            lblTempPlaca.setForeground(Color.black);
+            lblCpu.setForeground(Color.black);
+            lblDisco.setForeground(Color.black);
+            lblMemoria.setForeground(Color.black);
+            lblPlacaDeVideo.setForeground(Color.black);
+            Color cor = new Color(0, 128, 128);
+            btnExit.setBackground(cor);
+            btnProcessos.setBackground(cor);
+            pgbCpu.setForeground(cor);
+            pgbDisco.setForeground(cor);
+            pgbMemoria.setForeground(cor);
+            pgbPlacaDeVideo.setForeground(cor);
 
+            lblMaxCpu.setForeground(Color.black);
+            lblMediaCpu.setForeground(Color.black);
+            lblMinCpu.setForeground(Color.black);
+            lblMaxDisc.setForeground(Color.black);
+            lblMediaDisc.setForeground(Color.black);
+            lblMinDisc.setForeground(Color.black);
+            lblMaxMem.setForeground(Color.black);
+            lblMediaMem.setForeground(Color.black);
+            lblMinMem.setForeground(Color.black);
+            lblMaxPlaca.setForeground(Color.black);
+            lblMediaPlaca.setForeground(Color.black);
+            lblMinPlaca.setForeground(Color.black);
+
+            btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
+        } else {
+            jPanel1.setBackground(Color.decode("#00113C"));
+            jLabel9.setForeground(Color.white);
+            jLabel10.setForeground(Color.white);
+            jLabel11.setForeground(Color.white);
+            jLabel12.setForeground(Color.white);
+            jLabel13.setForeground(Color.white);
+            jLabel14.setForeground(Color.white);
+            jLabel18.setForeground(Color.white);
+            jLabel15.setForeground(Color.white);
+            jLabel16.setForeground(Color.white);
+            jLabel17.setForeground(Color.white);
+            jLabel19.setForeground(Color.white);
+            jLabel20.setForeground(Color.white);
+            jLabel21.setForeground(Color.white);
+            lblUsoDisco.setForeground(Color.white);
+            lblCapaciMem.setForeground(Color.white);
+            lblTempPlaca.setForeground(Color.white);
+            lblCpu.setForeground(Color.white);
+            lblDisco.setForeground(Color.white);
+            lblMemoria.setForeground(Color.white);
+            lblPlacaDeVideo.setForeground(Color.white);
+            btnExit.setBackground(Color.decode("#6D90AE"));
+            btnProcessos.setBackground(Color.decode("#6D90AE"));
+            pgbCpu.setForeground(Color.decode("#6D90AE"));
+            pgbDisco.setForeground(Color.decode("#6D90AE"));
+            pgbMemoria.setForeground(Color.decode("#6D90AE"));
+            pgbPlacaDeVideo.setForeground(Color.decode("#6D90AE"));
+
+            lblMaxCpu.setForeground(Color.white);
+            lblMediaCpu.setForeground(Color.white);
+            lblMinCpu.setForeground(Color.white);
+            lblMaxDisc.setForeground(Color.white);
+            lblMediaDisc.setForeground(Color.white);
+            lblMinDisc.setForeground(Color.white);
+            lblMaxMem.setForeground(Color.white);
+            lblMediaMem.setForeground(Color.white);
+            lblMinMem.setForeground(Color.white);
+            lblMaxPlaca.setForeground(Color.white);
+            lblMediaPlaca.setForeground(Color.white);
+            lblMinPlaca.setForeground(Color.white);
+            btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
+        }
+    }
     private void btnProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnProcessosActionPerformed
 
     private void btnModoClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModoClaroActionPerformed
         // TODO add your handling code here:
-        Integer contador = 1;
-        jPanel1.setBackground(Color.white);
-        jLabel9.setForeground(Color.black);
-        jLabel10.setForeground(Color.black);
-        jLabel11.setForeground(Color.black);
-        jLabel12.setForeground(Color.black);
-        jLabel13.setForeground(Color.black);
-        jLabel14.setForeground(Color.black);
-        jLabel18.setForeground(Color.black);
-        jLabel15.setForeground(Color.black);
-        jLabel16.setForeground(Color.black);
-        jLabel17.setForeground(Color.black);
-        jLabel19.setForeground(Color.black);
-        jLabel20.setForeground(Color.black);
-        jLabel21.setForeground(Color.black);
-        lblUsoDisco.setForeground(Color.black);
-        lblCapaciMem.setForeground(Color.black);
-        lblTempPlaca.setForeground(Color.black);
-        lblCpu.setForeground(Color.black);
-        lblDisco.setForeground(Color.black);
-        lblMemoria.setForeground(Color.black);
-        lblPlacaDeVideo.setForeground(Color.black);
-        Color cor = new Color(0, 128, 128);
-        btnExit.setBackground(cor);
-        btnProcessos.setBackground(cor);
-        pgbCpu.setForeground(cor);
-        pgbDisco.setForeground(cor);
-        pgbMemoria.setForeground(cor);
-        pgbPlacaDeVideo.setForeground(cor);
+        if(contador == 0){
+            changeTheme(contador);
+            ++contador;
+        }else{
+            changeTheme(contador);
+            --contador;
+        }
         
-        lblMaxCpu.setForeground(Color.black);
-        lblMediaCpu.setForeground(Color.black);
-        lblMinCpu.setForeground(Color.black);
-        lblMaxDisc.setForeground(Color.black);
-        lblMediaDisc.setForeground(Color.black);
-        lblMinDisc.setForeground(Color.black);
-        lblMaxMem.setForeground(Color.black);
-        lblMediaMem.setForeground(Color.black);
-        lblMinMem.setForeground(Color.black);
-        lblMaxPlaca.setForeground(Color.black);
-        lblMediaPlaca.setForeground(Color.black);
-        lblMinPlaca.setForeground(Color.black);
-        
-        btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
     }//GEN-LAST:event_btnModoClaroActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

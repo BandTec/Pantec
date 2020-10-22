@@ -125,19 +125,32 @@ public class Processos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private Integer contador = 0;
+
+    private void changeTheme(Integer tema) {
+        if (tema == 0) {
+            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
+            jPanel1.setBackground(Color.white);
+            jLabel2.setForeground(Color.black);
+        } else {
+            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
+            jPanel1.setBackground(Color.decode("#00113C"));
+            jLabel2.setForeground(Color.white);
+        }
+    }
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jPanel1.setBackground(Color.white);
-        jLabel2.setForeground(Color.BLACK);
-        
-        Color cor = new Color(0, 128, 128);
-        jButton3.setBackground(cor);
-        
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
+        if(contador == 0){
+            changeTheme(contador);
+            ++contador;
+        }else{
+            changeTheme(contador);
+            --contador;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
