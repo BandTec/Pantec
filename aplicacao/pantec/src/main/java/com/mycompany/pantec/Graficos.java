@@ -6,10 +6,19 @@
 package com.mycompany.pantec;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import oshi.SystemInfo;
+import oshi.hardware.CentralProcessor;
+import oshi.hardware.GlobalMemory;
+import oshi.hardware.GraphicsCard;
+import oshi.hardware.HWDiskStore;
+import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.OSProcess;
+import oshi.software.os.OperatingSystem;
 
 /**
  *
@@ -20,6 +29,7 @@ public class Graficos extends javax.swing.JFrame {
     /**
      * Creates new form Graficos
      */
+    tentativa monitorar= new tentativa();
     public Graficos() {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -131,7 +141,7 @@ public class Graficos extends javax.swing.JFrame {
         lblCpu.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lblCpu.setForeground(new java.awt.Color(255, 255, 255));
         lblCpu.setText("CPU");
-        jPanel1.add(lblCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 50, -1));
+        jPanel1.add(lblCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 60, -1));
 
         lblDisco.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lblDisco.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,7 +160,6 @@ public class Graficos extends javax.swing.JFrame {
 
         pgbCpu.setForeground(new java.awt.Color(4, 242, 28));
         pgbCpu.setToolTipText("");
-        pgbCpu.setValue(10);
         pgbCpu.setStringPainted(true);
         jPanel1.add(pgbCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 320, 25));
 
@@ -486,6 +495,24 @@ public class Graficos extends javax.swing.JFrame {
                 new Graficos().setVisible(true);
             }
         });
+        SystemInfo si = new SystemInfo();
+        HardwareAbstractionLayer hal;
+        OperatingSystem os = si.getOperatingSystem();
+        hal = si.getHardware();
+        String modelo= hal.getComputerSystem().getModel();
+        GlobalMemory memoria= si.getHardware().getMemory();
+        List<HWDiskStore> HD=hal.getDiskStores();
+        List<GraphicsCard> gpu=si.getHardware().getGraphicsCards();
+        long cpu=si.getHardware().getProcessor().getMaxFreq();
+        double temperatura= si.getHardware().getSensors().getCpuTemperature();
+        List<OSProcess> proc=si.getOperatingSystem().getProcesses(10, OperatingSystem.ProcessSort.CPU);
+        System.out.println("modelo: "+modelo);
+        System.out.println("hd: "+HD);
+        System.out.println("memoria: "+memoria);
+        System.out.println("dados gpu: "+gpu);
+        System.out.println("máxima frequencia cpu: "+cpu);
+        System.out.println("temperatura CPU: "+temperatura);
+        System.out.println("processos: "+proc);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

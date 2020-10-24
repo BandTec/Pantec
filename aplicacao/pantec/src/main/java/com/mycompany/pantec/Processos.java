@@ -59,8 +59,9 @@ public class Processos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PROCESSOS ATIVOS");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 380, 50));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 420, 50));
 
+        jTable1.setForeground(new java.awt.Color(60, 60, 60));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"", null, null, null, null, null},
@@ -76,7 +77,7 @@ public class Processos extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 600, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 600, 120));
 
         jButton3.setBackground(new java.awt.Color(101, 134, 205));
         jButton3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -89,7 +90,7 @@ public class Processos extends javax.swing.JFrame {
         jButton4.setForeground(new java.awt.Color(51, 51, 51));
         jButton4.setText("MATAR PROCESSO");
         jButton4.setBorder(null);
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, 140, 50));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 160, 50));
 
         jButton6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jButton6.setText("DESEMPENHO");
@@ -99,7 +100,7 @@ public class Processos extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(223, 1, 28));
         jButton7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("MATAR TODOS OS PROCESSOS"); // NOI18N
+        jButton7.setText("MATAR PROCESSOS"); // NOI18N
         jButton7.setBorder(null);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +108,7 @@ public class Processos extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 150, 50));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 160, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +120,7 @@ public class Processos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 86, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
