@@ -43,9 +43,32 @@ public class Graficos extends javax.swing.JFrame {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-
+        SystemInfo si = new SystemInfo();
+        HardwareAbstractionLayer hal;
+        OperatingSystem os = si.getOperatingSystem();
+        hal = si.getHardware();
+        String modelo= hal.getComputerSystem().getModel();
+        GlobalMemory memoria= hal.getMemory();
+        long mem=hal.getMemory().getAvailable();
+        List<HWDiskStore> HD=hal.getDiskStores();
+        List<GraphicsCard> gpu=hal.getGraphicsCards();
+        long cpu=hal.getProcessor().getMaxFreq();
+        double temperatura= hal.getSensors().getCpuTemperature();
+        List<OSProcess> proc=si.getOperatingSystem().getProcesses(10, OperatingSystem.ProcessSort.CPU);
+        CentralProcessor quant = si.getHardware().getProcessor();
+        System.out.println("modelo: "+modelo);
+        System.out.println("hd: "+HD);
+        System.out.println("memoria: "+memoria);
+        System.out.println("dados gpu: "+gpu);
+        System.out.println("máxima frequencia cpu: "+cpu);
+        System.out.println("temperatura CPU: "+temperatura);
+        System.out.println("processos: "+proc);
+        lblInfoCpu.setText((quant).toString());
+        lblCapaciMem.setText(String.format("Memória disponível: %d B",mem));
+        pgbPlacaDeVideo.setValue((int) temperatura);
+        lblTempPlaca.setText(String.format("%.2f °C",temperatura));
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,7 +94,7 @@ public class Graficos extends javax.swing.JFrame {
         lblCapaciMem = new javax.swing.JLabel();
         lblTempPlaca = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblInfoCpu = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -102,11 +125,11 @@ public class Graficos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 17, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pgbMemoria.setForeground(new java.awt.Color(4, 242, 28));
+        pgbMemoria.setForeground(new java.awt.Color(109, 144, 174));
         pgbMemoria.setStringPainted(true);
         jPanel1.add(pgbMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 320, 25));
 
-        btnProcessos.setBackground(new java.awt.Color(204, 204, 204));
+        btnProcessos.setBackground(new java.awt.Color(109, 144, 174));
         btnProcessos.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnProcessos.setText("PROCESSOS");
         btnProcessos.setBorderPainted(false);
@@ -117,7 +140,7 @@ public class Graficos extends javax.swing.JFrame {
         });
         jPanel1.add(btnProcessos, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 530, 160, 50));
 
-        btnExit.setBackground(new java.awt.Color(204, 204, 204));
+        btnExit.setBackground(new java.awt.Color(109, 144, 174));
         btnExit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnExit.setText("SAIR");
         btnExit.setBorderPainted(false);
@@ -158,48 +181,47 @@ public class Graficos extends javax.swing.JFrame {
         lblPlacaDeVideo.setText("PLACA DE VÍDEO");
         jPanel1.add(lblPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
-        pgbCpu.setForeground(new java.awt.Color(4, 242, 28));
+        pgbCpu.setForeground(new java.awt.Color(109, 144, 174));
         pgbCpu.setToolTipText("");
         pgbCpu.setStringPainted(true);
         jPanel1.add(pgbCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 320, 25));
 
-        pgbDisco.setForeground(new java.awt.Color(4, 242, 28));
+        pgbDisco.setForeground(new java.awt.Color(109, 144, 174));
         pgbDisco.setStringPainted(true);
         jPanel1.add(pgbDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 320, 25));
 
-        pgbPlacaDeVideo.setForeground(new java.awt.Color(4, 242, 28));
-        pgbPlacaDeVideo.setStringPainted(true);
+        pgbPlacaDeVideo.setForeground(new java.awt.Color(109, 144, 174));
         jPanel1.add(pgbPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 320, 25));
 
         lblUsoDisco.setBackground(new java.awt.Color(255, 255, 255));
         lblUsoDisco.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lblUsoDisco.setForeground(new java.awt.Color(255, 255, 255));
         lblUsoDisco.setText("Uso: ...%");
-        jPanel1.add(lblUsoDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 80, 20));
+        jPanel1.add(lblUsoDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 320, 20));
 
         lblCapaciMem.setBackground(new java.awt.Color(255, 255, 255));
         lblCapaciMem.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lblCapaciMem.setForeground(new java.awt.Color(255, 255, 255));
         lblCapaciMem.setText("Capacidade: ...GB");
-        jPanel1.add(lblCapaciMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 130, 20));
+        jPanel1.add(lblCapaciMem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 350, 20));
 
         lblTempPlaca.setBackground(new java.awt.Color(255, 255, 255));
         lblTempPlaca.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lblTempPlaca.setForeground(new java.awt.Color(255, 255, 255));
         lblTempPlaca.setText("Temp: ...°C");
-        jPanel1.add(lblTempPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 80, 20));
+        jPanel1.add(lblTempPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, 310, 20));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Min:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 30, 20));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, 50, 20));
 
-        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Uso: ...%");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 80, 20));
+        lblInfoCpu.setBackground(new java.awt.Color(255, 255, 255));
+        lblInfoCpu.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        lblInfoCpu.setForeground(new java.awt.Color(255, 255, 255));
+        lblInfoCpu.setText("Uso: ...%");
+        jPanel1.add(lblInfoCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 350, 30));
 
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -217,7 +239,7 @@ public class Graficos extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Máx:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 40, 20));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 40, 20));
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
         jLabel14.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -229,43 +251,43 @@ public class Graficos extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Média:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 50, 20));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 60, 20));
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 255));
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Média:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 50, 20));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 70, 20));
 
         jLabel17.setBackground(new java.awt.Color(255, 255, 255));
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Média:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, 50, 20));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 430, 60, 20));
 
         jLabel18.setBackground(new java.awt.Color(255, 255, 255));
         jLabel18.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Média:");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 50, 20));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 80, 20));
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 255));
         jLabel19.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Min:");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 30, 20));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 40, 20));
 
         jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Min:");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 30, 20));
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, 50, 20));
 
         jLabel21.setBackground(new java.awt.Color(255, 255, 255));
         jLabel21.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Min:");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 430, 30, 20));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, 50, 20));
 
         lblMaxMem.setBackground(new java.awt.Color(255, 255, 255));
         lblMaxMem.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -357,7 +379,7 @@ public class Graficos extends javax.swing.JFrame {
         if (tema == 0) {
             jPanel1.setBackground(Color.white);
             jLabel9.setForeground(Color.black);
-            jLabel10.setForeground(Color.black);
+            lblInfoCpu.setForeground(Color.black);
             jLabel11.setForeground(Color.black);
             jLabel12.setForeground(Color.black);
             jLabel13.setForeground(Color.black);
@@ -401,7 +423,7 @@ public class Graficos extends javax.swing.JFrame {
         } else {
             jPanel1.setBackground(Color.decode("#00113C"));
             jLabel9.setForeground(Color.white);
-            jLabel10.setForeground(Color.white);
+            lblInfoCpu.setForeground(Color.white);
             jLabel11.setForeground(Color.white);
             jLabel12.setForeground(Color.white);
             jLabel13.setForeground(Color.white);
@@ -495,31 +517,12 @@ public class Graficos extends javax.swing.JFrame {
                 new Graficos().setVisible(true);
             }
         });
-        SystemInfo si = new SystemInfo();
-        HardwareAbstractionLayer hal;
-        OperatingSystem os = si.getOperatingSystem();
-        hal = si.getHardware();
-        String modelo= hal.getComputerSystem().getModel();
-        GlobalMemory memoria= si.getHardware().getMemory();
-        List<HWDiskStore> HD=hal.getDiskStores();
-        List<GraphicsCard> gpu=si.getHardware().getGraphicsCards();
-        long cpu=si.getHardware().getProcessor().getMaxFreq();
-        double temperatura= si.getHardware().getSensors().getCpuTemperature();
-        List<OSProcess> proc=si.getOperatingSystem().getProcesses(10, OperatingSystem.ProcessSort.CPU);
-        System.out.println("modelo: "+modelo);
-        System.out.println("hd: "+HD);
-        System.out.println("memoria: "+memoria);
-        System.out.println("dados gpu: "+gpu);
-        System.out.println("máxima frequencia cpu: "+cpu);
-        System.out.println("temperatura CPU: "+temperatura);
-        System.out.println("processos: "+proc);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnModoClaro;
     private javax.swing.JButton btnProcessos;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -536,6 +539,7 @@ public class Graficos extends javax.swing.JFrame {
     private javax.swing.JLabel lblCapaciMem;
     private javax.swing.JLabel lblCpu;
     private javax.swing.JLabel lblDisco;
+    private javax.swing.JLabel lblInfoCpu;
     private javax.swing.JLabel lblMaxCpu;
     private javax.swing.JLabel lblMaxDisc;
     private javax.swing.JLabel lblMaxMem;
