@@ -167,7 +167,7 @@ public class PantecLogin extends javax.swing.JFrame {
             imgEscuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
             imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoclara.PNG")));
             bg.setBackground(Color.white);
-            jPanel2.setBackground(Color.gray);
+            jPanel2.setBackground(Color.white);
             jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
             lblEmail.setForeground(Color.black);
             lblSenha.setForeground(Color.black);
