@@ -465,7 +465,8 @@ public class Graficos extends javax.swing.JFrame {
         }
     }
     private void btnProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessosActionPerformed
-        // TODO add your handling code here:
+        new Processos().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnProcessosActionPerformed
 
     private void btnModoClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModoClaroActionPerformed
@@ -481,7 +482,8 @@ public class Graficos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModoClaroActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        new Login().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**
