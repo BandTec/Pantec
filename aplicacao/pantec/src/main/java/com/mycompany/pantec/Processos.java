@@ -5,7 +5,17 @@
  */
 package com.mycompany.pantec;
 
+import com.mycompany.processos.DadosdoProcesso;
+import com.mycompany.processos.TabelaProcesso;
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -13,11 +23,16 @@ import java.awt.Color;
  */
 public class Processos extends javax.swing.JFrame {
 
+    TabelaProcesso tabela = new TabelaProcesso();
+    DadosdoProcesso dados = new DadosdoProcesso();
+
     /**
      * Creates new form Processos
      */
     public Processos() {
         initComponents();
+        Thread threadDados = new Thread(this::atualizarDados);
+        threadDados.start();
     }
 
     /**
@@ -32,13 +47,14 @@ public class Processos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnMatar = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProcessos = new javax.swing.JTable();
+        lblNome = new javax.swing.JLabel();
+        btnFiltrar = new javax.swing.JButton();
+        txtFiltro = new javax.swing.JTextField();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,64 +72,63 @@ public class Processos extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 40));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 170, 10, -1));
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("PROCESSOS ATIVOS");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 420, 50));
+        btnMatar.setBackground(new java.awt.Color(223, 1, 28));
+        btnMatar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnMatar.setForeground(new java.awt.Color(255, 255, 255));
+        btnMatar.setText("MATAR PROCESSOS"); // NOI18N
+        btnMatar.setBorder(null);
+        btnMatar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMatar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMatarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMatar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 160, 50));
 
-        jTable1.setForeground(new java.awt.Color(60, 60, 60));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        lblTitulo.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("PROCESSOS ATIVOS");
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 590, 50));
+
+        jTableProcessos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "", "", "", "", "", ""
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTableProcessos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 600, 120));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 590, 250));
 
-        jButton3.setBackground(new java.awt.Color(101, 134, 205));
-        jButton3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton3.setText("SAIR");
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        lblNome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(255, 255, 255));
+        lblNome.setText("Nome:");
+        jPanel1.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 60, 20));
+
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFiltrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 140, 50));
+        jPanel1.add(btnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 70, -1));
+        jPanel1.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 160, -1));
 
-        jButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jButton4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(51, 51, 51));
-        jButton4.setText("MATAR PROCESSO");
-        jButton4.setBorder(null);
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 160, 50));
-
-        jButton6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton6.setText("DESEMPENHO");
-        jButton6.setBorder(null);
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, 140, 50));
-
-        jButton7.setBackground(new java.awt.Color(223, 1, 28));
-        jButton7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("MATAR PROCESSOS"); // NOI18N
-        jButton7.setBorder(null);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setBackground(new java.awt.Color(101, 134, 205));
+        btnSair.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
+        btnSair.setText("SAIR");
+        btnSair.setBorder(null);
+        btnSair.setContentAreaFilled(false);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 440, 160, 50));
+        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, 160, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +145,86 @@ public class Processos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+ private void atualizarDados() {
+       jTableProcessos.setModel(dados.getModelo());
+
+
+ }
+
+    private void btnMatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatarActionPerformed
+        // TODO add your handling code here:
+        matarProcessos();
+    }//GEN-LAST:event_btnMatarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (contador == 0) {
+            changeTheme(contador);
+            ++contador;
+        } else {
+            changeTheme(contador);
+            --contador;
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        // TODO add your handling code here:
+        TableRowSorter sorter = null;
+        DefaultTableModel model = (DefaultTableModel) jTableProcessos.getModel();
+        sorter = new TableRowSorter<TableModel>(model);
+        jTableProcessos.setRowSorter(sorter);
+        String text = txtFiltro.getText();
+        if (text.length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter(text));
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void matarProcessos() {
+        Boolean checked;
+        String id;
+        Integer contadorProcesso = 0;
+
+        for (int i = 0; i < jTableProcessos.getRowCount(); i++) {
+            checked = Boolean.valueOf(jTableProcessos.getValueAt(i, 0).toString());
+            id = jTableProcessos.getValueAt(i, 2).toString();
+
+            //DISPLAY
+            if (checked) {
+
+                try {
+                    tabela.kill(id);
+                    jTableProcessos.setValueAt("Encerrado", i, 1);
+                    contadorProcesso++;
+                } catch (IOException ex) {
+                    Logger.getLogger(Processos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        }
+
+        switch (contadorProcesso) {
+            case 0:
+                JOptionPane.showMessageDialog(null, "Escolha os processos para serem encerrados!");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "Processo encerrado com sucesso!");
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, contadorProcesso + " processos encerrados com sucesso!");
+                break;
+        }
+            DadosdoProcesso dados = new DadosdoProcesso();
+            jTableProcessos.setModel(dados.getModelo());
+    }
 
     private Integer contador = 0;
 
@@ -137,33 +232,15 @@ public class Processos extends javax.swing.JFrame {
         if (tema == 0) {
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
             jPanel1.setBackground(Color.white);
-            jLabel2.setForeground(Color.black);
+            lblTitulo.setForeground(Color.black);
+            btnSair.setForeground(Color.black);
         } else {
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
             jPanel1.setBackground(Color.decode("#00113C"));
-            jLabel2.setForeground(Color.white);
+            lblTitulo.setForeground(Color.white);
+            btnSair.setForeground(Color.white);
         }
     }
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if(contador == 0){
-            changeTheme(contador);
-            ++contador;
-        }else{
-            changeTheme(contador);
-            --contador;
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        new Login().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,15 +278,16 @@ public class Processos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnMatar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableProcessos;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }

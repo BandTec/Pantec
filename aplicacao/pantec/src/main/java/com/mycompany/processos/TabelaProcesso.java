@@ -5,10 +5,26 @@
  */
 package com.mycompany.processos;
 
+import java.io.IOException;
+
 /**
  *
  * @author sakurah
  */
 public class TabelaProcesso {
+    
+      
+    public void kill(String pid) throws IOException {
+        String os = System.getProperty("os.name");
+
+        if (os.contains(("Windows"))) {
+            Runtime.getRuntime().exec("taskkill  /PID " + pid + "  /F");
+
+        } else {
+            Runtime.getRuntime().exec("kill -9 " + pid + " -f");
+
+        }
+    }
+
     
 }
