@@ -18,7 +18,7 @@ public class TabelaProcesso {
         String os = System.getProperty("os.name");
 
         if (os.contains(("Windows"))) {
-            Runtime.getRuntime().exec("taskkill  /PID " + pid + "  /F");
+            Runtime.getRuntime().exec("taskkill  /PID " + pid);
 
         } else {
             Runtime.getRuntime().exec("kill -9 " + pid);
