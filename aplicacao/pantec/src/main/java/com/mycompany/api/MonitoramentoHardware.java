@@ -25,18 +25,18 @@ public class MonitoramentoHardware {
     private final String fabricante;
     private final String modelo;
     private final SystemInfo si = new SystemInfo();
-    private final HardwareAbstractionLayer hard = si.getHardware();
+    private final HardwareAbstractionLayer hardware = si.getHardware();
     private final OperatingSystem so = si.getOperatingSystem();
 
     public MonitoramentoHardware() {
-        infoMemoria = hard.getMemory().toString();
-        infoCpu = hard.getProcessor().toString().split("\n")[0];
-        infoGpu = hard.getGraphicsCards().toString().split(",")[0];
+        infoMemoria = hardware.getMemory().toString();
+        infoCpu = hardware.getProcessor().toString().split("\n")[0];
+        infoGpu = hardware.getGraphicsCards().toString().split(",")[0];
         infoDisco = si.getHardware().getDiskStores().toString().replace("[\\\\.\\PHYSICALDRIVE0:", "").split("-")[0];
         infoSO = so.getFamily();
         user = so.getNetworkParams().getHostName();
-        fabricante = hard.getComputerSystem().getManufacturer();
-        modelo = hard.getComputerSystem().getModel();
+        fabricante = hardware.getComputerSystem().getManufacturer();
+        modelo = hardware.getComputerSystem().getModel();
 
     }
 

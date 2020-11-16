@@ -146,10 +146,9 @@ public class Processos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
  private void atualizarDados() {
-       jTableProcessos.setModel(dados.getModelo());
+        jTableProcessos.setModel(dados.getModelo());
 
-
- }
+    }
 
     private void btnMatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMatarActionPerformed
         // TODO add your handling code here:
@@ -169,16 +168,7 @@ public class Processos extends javax.swing.JFrame {
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         // TODO add your handling code here:
-        TableRowSorter sorter = null;
-        DefaultTableModel model = (DefaultTableModel) jTableProcessos.getModel();
-        sorter = new TableRowSorter<TableModel>(model);
-        jTableProcessos.setRowSorter(sorter);
-        String text = txtFiltro.getText();
-        if (text.length() == 0) {
-            sorter.setRowFilter(null);
-        } else {
-            sorter.setRowFilter(RowFilter.regexFilter(text));
-        }
+        filtrar();
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -222,8 +212,24 @@ public class Processos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, contadorProcesso + " processos encerrados com sucesso!");
                 break;
         }
-            DadosdoProcesso dados = new DadosdoProcesso();
-            jTableProcessos.setModel(dados.getModelo());
+        DadosdoProcesso dados = new DadosdoProcesso();
+        jTableProcessos.setModel(dados.getModelo());
+        
+        filtrar();
+    }
+
+    private void filtrar() {
+        TableRowSorter sorter = null;
+        DefaultTableModel model = (DefaultTableModel) jTableProcessos.getModel();
+        sorter = new TableRowSorter<TableModel>(model);
+        jTableProcessos.setRowSorter(sorter);
+        String text = txtFiltro.getText();
+        if (text.length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter(text));
+        }
+
     }
 
     private Integer contador = 0;

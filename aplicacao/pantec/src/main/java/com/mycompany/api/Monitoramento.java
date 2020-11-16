@@ -16,20 +16,20 @@ import oshi.util.Util;
  */
 public class Monitoramento {
     
-    private Double porcentagemMemoriaRam = 0.0;
+    private Double porcMemRam = 0.0;
     private Double tamanhoDiscoUsado = 0.0;
     private Double espacoTotalDisco = 0.0;
-    private Double porcentagemCpu = 0.0;
+    private Double porcCpu = 0.0;
     private Double ramDisponivel = 0.0;
     private Double ramTotal = 0.0;
-    private Double temperaturaCpu = 0.0;
+    private Double tempCpu = 0.0;
     private final SystemInfo si = new SystemInfo();
-    private final HardwareAbstractionLayer hard = si.getHardware();
+    private final HardwareAbstractionLayer hardware = si.getHardware();
 
     public Monitoramento() {
-        ramDisponivel = (double) hard.getMemory().getAvailable();
-        ramTotal = (double) hard.getMemory().getTotal();
-        porcentagemMemoriaRam = ((ramTotal - ramDisponivel) * 100) / ramTotal;
+        ramDisponivel = (double) hardware.getMemory().getAvailable();
+        ramTotal = (double) hardware.getMemory().getTotal();
+        porcMemRam = ((ramTotal - ramDisponivel) * 100) / ramTotal;
 
         File[] disco = File.listRoots();
         double espacoHD =  disco[0].getFreeSpace() / 1073741824;
@@ -37,24 +37,24 @@ public class Monitoramento {
         espacoTotalDisco = (double) disco[0].getTotalSpace() / 1073741824;
         tamanhoDiscoUsado = (double) Math.round(((espacoTotalDisco - espacoHD) / espacoTotalDisco) * 100);
   
-        temperaturaCpu = hard.getSensors().getCpuTemperature();
+        tempCpu = hardware.getSensors().getCpuTemperature();
         
-       long[] armazena = hard.getProcessor().getSystemCpuLoadTicks();
+       long[] armazena = hardware.getProcessor().getSystemCpuLoadTicks();
          Util.sleep(1000);
-       porcentagemCpu = (hard.getProcessor().getSystemCpuLoadBetweenTicks(armazena)) * 100;
+       porcCpu = (hardware.getProcessor().getSystemCpuLoadBetweenTicks(armazena)) * 100;
 
     }
 
-    public Double getPorcentagemMemoriaRam() {
-        return porcentagemMemoriaRam;
+    public Double getPorcMemRam() {
+        return porcMemRam;
     }
 
-    public Double getTamanhoDisco() {
+    public Double getTamanhoDiscoUsado() {
         return tamanhoDiscoUsado;
     }
 
-    public Double getPorcentagemCpu() {
-        return porcentagemCpu;
+    public Double getPorcCpu() {
+        return porcCpu;
     }
 
     public Double getRamDisponivel() {
@@ -65,9 +65,11 @@ public class Monitoramento {
         return ramTotal;
     }
 
-    public Double getTemperaturaCpu() {
-        return temperaturaCpu;
+    public Double getTempCpu() {
+        return tempCpu;
     }
+
+ 
 
     
 }

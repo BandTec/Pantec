@@ -114,7 +114,7 @@ public class Graficos extends javax.swing.JFrame {
         pgbCpuTemperatura.setForeground(new java.awt.Color(109, 144, 174));
         pgbCpuTemperatura.setString("0°C");
         pgbCpuTemperatura.setStringPainted(true);
-        jPanel1.add(pgbCpuTemperatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 690, 25));
+        jPanel1.add(pgbCpuTemperatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 690, 25));
 
         btnProcessos.setBackground(new java.awt.Color(109, 144, 174));
         btnProcessos.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -151,60 +151,60 @@ public class Graficos extends javax.swing.JFrame {
         lblCpu.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         lblCpu.setForeground(new java.awt.Color(255, 255, 255));
         lblCpu.setText("CPU:");
-        jPanel1.add(lblCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 60, -1));
+        jPanel1.add(lblCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 60, -1));
 
         pgbCpu.setForeground(new java.awt.Color(109, 144, 174));
         pgbCpu.setToolTipText("");
         pgbCpu.setStringPainted(true);
-        jPanel1.add(pgbCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 690, 25));
+        jPanel1.add(pgbCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 690, 25));
 
         pgbDisco.setForeground(new java.awt.Color(109, 144, 174));
         pgbDisco.setStringPainted(true);
-        jPanel1.add(pgbDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 690, 25));
+        jPanel1.add(pgbDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 690, 25));
 
         pgbGpuTemperatura.setForeground(new java.awt.Color(109, 144, 174));
         pgbGpuTemperatura.setString("0°C");
         pgbGpuTemperatura.setStringPainted(true);
-        jPanel1.add(pgbGpuTemperatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 690, 25));
+        jPanel1.add(pgbGpuTemperatura, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 690, 25));
 
         lblDisco.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         lblDisco.setForeground(new java.awt.Color(255, 255, 255));
         lblDisco.setText("Disco:");
-        jPanel1.add(lblDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jPanel1.add(lblDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         lblMemoria.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         lblMemoria.setForeground(new java.awt.Color(255, 255, 255));
         lblMemoria.setText("Memória:");
-        jPanel1.add(lblMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel1.add(lblMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         lblPlacaDeVideo.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         lblPlacaDeVideo.setForeground(new java.awt.Color(255, 255, 255));
         lblPlacaDeVideo.setText("Temperatura da GPU:");
-        jPanel1.add(lblPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 270, -1));
+        jPanel1.add(lblPlacaDeVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 270, -1));
 
         pgbMemoria.setForeground(new java.awt.Color(109, 144, 174));
         pgbMemoria.setStringPainted(true);
-        jPanel1.add(pgbMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 690, 25));
+        jPanel1.add(pgbMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 690, 25));
 
         lblTemperaturaCpu.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
         lblTemperaturaCpu.setForeground(new java.awt.Color(255, 255, 255));
         lblTemperaturaCpu.setText("Temperatura da CPU:");
-        jPanel1.add(lblTemperaturaCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 270, -1));
+        jPanel1.add(lblTemperaturaCpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 270, -1));
 
         lblFabricante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblFabricante.setForeground(new java.awt.Color(255, 255, 255));
         lblFabricante.setText("Fabricante:");
-        jPanel1.add(lblFabricante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 430, -1));
+        jPanel1.add(lblFabricante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 430, -1));
 
         lblSO.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSO.setForeground(new java.awt.Color(255, 255, 255));
         lblSO.setText("Sistema Operacional:");
-        jPanel1.add(lblSO, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 430, -1));
+        jPanel1.add(lblSO, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 430, -1));
 
         lblModelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblModelo.setForeground(new java.awt.Color(255, 255, 255));
         lblModelo.setText("Modelo:");
-        jPanel1.add(lblModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 430, -1));
+        jPanel1.add(lblModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 430, -1));
 
         lblData.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,22 +219,22 @@ public class Graficos extends javax.swing.JFrame {
         lblInfoCPU.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblInfoCPU.setForeground(new java.awt.Color(255, 255, 255));
         lblInfoCPU.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblInfoCPU, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 270, 10));
+        jPanel1.add(lblInfoCPU, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 270, 10));
 
         lblInfoDisco.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblInfoDisco.setForeground(new java.awt.Color(255, 255, 255));
         lblInfoDisco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblInfoDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 430, 20));
+        jPanel1.add(lblInfoDisco, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 430, 20));
 
         lblInfoMemoria.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblInfoMemoria.setForeground(new java.awt.Color(255, 255, 255));
         lblInfoMemoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblInfoMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 250, 10));
+        jPanel1.add(lblInfoMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 250, 10));
 
         lblInfoGPU.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblInfoGPU.setForeground(new java.awt.Color(255, 255, 255));
         lblInfoGPU.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanel1.add(lblInfoGPU, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, 410, 10));
+        jPanel1.add(lblInfoGPU, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 410, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -335,11 +335,11 @@ public class Graficos extends javax.swing.JFrame {
             }
 
             Monitoramento inicio = new Monitoramento();
-            pgbCpuTemperatura.setValue(inicio.getTemperaturaCpu().intValue());
-            pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTemperaturaCpu()));
-            pgbDisco.setValue(inicio.getTamanhoDisco().intValue());
-            pgbMemoria.setValue(inicio.getPorcentagemMemoriaRam().intValue());
-            pgbCpu.setValue(inicio.getPorcentagemCpu().intValue());
+            pgbCpuTemperatura.setValue(inicio.getTempCpu().intValue());
+            pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
+            pgbDisco.setValue(inicio.getTamanhoDiscoUsado().intValue());
+            pgbMemoria.setValue(inicio.getPorcMemRam().intValue());
+            pgbCpu.setValue(inicio.getPorcCpu().intValue());
 
             MonitoramentoHardware hardwareMemoria = new MonitoramentoHardware();
             lblInfoMemoria.setText(hardwareMemoria.getInfoMemoria());
