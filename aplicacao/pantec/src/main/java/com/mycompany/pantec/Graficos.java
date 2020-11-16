@@ -24,6 +24,7 @@ import oshi.hardware.HWDiskStore;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
+import telegrambot.Main;
 
 /**
  *
@@ -51,6 +52,7 @@ public class Graficos extends javax.swing.JFrame {
         }
         initComponents();
         
+         Main bot = new Main();
         
         lblInfoCPU.setText(hardware.getInfoCpu());
         lblInfoDisco.setText(hardware.getInfoDisco() + ")");
@@ -327,13 +329,14 @@ public class Graficos extends javax.swing.JFrame {
     }
 
     private void atualizarBarraProgreco() {
+        Main bot = new Main();
         while (true) {
               try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-
+                bot.chat("Não inicionou o monitoramento");
             }
-
+              //bot.chat("Iniciou o monitoramento");
             Monitoramento inicio = new Monitoramento();
             pgbCpuTemperatura.setValue(inicio.getTempCpu().intValue());
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
@@ -347,6 +350,9 @@ public class Graficos extends javax.swing.JFrame {
             MonitoramentoGPU gpu = new MonitoramentoGPU();
             if(gpu.getPossivelMedir()){
                      pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
+                     //bot.chat("Capturou a temperatura");
+            }else{
+                bot.chat("Não foi possível capturar a temperatura");
             }
        
 
