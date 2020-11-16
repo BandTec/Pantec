@@ -36,7 +36,6 @@ public class Graficos extends javax.swing.JFrame {
     /**
      * Creates new form Graficos
      */
-    tentativa monitorar= new tentativa();
     public Graficos() {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
