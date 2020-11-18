@@ -17,7 +17,7 @@ import oshi.software.os.OSProcess;
 public class DadosdoProcesso {
     
     SystemInfo si = new SystemInfo();
-    List<OSProcess> Teste;
+    List<OSProcess> processosList;
     DefaultTableModel modelo;
 
     public DadosdoProcesso() {
@@ -64,17 +64,17 @@ public class DadosdoProcesso {
     
     private void atualizarValores() {
       
-        Teste = si.getOperatingSystem().getProcesses();
-        if (Teste.isEmpty()) {
+        processosList = si.getOperatingSystem().getProcesses();
+        if (processosList.isEmpty()) {
             modelo.addRow(new Object[]{false, "sem informações", "sem informações", "sem informações"});
         } else {
-            for (int i = 0; i < Teste.size(); i++) {
+            for (int i = 0; i < processosList.size(); i++) {
 
                 modelo.addRow(new Object[0]);
                 modelo.setValueAt(false, i, 0);
                 modelo.setValueAt("Em andamento", i, 1);
-                modelo.setValueAt(Teste.get(i).getProcessID(), i, 2);
-                modelo.setValueAt(Teste.get(i).getName(), i, 3);
+                modelo.setValueAt(processosList.get(i).getProcessID(), i, 2);
+                modelo.setValueAt(processosList.get(i).getName(), i, 3);
 
             }
         }

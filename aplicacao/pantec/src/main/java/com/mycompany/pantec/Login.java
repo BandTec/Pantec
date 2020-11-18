@@ -5,6 +5,7 @@
  */
 package com.mycompany.pantec;
 
+import com.mycompany.bd.TesteConnection;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -187,15 +188,22 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_imgEscuroActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String senha= String.valueOf(txtSenha.getPassword());
-        if(txtEmail.getText().equals("administrador@admin.com.br") && "admin".equals(senha)){
-             System.out.println("AOBA");
-            new Graficos().setVisible(true);
-            dispose();         
-        }
+        String login = String.valueOf(txtEmail.getText());
+        String senha = String.valueOf(txtSenha.getPassword());
+
+        TesteConnection conectar = new TesteConnection();
+
+        if (conectar.verificarLogin(login, senha)) {
             lblErro.setForeground(Color.red);
             lblErro.setText("Usuário ou senha incorretos");
-        
+
+        } else {
+            conectar.cadastrarMaquina();
+            new Graficos().setVisible(true);
+            dispose();
+        }
+
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtEmailInputMethodTextChanged
@@ -225,6 +233,7 @@ public class Login extends javax.swing.JFrame {
             btnEntrar.setBackground(Color.decode("#6D90AE"));
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -274,5 +283,3 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
-
-

@@ -190,6 +190,7 @@ public class Processos extends javax.swing.JFrame {
             if (checked) {
 
                 try {
+                 
                     tabela.kill(id);
                     jTableProcessos.setValueAt("Encerrado", i, 1);
                     contadorProcesso++;
