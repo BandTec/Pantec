@@ -41,7 +41,7 @@ router.post('/autenticar', (req, res, next)=> {
 router.post('/cadastrar', (req, res, next)=> {
 	console.log('Criando um usuário');
 	
-	const {nome, login, senha, logradouro, cep, bairro, cidade, numero, telefone} = req.body;
+	const {nome, login, senha, logradouro, cep, bairro, cidade, numero, telefone, tipoDoc, numDoc} = req.body;
 
 	Usuario.create({
 		nome: nome, 
@@ -52,7 +52,9 @@ router.post('/cadastrar', (req, res, next)=> {
 		bairro: bairro,
 		cidade:cidade,
 		numero: numero,
-		telefone:telefone
+		telefone:telefone,
+		tipoDoc: tipoDoc,
+		numDoc: numDoc
 	}).then(resultado => {
 		console.log(`Registro criado: ${resultado}`)
         res.send(resultado);
@@ -114,6 +116,21 @@ router.get('/', (req, res, next)=> {
 		res.status(500).send(erro.message);
   	});
 });
+router.get('/listar',async (req, res, next) => {
+	try {
+        var q = "SELECT tipoDocumento FROM documento";
+        let { select } = req.body.documento;
+        const result = await conexao.query(q, (err, data) => {
+            if(err) console.log(err);
+            console.log(data, "\n", data.recordset, "\n", data.rowsAffected, "\n", data.recordset[0]);
+            res.send(result);
+            sql.close(); 
+        });
+        
 
+    } catch (error) {
+        console.log(error);
+    }
+})
 module.exports = router;
 

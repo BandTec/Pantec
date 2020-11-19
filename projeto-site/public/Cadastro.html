@@ -40,6 +40,17 @@
             <div class="form-text text-muted">Digite o cep sem "." ou "-"</div>
         </div>
         <div class="form-group">
+            <select class="rounded-pill" style="width:45%;height:30px" name="tipoDoc" id="tipoDoc">
+                <option value="0" selected hidden disabled>Selecione uma opção...</option>
+                <option value="1">CPF</option>
+                <option value="2">CNPJ</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="numDocumento">Número do documento</label><br>
+            <input type="text" class="rounded-pill" name="numDoc" id="numDoc">
+        </div>
+        <div class="form-group">
             <label for="logradouro">Logradouro</label><br>
             <input type="text" class="rounded-pill" name="logradouro">
         </div>
@@ -82,6 +93,11 @@
 </html>
 <script>
 
+    function listar(){
+        fetch("/listar").then(console.log('entrou')).catch(error=>console.log(error))
+        return false;
+    }
+
     function cadastrar() {
         var formulario = new URLSearchParams(new FormData(form_cadastro));
         fetch("/usuarios/cadastrar", {
@@ -113,6 +129,8 @@
         var confirmacao = form_cadastro.confirmacao.value;
         var number = form_cadastro.numero.value;
         var cep = form_cadastro.cep.value;
+        var tipoDocumento = form_cadastro.tipoDoc.value;
+        var numDoc = form_cadastro.numDoc.value;
         mensagemErro.innerHTML = "";
         if (nome == "" || nome.length < 3) {
             mensagemErro.innerHTML += 'Preencha o nome do campo <br>';

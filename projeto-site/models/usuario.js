@@ -57,6 +57,16 @@ module.exports = (sequelize, DataTypes) => {
 			field: 'telefone',
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		tipoDoc:{
+			field: 'documento_id',
+			type: DataTypes.INTEGER,
+			allowNull: false
+		},
+		numeroDocumento:{
+			field: 'numeroDocumento',
+			type: DataTypes.STRING,
+			allowNull: false
 		}		
 	}, 
 	{

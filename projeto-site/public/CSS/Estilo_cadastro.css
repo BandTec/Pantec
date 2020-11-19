@@ -8,6 +8,13 @@
     width: 15px;
 }
 
+input, select{
+    outline: none;
+}
+
+input:focus{
+    background-color: #e2e2e2;
+}
 
 /*Define a fundo da barra de rolagem*/
 
