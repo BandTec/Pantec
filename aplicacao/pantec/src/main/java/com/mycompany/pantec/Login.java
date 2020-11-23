@@ -5,10 +5,8 @@
  */
 package com.mycompany.pantec;
 
-import com.mycompany.bd.TesteConnection;
+import com.mycompany.bd.Select;
 import java.awt.Color;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -188,20 +186,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_imgEscuroActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+   
         String login = String.valueOf(txtEmail.getText());
         String senha = String.valueOf(txtSenha.getPassword());
-
-        TesteConnection conectar = new TesteConnection();
-
-        if (conectar.verificarLogin(login, senha)) {
-            lblErro.setForeground(Color.red);
-            lblErro.setText("Usuário ou senha incorretos");
-
-        } else {
-            conectar.cadastrarMaquina();
+        
+        Select con = new Select();
+        
+        
+        if (con.checkLogin(login, senha)) {
             new Graficos().setVisible(true);
             dispose();
+        
+
+        } else {
+            lblErro.setForeground(Color.red);
+            lblErro.setText("Usuário ou senha incorretos");
+          
         }
+         
 
 
     }//GEN-LAST:event_btnEntrarActionPerformed

@@ -114,13 +114,13 @@ public class Processos extends javax.swing.JFrame {
                 btnFiltrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 70, -1));
+        jPanel1.add(btnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 70, 20));
         jPanel1.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 160, -1));
 
         btnSair.setBackground(new java.awt.Color(101, 134, 205));
         btnSair.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnSair.setForeground(new java.awt.Color(255, 255, 255));
-        btnSair.setText("SAIR");
+        btnSair.setText("Voltar");
         btnSair.setBorder(null);
         btnSair.setContentAreaFilled(false);
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +173,7 @@ public class Processos extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        new Login().setVisible(true);
+        new Graficos().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
@@ -240,11 +240,13 @@ public class Processos extends javax.swing.JFrame {
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
             jPanel1.setBackground(Color.white);
             lblTitulo.setForeground(Color.black);
+            lblNome.setForeground(Color.black);
             btnSair.setForeground(Color.black);
         } else {
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
             jPanel1.setBackground(Color.decode("#00113C"));
             lblTitulo.setForeground(Color.white);
+             lblNome.setForeground(Color.white);
             btnSair.setForeground(Color.white);
         }
     }

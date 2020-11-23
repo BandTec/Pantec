@@ -5,7 +5,12 @@
  */
 package com.mycompany.bd;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,22 +18,62 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 public class Connection {
 
-    private final BasicDataSource datasource;
-
-    public Connection() {
-        this.datasource = new BasicDataSource();
-        this.datasource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        this.datasource.setUrl("jdbc:sqlserver://svrpantec.database.windows.net:1433;"
+    
+    
+    public static java.sql.Connection getConnection() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            return DriverManager.getConnection("jdbc:sqlserver://svrpantec.database.windows.net:1433;"
                         + "database=pantec;"
                         + "user=adminlocal@svrpantec;"
                         + "password=#Pantec123;"
                         + "encrypt=true;"
                         + "trustServerCertificate=false;"
                         + "loginTimeout=30;");
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new RuntimeException("Erro na conexão: ", ex);
+        }
+    }
+    
+    
+    public static void closeConnection(java.sql.Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public BasicDataSource getDatasource() {
-        return datasource;
+    public static void closeConnection(java.sql.Connection con, PreparedStatement stmt) {
+
+        closeConnection(con);
+
+        try {
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void closeConnection(java.sql.Connection con, PreparedStatement stmt, ResultSet rs) {
+
+        closeConnection(con, stmt);
+
+        try {
+
+            if (rs != null) {
+                rs.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

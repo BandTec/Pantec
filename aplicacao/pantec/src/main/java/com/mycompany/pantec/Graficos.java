@@ -16,14 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import oshi.SystemInfo;
-import oshi.hardware.CentralProcessor;
-import oshi.hardware.GlobalMemory;
-import oshi.hardware.GraphicsCard;
-import oshi.hardware.HWDiskStore;
-import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.OSProcess;
-import oshi.software.os.OperatingSystem;
 import telegrambot.Main;
 
 /**
@@ -31,8 +23,8 @@ import telegrambot.Main;
  * @author Aluno
  */
 public class Graficos extends javax.swing.JFrame {
-     MonitoramentoHardware hardware = new MonitoramentoHardware();
 
+    MonitoramentoHardware hardware = new MonitoramentoHardware();
 
     /**
      * Creates new form Graficos
@@ -40,19 +32,13 @@ public class Graficos extends javax.swing.JFrame {
     public Graficos() {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
-        
-         Main bot = new Main();
-        
+
+        Main bot = new Main();
+
         lblInfoCPU.setText(hardware.getInfoCpu());
         lblInfoDisco.setText(hardware.getInfoDisco() + ")");
         lblInfoMemoria.setText(hardware.getInfoMemoria());
@@ -71,8 +57,8 @@ public class Graficos extends javax.swing.JFrame {
         Thread threadBarra = new Thread(this::atualizarBarraProgreco);
         threadBarra.start();
 
-        
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -251,9 +237,12 @@ public class Graficos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private Integer contador = 0;
+
     private void changeTheme(Integer tema) {
-          if (tema == 0) {
+        if (tema == 0) {
             jPanel1.setBackground(Color.white);
+            lblData.setForeground(Color.black);
+            lblHora.setForeground(Color.black);
             lblCpu.setForeground(Color.black);
             lblTemperaturaCpu.setForeground(Color.black);
             lblDisco.setForeground(Color.black);
@@ -271,9 +260,13 @@ public class Graficos extends javax.swing.JFrame {
             btnProcessos.setBackground(cor);
             pgbCpuTemperatura.setForeground(cor);
             pgbGpuTemperatura.setForeground(cor);
+            pgbCpu.setForeground(cor);
+            pgbDisco.setForeground(cor);
             pgbMemoria.setForeground(cor);
             btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modoclaro.PNG")));
         } else {
+            lblData.setForeground(Color.white);
+            lblHora.setForeground(Color.white);
             lblInfoCPU.setForeground(Color.white);
             lblInfoDisco.setForeground(Color.white);
             lblInfoGPU.setForeground(Color.white);
@@ -291,9 +284,11 @@ public class Graficos extends javax.swing.JFrame {
             btnProcessos.setBackground(Color.decode("#6D90AE"));
             pgbCpuTemperatura.setForeground(Color.decode("#6D90AE"));
             pgbGpuTemperatura.setForeground(Color.decode("#6D90AE"));
+            pgbCpu.setForeground(Color.decode("#6D90AE"));
+            pgbDisco.setForeground(Color.decode("#6D90AE"));
             pgbMemoria.setForeground(Color.decode("#6D90AE"));
             btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
-        
+
         }
     }
     private void btnProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessosActionPerformed
@@ -303,14 +298,14 @@ public class Graficos extends javax.swing.JFrame {
 
     private void btnModoClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModoClaroActionPerformed
         // TODO add your handling code here:
-        if(contador == 0){
+        if (contador == 0) {
             changeTheme(contador);
             ++contador;
-        }else{
+        } else {
             changeTheme(contador);
             --contador;
         }
-        
+
     }//GEN-LAST:event_btnModoClaroActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -318,7 +313,6 @@ public class Graficos extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    
     private void atualizarHora() {
         while (true) {
             List<String> dataHora = Conversao.dataHora(LocalDateTime.now().toString());
@@ -330,12 +324,12 @@ public class Graficos extends javax.swing.JFrame {
     private void atualizarBarraProgreco() {
         Main bot = new Main();
         while (true) {
-              try {
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 bot.chat("Não inicionou o monitoramento");
             }
-              //bot.chat("Iniciou o monitoramento");
+            //bot.chat("Iniciou o monitoramento");
             Monitoramento inicio = new Monitoramento();
             pgbCpuTemperatura.setValue(inicio.getTempCpu().intValue());
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
@@ -347,18 +341,17 @@ public class Graficos extends javax.swing.JFrame {
             lblInfoMemoria.setText(hardwareMemoria.getInfoMemoria());
 
             MonitoramentoGPU gpu = new MonitoramentoGPU();
-            if(gpu.getPossivelMedir()){
-                     pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
-                     //bot.chat("Capturou a temperatura");
-            }else{
+            if (gpu.getPossivelMedir()) {
+                pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
+                //bot.chat("Capturou a temperatura");
+            } else {
                 bot.chat("Não foi possível capturar a temperatura");
             }
-       
 
-          
         }
 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -387,10 +380,8 @@ public class Graficos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Graficos().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Graficos().setVisible(true);
         });
     }
 
