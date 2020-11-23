@@ -9,6 +9,7 @@ import com.mycompany.api.Conversao;
 import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoGPU;
 import com.mycompany.api.MonitoramentoHardware;
+import com.mycompany.log.ControllerLog;
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +26,7 @@ import telegrambot.Main;
 public class Graficos extends javax.swing.JFrame {
 
     MonitoramentoHardware hardware = new MonitoramentoHardware();
-
+    ControllerLog log = new ControllerLog();
     /**
      * Creates new form Graficos
      */
@@ -34,6 +35,8 @@ public class Graficos extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+            log.printarLog(String.format("Erro: %s", ex), "Instalação");
+            
         }
         initComponents();
 
@@ -328,6 +331,7 @@ public class Graficos extends javax.swing.JFrame {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 bot.chat("Não inicionou o monitoramento");
+                log.printarLog(String.format("Monitoramento não iniciado: %s", e), "Erro");
             }
             //bot.chat("Iniciou o monitoramento");
             Monitoramento inicio = new Monitoramento();

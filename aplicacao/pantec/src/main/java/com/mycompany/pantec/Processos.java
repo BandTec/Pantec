@@ -5,6 +5,7 @@
  */
 package com.mycompany.pantec;
 
+import com.mycompany.log.ControllerLog;
 import com.mycompany.processos.DadosdoProcesso;
 import com.mycompany.processos.TabelaProcesso;
 import java.awt.Color;
@@ -22,7 +23,7 @@ import javax.swing.table.TableRowSorter;
  * @author Aluno
  */
 public class Processos extends javax.swing.JFrame {
-
+    ControllerLog log = new ControllerLog();
     TabelaProcesso tabela = new TabelaProcesso();
     DadosdoProcesso dados = new DadosdoProcesso();
 
@@ -196,6 +197,7 @@ public class Processos extends javax.swing.JFrame {
                     contadorProcesso++;
                 } catch (IOException ex) {
                     Logger.getLogger(Processos.class.getName()).log(Level.SEVERE, null, ex);
+                    log.printarLog("Erro: "+ex, Level.SEVERE.toString());
                 }
 
             }

@@ -7,6 +7,7 @@ package com.mycompany.bd;
 
 import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoHardware;
+import com.mycompany.log.ControllerLog;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class Select {
     PreparedStatement stmt = null;
     ResultSet rs = null;
 
+    ControllerLog log = new ControllerLog();
     public boolean checkLogin(String login, String senha) {
 
         boolean check = false;
@@ -46,7 +48,7 @@ public class Select {
                 user.setEmail(rs.getString("email"));
                 user.setSenha(rs.getString("senha"));
                 user.setCliente_id(rs.getInt("cliente_id"));
-
+                log.printarLog(String.format("Usuário %s conectado com sucesso", login), "Utilização");
                 verificarMaquina();
 
                 check = true;
@@ -54,6 +56,7 @@ public class Select {
 
         } catch (SQLException ex) {
             Logger.getLogger(TesteConnection.class.getName()).log(Level.SEVERE, null, ex);
+            log.printarLog(String.format("Erro ao se conectar %s", ex), "Utilização");
         } finally {
             Connection.closeConnection(con, stmt, rs);
         }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.bd;
 
+import com.mycompany.log.ControllerLog;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,6 @@ import java.util.logging.Logger;
  */
 public class Connection {
 
-    
     
     public static java.sql.Connection getConnection() {
         try {

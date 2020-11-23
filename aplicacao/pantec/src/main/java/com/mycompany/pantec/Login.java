@@ -6,6 +6,7 @@
 package com.mycompany.pantec;
 
 import com.mycompany.bd.Select;
+import com.mycompany.log.ControllerLog;
 import java.awt.Color;
 
 /**
@@ -20,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
-
+    ControllerLog log = new ControllerLog();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -201,7 +202,7 @@ public class Login extends javax.swing.JFrame {
         } else {
             lblErro.setForeground(Color.red);
             lblErro.setText("Usuário ou senha incorretos");
-          
+            log.printarLog("Login ou senha incorretas", "Erro");
         }
          
 

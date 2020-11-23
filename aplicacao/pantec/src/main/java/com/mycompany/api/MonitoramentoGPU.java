@@ -5,6 +5,7 @@
  */
 package com.mycompany.api;
 
+import com.mycompany.log.ControllerLog;
 import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Gpu;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MonitoramentoGPU {
     private Double temperaturaGPU;
     private final SystemInfo si = new SystemInfo();
     private final OperatingSystem so = si.getOperatingSystem();
-
+    ControllerLog log = new ControllerLog();
     private final HardwareAbstractionLayer hard = si.getHardware();
 
     public MonitoramentoGPU() {
@@ -41,9 +42,11 @@ public class MonitoramentoGPU {
         } else {
            
             //Placa dedicada
+            log.printarLog("Placa de vídeo dedicada não pode ser lida", "Instalação");
             possivelMedir = false;
         }
         }else{
+            log.printarLog("Erro ao Monitorar GPU", "Erro");
              possivelMedir = false;
         }
 
