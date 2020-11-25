@@ -206,7 +206,7 @@
         // e como são recuperados do BackEnd
         function obterDadosGraficoTwo() {
             var dados = new google.visualization.DataTable();
-            dados.addColumn('string', 'Momento');
+            dados.addColumn('string', 'Resto');
             dados.addColumn('number', 'Uso');
 
             fetch('/leituras/disco', { cache: 'no-store' }).then(function (response) {
@@ -244,7 +244,7 @@
         function plotarGraficoTwo(dados) {
             console.log('iniciando plotagem do gráfico...');
 
-            var chart = new google.visualization.SteppedAreaChart(div_grafico_two);
+            var chart = new google.visualization.PieChart(div_grafico_two);
             chart.draw(dados, configurarGraficoTwo());
         }
 
@@ -345,7 +345,7 @@
         function plotarGraficoTree(dados) {
             console.log('iniciando plotagem do gráfico...');
 
-            var chart = new google.visualization.SteppedAreaChart(div_grafico_tree);
+            var chart = new google.visualization.PieChart(div_grafico_tree);
             chart.draw(dados, configurarGraficoTree());
         }
         google.load('visualization', '1', {
