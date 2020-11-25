@@ -20,11 +20,13 @@
             <version>2.5.0</version>
             <!-- ou versão que já existir na .m2 local -->
         </dependency>
+       <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.2.2.jre8</version>
+            <version>9.1.0.jre11-preview</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -80,6 +82,34 @@
             <version>2.8.5</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId> 
+            <version>3.2.0</version>
+            <configuration>
+                <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> </descriptorRefs>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                        <mainClass>com.mycompany.pantec.Graficos</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+             <executions> 
+                 <execution> 
+                     <id>make-assembly</id> 
+                     <phase>package</phase> 
+                     <goals> 
+                         <goal>single</goal> 
+                     </goals> 
+                </execution>
+            </executions>
+        </plugin>
+        </plugins>    
+    </build>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>

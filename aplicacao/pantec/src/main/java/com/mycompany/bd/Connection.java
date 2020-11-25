@@ -5,7 +5,7 @@
  */
 package com.mycompany.bd;
 
-import com.mycompany.log.ControllerLog;
+//import com.mycompany.log.ControllerLog;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class Connection {
 
-    
+//    ControllerLog log= new ControllerLog();
     public static java.sql.Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -32,6 +32,7 @@ public class Connection {
                         + "loginTimeout=30;");
         } catch (ClassNotFoundException | SQLException ex) {
             throw new RuntimeException("Erro na conexão: ", ex);
+//            log.printarLog("jgjmg", "loju,lju");
         }
     }
     
