@@ -27,6 +27,7 @@ public class Select {
     Monitoramento monitoramento = new Monitoramento();
     PreparedStatement stmt = null;
     ResultSet rs = null;
+    Integer maquina = 0;
 
     ControllerLog log = new ControllerLog();
     public boolean checkLogin(String login, String senha) {
@@ -57,9 +58,7 @@ public class Select {
         } catch (SQLException ex) {
             Logger.getLogger(TesteConnection.class.getName()).log(Level.SEVERE, null, ex);
             log.printarLog(String.format("Erro ao se conectar %s", ex), "Utilização");
-        } finally {
-            Connection.closeConnection(con, stmt, rs);
-        }
+        } 
 
         return check;
 
@@ -82,7 +81,7 @@ public class Select {
             maq.setHostname(rs.getString("hostname"));
             maq.setUsuario_id(rs.getInt("usuario_id"));
             
-            System.out.println(maq.getId());
+           maquina = maq.getId();
 
         }
 
@@ -105,32 +104,78 @@ public class Select {
 
         } catch (SQLException ex) {
             System.out.println(ex);
-        } finally {
-            Connection.closeConnection(con, stmt);
         }
 
     }
     
-    
-    public void insereRegistro(){
+     public void insereGpu(Integer id, Double gpu){
         
         
            try {
         
                
-               System.out.println("Começou");
-            stmt = con.prepareStatement("INSERT INTO registro (componente, momento,componente_id,maquina_id,medida_id)VALUES(?,?,?,?,?)");
-           
-            stmt.executeUpdate();
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt.setInt(1, 4);
+            stmt.setDouble(2, gpu);
+            stmt.setInt(3, id);
 
+            stmt.executeUpdate();
+     
+    
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    public void insereRegistro(Integer id, Double cpu, Double mem, Double disco, Double tempCpu){
+        
+        
+           try {
+        
+               
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt.setInt(1, 1);
+            stmt.setDouble(2, cpu);
+            stmt.setInt(3, id);
+
+            stmt.executeUpdate();
+            
+                      
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt.setInt(1, 2);
+            stmt.setDouble(2, disco);
+            stmt.setInt(3, id);
+
+            stmt.executeUpdate();
+            
+                     
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt.setInt(1, 3);
+            stmt.setDouble(2, mem);
+            stmt.setInt(3, id);
+
+            stmt.executeUpdate();
+            
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt.setInt(1, 5);
+            stmt.setDouble(2, tempCpu);
+            stmt.setInt(3, id);
+
+            stmt.executeUpdate();
+            
             
 
         } catch (SQLException ex) {
             System.out.println(ex);
-        } finally {
-            Connection.closeConnection(con, stmt);
         }
-        
     }
+
+    public Integer getMaquina() {
+        return maquina;
+    }
+    
+    
+    
 
 }

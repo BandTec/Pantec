@@ -26,14 +26,16 @@ public class Processos extends javax.swing.JFrame {
     ControllerLog log = new ControllerLog();
     TabelaProcesso tabela = new TabelaProcesso();
     DadosdoProcesso dados = new DadosdoProcesso();
+    Integer idmaquina;
 
     /**
      * Creates new form Processos
      */
-    public Processos() {
+    public Processos(Integer id) {
         initComponents();
         Thread threadDados = new Thread(this::atualizarDados);
         threadDados.start();
+       idmaquina =id;
     }
 
     /**
@@ -174,7 +176,7 @@ public class Processos extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        new Graficos().setVisible(true);
+        new Graficos(idmaquina).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
@@ -280,12 +282,6 @@ public class Processos extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Processos().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

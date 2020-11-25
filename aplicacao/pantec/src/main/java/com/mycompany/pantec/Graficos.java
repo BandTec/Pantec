@@ -9,6 +9,7 @@ import com.mycompany.api.Conversao;
 import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoGPU;
 import com.mycompany.api.MonitoramentoHardware;
+import com.mycompany.bd.Select;
 import com.mycompany.log.ControllerLog;
 import java.awt.Color;
 import java.time.LocalDateTime;
@@ -26,11 +27,14 @@ import telegrambot.Main;
 public class Graficos extends javax.swing.JFrame {
 
     MonitoramentoHardware hardware = new MonitoramentoHardware();
+    Select select = new Select();
     ControllerLog log = new ControllerLog();
+    Integer idmaquina = 0;
     /**
      * Creates new form Graficos
+     * @param maquina
      */
-    public Graficos() {
+    public Graficos(Integer maquina) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -60,7 +64,10 @@ public class Graficos extends javax.swing.JFrame {
         Thread threadBarra = new Thread(this::atualizarBarraProgreco);
         threadBarra.start();
 
-    }
+        idmaquina = maquina;
+  
+        
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -295,7 +302,7 @@ public class Graficos extends javax.swing.JFrame {
         }
     }
     private void btnProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessosActionPerformed
-        new Processos().setVisible(true);
+        new Processos(idmaquina).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnProcessosActionPerformed
 
@@ -343,14 +350,17 @@ public class Graficos extends javax.swing.JFrame {
 
             MonitoramentoHardware hardwareMemoria = new MonitoramentoHardware();
             lblInfoMemoria.setText(hardwareMemoria.getInfoMemoria());
+            
+            
 
             MonitoramentoGPU gpu = new MonitoramentoGPU();
             if (gpu.getPossivelMedir()) {
+                select.insereGpu(idmaquina, gpu.getTemperaturaGPU());
                 pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
-                //bot.chat("Capturou a temperatura");
-            } else {
-                bot.chat("Não foi possível capturar a temperatura");
-            }
+             
+            } 
+            
+            select.insereRegistro(idmaquina,inicio.getPorcCpu(), inicio.getPorcMemRam(),inicio.getTamanhoDiscoUsado(), inicio.getTempCpu());
 
         }
 
@@ -383,10 +393,6 @@ public class Graficos extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Graficos().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

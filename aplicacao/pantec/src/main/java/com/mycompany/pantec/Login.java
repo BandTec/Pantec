@@ -195,7 +195,7 @@ public class Login extends javax.swing.JFrame {
         
         
         if (con.checkLogin(login, senha)) {
-            new Graficos().setVisible(true);
+            new Graficos(con.getMaquina()).setVisible(true);
             dispose();
         
 
