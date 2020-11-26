@@ -34,8 +34,10 @@ public class Graficos extends javax.swing.JFrame {
     Select select = new Select();
     ControllerLog log = new ControllerLog();
     Integer idmaquina = 0;
+
     /**
      * Creates new form Graficos
+     *
      * @param maquina
      */
     public Graficos(Integer maquina) {
@@ -44,7 +46,7 @@ public class Graficos extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
             log.printarLog(String.format("Erro: %s", ex), "Instalação");
-            
+
         }
         initComponents();
 
@@ -69,9 +71,8 @@ public class Graficos extends javax.swing.JFrame {
         threadBarra.start();
 
         idmaquina = maquina;
-  
-        
-    }  
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -348,23 +349,64 @@ public class Graficos extends javax.swing.JFrame {
             Monitoramento inicio = new Monitoramento();
             pgbCpuTemperatura.setValue(inicio.getTempCpu().intValue());
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
+
+            if (inicio.getTempCpu() >= 72) {
+               
+            } else if (inicio.getTempCpu() >= 60) {
+                
+            } else {
+        
+            }
+
             pgbDisco.setValue(inicio.getTamanhoDiscoUsado().intValue());
+
+            if (inicio.getTamanhoDiscoUsado() >= 50) {
+                
+            } else if (inicio.getTamanhoDiscoUsado() >= 45) {
+              
+            } else {
+               
+            }
+
             pgbMemoria.setValue(inicio.getPorcMemRam().intValue());
+
+            if (inicio.getPorcMemRam() >= 80) {
+               
+            } else if (inicio.getPorcMemRam() >= 75) {
+             
+            } else {
+               
+            }
+
             pgbCpu.setValue(inicio.getPorcCpu().intValue());
+
+            if (inicio.getPorcCpu() >= 90) {
+               
+            } else if (inicio.getPorcCpu() >= 80) {
+               
+            } else {
+               
+            }
 
             MonitoramentoHardware hardwareMemoria = new MonitoramentoHardware();
             lblInfoMemoria.setText(hardwareMemoria.getInfoMemoria());
-            
-            
 
             MonitoramentoGPU gpu = new MonitoramentoGPU();
             if (gpu.getPossivelMedir()) {
                 select.insereGpu(idmaquina, gpu.getTemperaturaGPU());
                 pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
-             
-            } 
-            
-            select.insereRegistro(idmaquina,inicio.getPorcCpu(), inicio.getPorcMemRam(),inicio.getTamanhoDiscoUsado(), inicio.getTempCpu());
+
+                if (gpu.getTemperaturaGPU() >= 90) {
+                  
+                } else if (gpu.getTemperaturaGPU() >= 80) {
+                    
+                } else {
+                  
+                }
+
+            }
+
+            select.insereRegistro(idmaquina, inicio.getPorcCpu(), inicio.getPorcMemRam(), inicio.getTamanhoDiscoUsado(), inicio.getTempCpu());
 
         }
 
