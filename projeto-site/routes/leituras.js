@@ -35,9 +35,9 @@ router.get('/cpu', function(req, res, next) {
 router.get('/disco', function(req, res, next) {
    
 	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 7;
+	const limite_linhas = 1;
 
-	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+	console.log(`Recuperando a última leituras`);
    
 	const instrucaoSql = `select top ${limite_linhas}
 							componente, 
@@ -62,7 +62,7 @@ router.get('/disco', function(req, res, next) {
 router.get('/mem', function(req, res, next) {
    
 	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 7;
+	const limite_linhas = 1;
 
 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
    
