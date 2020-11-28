@@ -76,7 +76,7 @@
                 },
                 title: 'CPU',
                 legend: { position: 'bottom' },
-                colors: ['#008080'],
+                colors: ['#547D92'],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -176,7 +176,7 @@
                 },
                 title: 'Disco',
                 legend: { position: 'bottom' },
-                colors: ['#008080','#FF6347'],
+                colors: ['#bd9cbd','#547D92'],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -197,7 +197,10 @@
                     width: (largura - 10),
                     height: (altura - 90)
                 },
-                pieHole:0.4
+                pieHole:0.4,
+                pieSliceTextStyle: {
+                    color: 'black',
+          },
             };
 
             return configuracoes;
@@ -285,7 +288,7 @@
                 },
                 title: 'Memória',
                 legend: { position: 'bottom' },
-                colors: ['#008080','#FF6347'],
+                colors: ['#bd9cbd','#547D92'],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -307,7 +310,10 @@
                     height: (altura - 90)
                 },
                 // is3D: true,
-                pieHole:0.4
+                pieHole:0.4,
+                pieSliceTextStyle: {
+                    color: 'black',
+          },
             };
 
             return configuracoes;
@@ -394,7 +400,7 @@
                 },
                 title: 'GPU',
                 legend: { position: 'bottom' },
-                colors: ['#008080'],
+                colors: ['#547D92'],
                 isStacked: true,
                 width: largura,
                 height: altura,
