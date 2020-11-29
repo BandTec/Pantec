@@ -10,8 +10,10 @@ import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoGPU;
 import com.mycompany.api.MonitoramentoHardware;
 import com.mycompany.bd.Select;
+import com.mycompany.bd.TesteConnection;
 import com.mycompany.log.ControllerLog;
 import java.awt.Color;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
@@ -86,7 +88,7 @@ public class Graficos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         pgbCpuTemperatura = new javax.swing.JProgressBar();
         btnProcessos = new javax.swing.JButton();
-        btnExit = new javax.swing.JButton();
+        btnRelatorio = new javax.swing.JButton();
         btnModoClaro = new javax.swing.JButton();
         lblCpu = new javax.swing.JLabel();
         pgbCpu = new javax.swing.JProgressBar();
@@ -106,6 +108,7 @@ public class Graficos extends javax.swing.JFrame {
         lblInfoDisco = new javax.swing.JLabel();
         lblInfoMemoria = new javax.swing.JLabel();
         lblInfoGPU = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 17, 60));
@@ -127,18 +130,18 @@ public class Graficos extends javax.swing.JFrame {
                 btnProcessosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnProcessos, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 160, 50));
+        jPanel1.add(btnProcessos, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, 160, 50));
 
-        btnExit.setBackground(new java.awt.Color(109, 144, 174));
-        btnExit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        btnExit.setText("SAIR");
-        btnExit.setBorderPainted(false);
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorio.setBackground(new java.awt.Color(109, 144, 174));
+        btnRelatorio.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnRelatorio.setText("Gerar Relatório");
+        btnRelatorio.setBorderPainted(false);
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+                btnRelatorioActionPerformed(evt);
             }
         });
-        jPanel1.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 160, 50));
+        jPanel1.add(btnRelatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 160, 50));
 
         btnModoClaro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG"))); // NOI18N
         btnModoClaro.setBorderPainted(false);
@@ -238,6 +241,17 @@ public class Graficos extends javax.swing.JFrame {
         lblInfoGPU.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jPanel1.add(lblInfoGPU, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 410, 10));
 
+        btnExit.setBackground(new java.awt.Color(109, 144, 174));
+        btnExit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnExit.setText("SAIR");
+        btnExit.setBorderPainted(false);
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 160, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,8 +285,9 @@ public class Graficos extends javax.swing.JFrame {
             lblFabricante.setForeground(Color.black);
             lblModelo.setForeground(Color.black);
             Color cor = new Color(0, 128, 128);
-            btnExit.setBackground(cor);
+            btnRelatorio.setBackground(cor);
             btnProcessos.setBackground(cor);
+            btnExit.setBackground(cor);
             pgbCpuTemperatura.setForeground(cor);
             pgbGpuTemperatura.setForeground(cor);
             pgbCpu.setForeground(cor);
@@ -295,8 +310,9 @@ public class Graficos extends javax.swing.JFrame {
             lblSO.setForeground(Color.white);
             lblFabricante.setForeground(Color.white);
             lblModelo.setForeground(Color.white);
-            btnExit.setBackground(Color.decode("#6D90AE"));
+            btnRelatorio.setBackground(Color.decode("#6D90AE"));
             btnProcessos.setBackground(Color.decode("#6D90AE"));
+            btnExit.setBackground(Color.decode("#6D90AE"));
             pgbCpuTemperatura.setForeground(Color.decode("#6D90AE"));
             pgbGpuTemperatura.setForeground(Color.decode("#6D90AE"));
             pgbCpu.setForeground(Color.decode("#6D90AE"));
@@ -323,7 +339,22 @@ public class Graficos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnModoClaroActionPerformed
 
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+
+        TesteConnection gerar = new TesteConnection();
+
+        try {
+            gerar.gerarRelatorio(idmaquina);
+        } catch (SQLException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Graficos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnRelatorioActionPerformed
+
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
@@ -351,11 +382,9 @@ public class Graficos extends javax.swing.JFrame {
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
 
             if (inicio.getTempCpu() >= 72) {
-               bot.chat("Temperatura elevada da CPU");
+                bot.chat("Temperatura elevada da CPU");
             } else if (inicio.getTempCpu() >= 60) {
-               bot.chat("Temeperatura irregular da CPU");
-            } else {
-        
+                bot.chat("Temeperatura irregular da CPU");
             }
 
             pgbDisco.setValue(inicio.getTamanhoDiscoUsado().intValue());
@@ -364,28 +393,22 @@ public class Graficos extends javax.swing.JFrame {
                 bot.chat("Pouco espaço de armazenamento do HD");
             } else if (inicio.getTamanhoDiscoUsado() >= 45) {
                 bot.chat("Espaço de armazenamento do HD irregular");
-            } else {
-               
             }
 
             pgbMemoria.setValue(inicio.getPorcMemRam().intValue());
 
             if (inicio.getPorcMemRam() >= 80) {
-               bot.chat("Pouco espaço de armazenamento da memória RAM");
+                bot.chat("Pouco espaço de armazenamento da memória RAM");
             } else if (inicio.getPorcMemRam() >= 75) {
-               bot.chat("Espaço de armazenamento da memória RAM irregular");
-            } else {
-               
+                bot.chat("Espaço de armazenamento da memória RAM irregular");
             }
 
             pgbCpu.setValue(inicio.getPorcCpu().intValue());
 
             if (inicio.getPorcCpu() >= 90) {
-               bot.chat("Utilização exagerada da CPU");
+                bot.chat("Utilização exagerada da CPU");
             } else if (inicio.getPorcCpu() >= 80) {
-               bot.chat("Utilização irregular da CPU");
-            } else {
-               
+                bot.chat("Utilização irregular da CPU");
             }
 
             MonitoramentoHardware hardwareMemoria = new MonitoramentoHardware();
@@ -400,8 +423,6 @@ public class Graficos extends javax.swing.JFrame {
                     bot.chat("Temperatura elevada da placa de vídeo");
                 } else if (gpu.getTemperaturaGPU() >= 80) {
                     bot.chat("Temepratura irregular da placa de vídeo");
-                } else {
-                  
                 }
 
             }
@@ -446,6 +467,7 @@ public class Graficos extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnModoClaro;
     private javax.swing.JButton btnProcessos;
+    private javax.swing.JButton btnRelatorio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCpu;
     private javax.swing.JLabel lblData;
