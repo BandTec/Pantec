@@ -351,9 +351,9 @@ public class Graficos extends javax.swing.JFrame {
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
 
             if (inicio.getTempCpu() >= 72) {
-               
+               bot.chat("Temperatura elevada da CPU");
             } else if (inicio.getTempCpu() >= 60) {
-                
+               bot.chat("Temeperatura irregular da CPU");
             } else {
         
             }
@@ -361,9 +361,9 @@ public class Graficos extends javax.swing.JFrame {
             pgbDisco.setValue(inicio.getTamanhoDiscoUsado().intValue());
 
             if (inicio.getTamanhoDiscoUsado() >= 50) {
-                
+                bot.chat("Pouco espaço de armazenamento do HD");
             } else if (inicio.getTamanhoDiscoUsado() >= 45) {
-              
+                bot.chat("Espaço de armazenamento do HD irregular");
             } else {
                
             }
@@ -371,9 +371,9 @@ public class Graficos extends javax.swing.JFrame {
             pgbMemoria.setValue(inicio.getPorcMemRam().intValue());
 
             if (inicio.getPorcMemRam() >= 80) {
-               
+               bot.chat("Pouco espaço de armazenamento da memória RAM");
             } else if (inicio.getPorcMemRam() >= 75) {
-             
+               bot.chat("Espaço de armazenamento da memória RAM irregular");
             } else {
                
             }
@@ -381,9 +381,9 @@ public class Graficos extends javax.swing.JFrame {
             pgbCpu.setValue(inicio.getPorcCpu().intValue());
 
             if (inicio.getPorcCpu() >= 90) {
-               
+               bot.chat("Utilização exagerada da CPU");
             } else if (inicio.getPorcCpu() >= 80) {
-               
+               bot.chat("Utilização irregular da CPU");
             } else {
                
             }
@@ -397,9 +397,9 @@ public class Graficos extends javax.swing.JFrame {
                 pgbGpuTemperatura.setValue(gpu.getTemperaturaGPU().intValue());
 
                 if (gpu.getTemperaturaGPU() >= 90) {
-                  
+                    bot.chat("Temperatura elevada da placa de vídeo");
                 } else if (gpu.getTemperaturaGPU() >= 80) {
-                    
+                    bot.chat("Temepratura irregular da placa de vídeo");
                 } else {
                   
                 }
