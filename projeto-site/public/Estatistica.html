@@ -14,7 +14,7 @@
     <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
-<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour()">
+<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), select()">
     <div class="caixa_menu">
        
             
@@ -36,6 +36,10 @@
      <div class="div-logo"><label class="sieg">SIEG SYSTEM</label></div>
    <br>
     <center>
+        <br><br><br>
+        <select id="tentativa">
+            <option value="" disabled selected>Choose your language</option>
+          </select><br><br>
         <div style="width:75%; margin-top: 5%;">
             <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
             <div style="display: inline-block; margin-left: 100px;" id="div_grafico_two">Dados sendo obtidos...</div>
@@ -471,7 +475,33 @@
             var chart = new google.visualization.SteppedAreaChart(div_grafico_four);
             chart.draw(dados, configurarGraficoFour());
         }
+        function select(){
+            fetch('leituras/select',{ cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
 
+                        console.log(`Dados TESTE: ${JSON.stringify(resposta)}`);
+                        const vetor=[];
+                       
+                            resposta.map(resposta => {
+                                console.log(resposta.hostname)
+                                vetor.push(resposta.hostname)
+                            });
+                            
+                        //    vetor.push(resposta[i]) 
+                        const languagesSelect = document.getElementById("tentativa");
+                        vetor.forEach((language) => {
+                        option = new Option(language, language.toLowerCase());
+                        languagesSelect.options[languagesSelect.options.length] = option;
+                        });
+                        console.log("VETOR TESTE: "+vetor)
+                        
+                })
+            }})
+            .catch((error)=>{
+                console.log(error)
+            })
+        }
     </script>
 </body>
 

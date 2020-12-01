@@ -2,21 +2,42 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
 var Leitura = require('../models').Leitura;
+var Maquina = require('../models').Maquina;
+var os = require('os');
+
+router.get('/select', (req, res)=>{
+	const instrucaoSql =`select hostname from maquina where usuario_id=(select id from usuario where email='vitoria@gmail.com')`;
+	sequelize.query(instrucaoSql, {
+		model: Maquina,
+		mapToModel: true 
+	  })
+	  .then(resultado => {
+			console.log(`Encontrados: ${resultado.length}`);
+			res.json(resultado);
+	  }).catch(erro => {
+			console.error(erro);
+			res.status(500).send(erro.message);
+	  });
+})
 
 /* Recuperar as últimas N leituras */
 router.get('/cpu', function(req, res, next) {
    
 	// quantas são as últimas leituras que quer? 8 está bom?
 	const limite_linhas = 7;
-
+	// console.log("VEJA ISSO "+sessionStorage.getItem('id'))
+	// const id = sessionStorage.getItem('id');
 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
    
-	const instrucaoSql = `select top ${limite_linhas}
+	
+
+	const instrucaoSql = `select top 7
 							componente, 
 							uso, 
 							momento,
+							maquina_id,
 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=1 order by id desc`;
+							from registro where componente=1; `;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
@@ -44,7 +65,7 @@ router.get('/disco', function(req, res, next) {
 							uso, 
 							momento,
 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=2 order by id desc`;
+							from registro where componente=2`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
@@ -71,7 +92,7 @@ router.get('/mem', function(req, res, next) {
 							uso, 
 							momento,
 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=3 order by id desc`;
+							from registro where componente=3`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
@@ -99,7 +120,7 @@ router.get('/gpu', function(req, res, next) {
 							uso, 
 							momento,
 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=4 order by id desc`;
+							from registro where componente=4`;
 
 	sequelize.query(instrucaoSql, {
 		model: Leitura,

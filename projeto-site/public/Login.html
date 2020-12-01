@@ -118,8 +118,8 @@
 
             resposta.json().then(json => {
 
-                sessionStorage.ra = json.ra;
-                sessionStorage.nome = json.nome;
+                sessionStorage.id = json.id;
+                sessionStorage.login = json.login;
                 
                 window.location.href = '/Estatistica.html';
             });
