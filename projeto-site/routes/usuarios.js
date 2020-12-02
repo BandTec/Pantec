@@ -57,11 +57,10 @@ router.post('/cadastrar', (req, res, next)=> {
 		numDoc: numDoc
 	}).then(async resultado => {
 		var idCliente = await sequelize.query('SELECT TOP 1 id FROM pantec.dbo.cliente ORDER BY id DESC', { model: Usuario });
-		console.log(idCliente);
 		UsuarioAccount.create({
 			email:login,
 			senha: senha,
-			clienteId: idCliente
+			clienteId: idCliente[0].id
 		}).then(resultado => {
 			console.log(`Registro criado: ${resultado}`);
 		}).catch(erro => {
