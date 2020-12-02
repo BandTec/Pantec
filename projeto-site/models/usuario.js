@@ -18,16 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		login: {
-			field: 'email',
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		senha: {
-			field: 'senha',
-			type: DataTypes.STRING,
-			allowNull: false
-		},
 		cep:{
 			field: 'cep',
 			type: DataTypes.INTEGER,
@@ -63,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			allowNull: false
 		},
-		numeroDocumento:{
+		numDoc:{
 			field: 'numeroDocumento',
 			type: DataTypes.STRING,
 			allowNull: false

@@ -31,14 +31,6 @@
             <input type="email" name="login" class="rounded-pill">
             <small id="emailHelp" class="form-text text-muted">Nunca compartilhe seu email e senha.</small>
         </div>
-
-        <div class=" form-group">
-            <label for="cep">CEP</label><br>
-            <input type="text" name="cep" class="rounded-pill" id="cep1">
-            <button type="button" class="btn button btn-outline-info my-sm-1"
-                onclick="consultaCep()">Consultar</button><br>
-            <div class="form-text text-muted">Digite o cep sem "." ou "-"</div>
-        </div>
         <div class="form-group">
             <select class="rounded-pill" style="width:45%;height:30px" name="tipoDoc" id="tipoDoc">
                 <option value="0" selected hidden disabled>Selecione uma opção...</option>
@@ -49,6 +41,13 @@
         <div class="form-group">
             <label for="numDocumento">Número do documento</label><br>
             <input type="text" class="rounded-pill" name="numDoc" id="numDoc">
+        </div>
+        <div class=" form-group">
+            <label for="cep">CEP</label><br>
+            <input type="text" name="cep" class="rounded-pill" id="cep1">
+            <button type="button" class="btn button btn-outline-info my-sm-1"
+                onclick="consultaCep()">Consultar</button><br>
+            <div class="form-text text-muted">Digite o cep sem "." ou "-"</div>
         </div>
         <div class="form-group">
             <label for="logradouro">Logradouro</label><br>
