@@ -31,7 +31,12 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>9.1.0.jre11-preview</version>
         </dependency>
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        <!-- ou versão que já existir na .m2 local -->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>

@@ -6,6 +6,7 @@
 package com.mycompany.bd;
 
 
+import com.mycompany.log.ControllerLog;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,13 +31,14 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
  *
  * @author sakurah
  */
-public class TesteConnection {
+public class Relatorio {
     
        
     public void gerarRelatorio(Integer maquina) throws SQLException, IOException {
-        java.sql.Connection con = Connection.getConnection();
+        java.sql.Connection con = ConnectionAzure.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        ControllerLog log= new ControllerLog();
         stmt = con.prepareStatement("select*from registro as r, componente as c where r.componente = c.id and r.maquina_id= ?", PreparedStatement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, maquina);
         rs = stmt.executeQuery();
@@ -107,11 +109,12 @@ public class TesteConnection {
                 workbook.write(out);
                 
             }
-       
+            log.printarLog("Relatório gerado com sucesso", "Informação");
              JOptionPane.showMessageDialog(null, "Relatório gerado com sucesso!");
          
         } catch (IOException e) {
             System.out.println("Arquivo já foi criado");
+            log.printarLog("Arquivo já foi criado", "Erro");
         } finally {
             workbook.close();
         }

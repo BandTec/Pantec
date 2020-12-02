@@ -10,7 +10,7 @@ import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoGPU;
 import com.mycompany.api.MonitoramentoHardware;
 import com.mycompany.bd.Select;
-import com.mycompany.bd.TesteConnection;
+import com.mycompany.bd.Relatorio;
 import com.mycompany.log.ControllerLog;
 import java.awt.Color;
 import java.io.IOException;
@@ -341,7 +341,7 @@ public class Graficos extends javax.swing.JFrame {
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
 
-        TesteConnection gerar = new TesteConnection();
+        Relatorio gerar = new Relatorio();
 
         try {
             gerar.gerarRelatorio(idmaquina);

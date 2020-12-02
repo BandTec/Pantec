@@ -19,8 +19,7 @@ import java.util.logging.Logger;
  * @author sakurah
  */
 public class Select {
-
-    java.sql.Connection con = Connection.getConnection();
+    java.sql.Connection con = ConnectionAzure.getConnection();
     Usuario user = new Usuario();
     Maquina maq = new Maquina();
     MonitoramentoHardware hard = new MonitoramentoHardware();
@@ -35,7 +34,6 @@ public class Select {
         boolean check = false;
 
         try {
-
             stmt = con.prepareStatement("SELECT * FROM usuario WHERE email = ? and senha = ?", PreparedStatement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, login);
@@ -56,7 +54,7 @@ public class Select {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(TesteConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
             log.printarLog(String.format("Erro ao se conectar %s", ex), "Utilização");
         } 
 

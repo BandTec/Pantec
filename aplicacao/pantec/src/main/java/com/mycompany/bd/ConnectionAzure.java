@@ -6,6 +6,7 @@
 package com.mycompany.bd;
 
 //import com.mycompany.log.ControllerLog;
+import com.mycompany.log.ControllerLog;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,12 +18,12 @@ import java.util.logging.Logger;
  *
  * @author sakurah
  */
-public class Connection {
-
-//    ControllerLog log= new ControllerLog();
+public class ConnectionAzure {
     public static java.sql.Connection getConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+             ControllerLog log= new ControllerLog();
+            log.printarLog("Conexão feita com sucesso", "Instalação");
             return DriverManager.getConnection("jdbc:sqlserver://svrpantec.database.windows.net:1433;"
                         + "database=pantec;"
                         + "user=adminlocal@svrpantec;"
@@ -31,6 +32,10 @@ public class Connection {
                         + "trustServerCertificate=false;"
                         + "loginTimeout=30;");
         } catch (ClassNotFoundException | SQLException ex) {
+            ControllerLog log= new ControllerLog();
+            log.printarLog("Erro na conexão", "Erro");
+            ConnectionMysql con=new ConnectionMysql();
+            con.getDataSource();
             throw new RuntimeException("Erro na conexão: ", ex);
 //            log.printarLog("jgjmg", "loju,lju");
         }
@@ -43,7 +48,7 @@ public class Connection {
                 con.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionAzure.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -58,7 +63,7 @@ public class Connection {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionAzure.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -73,7 +78,7 @@ public class Connection {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionAzure.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

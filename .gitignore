@@ -65,3 +65,4 @@ package-lock.json
 
 projeto-site/node_modules
 projteto-node-local/node_modules
+/nbproject/private/
