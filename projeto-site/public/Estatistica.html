@@ -14,7 +14,7 @@
     <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
-<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), select()">
+<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive() ">
     <div class="caixa_menu">
        
             
@@ -36,36 +36,93 @@
      <div class="div-logo"><label class="sieg">SIEG SYSTEM</label></div>
    <br>
     <center>
-        <br><br><br>
-        <select id="tentativa">
-            <option value="" disabled selected>Choose your language</option>
-          </select><br><br>
-        <div style="width:75%; margin-top: 5%;">
-            <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
-            <div style="display: inline-block; margin-left: 100px;" id="div_grafico_two">Dados sendo obtidos...</div>
-        </div>
-        <div style="width:75%; margin-top: 50px;">
-            <div style="display: inline-block;" id="div_grafico_tree">Dados sendo obtidos...</div>
-            <div style="display: inline-block; margin-left: 100px;" id="div_grafico_four">Dados sendo obtidos...</div>
-        </div>
-    </center>
+        <form style="display: none; color: white; margin-top: 10%;" id="form_cadastro" enctype=application/json method="post" name="formuser" onchange="return validar()">
+            
+            Id Login:
+            <div style="display: none;" id="data" name="data"></div>
+            <input type="text" name="inp" id="inp" style="margin-bottom: 1.5%;"><br>
+            Usuario:
+            <div style="display: none;" id="b_usuario" name="b_usuario"></div>
+            <input type="text" name="usuario" id="usuario" style="margin-bottom: 1.5%;"><br>
+            Hostname máquina:
+            <select name="tentativa" id="tentativa">
+                <option value="" disabled selected>Máquina</option>
+            </select><br></form>
+            <button id="but" style="margin-top: 10%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;" onclick="validar()">
+            Escolher máquina
+            </button>
+            
+            <div id="graficosLine" style="width:75%; margin-top: 5%; display: none;">
+                <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
+                <div style="display: inline-block; margin-left: 100px;" id="div_grafico_two">Dados sendo obtidos...</div>
+            </div>
+            <div id="graficosColumn" style="width:75%; margin-top: 50px; display: none;">
+                <div style="display: inline-block;" id="div_grafico_tree">Dados sendo obtidos...</div>
+                <div style="display: inline-block; margin-left: 100px;" id="div_grafico_four">Dados sendo obtidos...</div>
+            </div>
+            <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_five">Dados sendo obtidos...</div>
+        </center>
+        
+        <script>
+        function verificar_autenticacao() {
+            login_usuario = sessionStorage.login_usuario_meuapp;
+            
+            if (login_usuario == undefined)  {
+                console.log("Deu ruim")
+            } else {
+                b_usuario.innerHTML = login_usuario;
+            }
+            
+        }
+        verificar_autenticacao()
 
-    <script>
+        function validar() {
+        document.getElementById('graficosColumn').style.display="block";
+        document.getElementById('graficosLine').style.display="block";
+        document.getElementById('div_grafico_five').style.display="block";  
+        document.getElementById('form_cadastro').style.display="block";
+        document.getElementById('but').style.display="none";
+        document.getElementById('data').innerHTML = sessionStorage.getItem('id');
+        document.querySelector("[name='inp']").value = document.getElementById('data').innerText
+        document.querySelector("[name='usuario']").value = document.getElementById('b_usuario').innerText
+        console.log("OLHE AQUI "+tentativa.value)
+        if(tentativa.value==""){
+            console.log('f')
+            select()
+        }
+        var formulario = new URLSearchParams(new FormData(form_cadastro));
+        fetch("/leituras/enviar", {
+            method: "POST",
+            body: formulario
+        }).then(function (response) {
+
+            if (response.ok) {
+
+               console.log('foi')
+
+            } else {
+                console.log('Erro de cadastro!');
+            }
+        });
+        return false;
+    }
+
+    var colorOne='#E74C3C';
+    var colorTwo='#E74C3C';
+    var colorTree='#E74C3C';
+    var colorFour='#E74C3C';
+    var cpu=0;
+    var mem=0;
+    var disco=0;
+    var gpu=0;
         google.load('visualization', '1', {
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoOne
         });
-        // Não mexa nessas 3 linhas! 
-
-        // só mexer se quiser alterar o tempo de atualização
-        // ou se souber o que está fazendo!
         function atualizarGraficoOne() {
             obterDadosGraficoOne();
             setTimeout(atualizarGraficoOne, 5000);
         }
-
-        // altere aqui as configurações do gráfico
-        // (tamanhos, cores, textos, etc)
         function configurarGraficoOne() {
             var altura = 250;
             var largura = 400;
@@ -80,7 +137,7 @@
                 },
                 title: 'CPU',
                 legend: { position: 'bottom' },
-                colors: ['#547D92'],
+                colors: [colorOne],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -105,9 +162,6 @@
 
             return configuracoes;
         }
-
-        // altere aqui como os dados serão exibidos
-        // e como são recuperados do BackEnd
         function obterDadosGraficoOne() {
             var dados = new google.visualization.DataTable();
             dados.addColumn('string', 'Momento');
@@ -123,15 +177,16 @@
 
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
-                            // aqui, após registro. use os nomes 
-                            // dos atributos que vem no JSON 
-                            // que gerou na consulta ao banco de dados
                             dados.addRow([
                                 registro.momento,
                                 registro.uso
                             ]);
+                            if(registro.uso<72){
+                                colorOne="#547D92"
+                            }
+                            cpu=registro.uso;
                         }
-
+                        console.log(registro.uso, colorOne)
                         plotarGraficoOne(dados);
                     });
                 } else {
@@ -144,7 +199,6 @@
 
         }
 
-        // só altere aqui se souber o que está fazendo!
         function plotarGraficoOne(dados) {
             console.log('iniciando plotagem do gráfico...');
 
@@ -155,17 +209,11 @@
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoTwo
         });
-        // Não mexa nessas 3 linhas! 
-
-        // só mexer se quiser alterar o tempo de atualização
-        // ou se souber o que está fazendo!
         function atualizarGraficoTwo() {
             obterDadosGraficoTwo();
             setTimeout(atualizarGraficoTwo, 5000);
         }
 
-        // altere aqui as configurações do gráfico
-        // (tamanhos, cores, textos, etc)
         function configurarGraficoTwo() {
             var altura = 250;
             var largura = 400;
@@ -180,7 +228,7 @@
                 },
                 title: 'Disco',
                 legend: { position: 'bottom' },
-                colors: ['#bd9cbd','#547D92'],
+                colors: ['#bd9cbd', colorTwo],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -210,11 +258,7 @@
             return configuracoes;
         }
 
-        // altere aqui como os dados serão exibidos
-        // e como são recuperados do BackEnd
         function obterDadosGraficoTwo() {
-            // dados.addColumn('string', 'Total');
-            // dados.addColumn('number', 'Uso');
 
             fetch('/leituras/disco', { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -226,23 +270,16 @@
                         
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
-                            // aqui, após registro. use os nomes 
-                            // dos atributos que vem no JSON 
-                            // que gerou na consulta ao banco de dados
-                            var teste='2020-11-25T00:09:10.227Z'
-                            // dados.addRow( 
-                            //     [
-                            //         registro.momento,
-                            //         registro.uso
-                            //     ],[
-                            //         teste,
-                            //         100
-                            //     ]
-                               
-                            // );
-                            var dados = new google.visualization.arrayToDataTable([['Total', 'Hours'],[registro.momento, registro.uso],['Total livre',(100-registro.uso)]]);
+                            var dados = new google.visualization.arrayToDataTable([
+                                ['Total', 'Hours'],
+                                [registro.momento, registro.uso],
+                                ['Total livre',(100-registro.uso)]]);
+                        if (registro.uso<50){
+                            colorTwo='#547D92'
                         }
-                        // console.log("dados "+dados[])
+                        mem=registro.uso;
+                    }
+                        
                         plotarGraficoTwo(dados);
                     });
                 } else {
@@ -255,7 +292,6 @@
 
         }
 
-        // só altere aqui se souber o que está fazendo!
         function plotarGraficoTwo(dados) {
             console.log('iniciando plotagem do gráfico...');
 
@@ -267,17 +303,12 @@
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoTree
         });
-        // Não mexa nessas 3 linhas! 
 
-        // só mexer se quiser alterar o tempo de atualização
-        // ou se souber o que está fazendo!
         function atualizarGraficoTree() {
             obterDadosGraficoTree();
             setTimeout(atualizarGraficoTree, 5000);
         }
 
-        // altere aqui as configurações do gráfico
-        // (tamanhos, cores, textos, etc)
         function configurarGraficoTree() {
             var altura = 250;
             var largura = 400;
@@ -292,7 +323,7 @@
                 },
                 title: 'Memória',
                 legend: { position: 'bottom' },
-                colors: ['#bd9cbd','#547D92'],
+                colors: [colorTree, '#bd9cbd'],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -313,7 +344,6 @@
                     width: (largura - 10),
                     height: (altura - 90)
                 },
-                // is3D: true,
                 pieHole:0.4,
                 pieSliceTextStyle: {
                     color: 'black',
@@ -323,11 +353,9 @@
             return configuracoes;
         }
 
-        // altere aqui como os dados serão exibidos
-        // e como são recuperados do BackEnd
+
         function obterDadosGraficoTree() {
-            // dados.addColumn('string', 'Total');
-            // dados.addColumn('number', 'Uso');
+
 
             fetch('/leituras/mem', { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
@@ -339,23 +367,16 @@
                         
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
-                            // aqui, após registro. use os nomes 
-                            // dos atributos que vem no JSON 
-                            // que gerou na consulta ao banco de dados
                             var teste='2020-11-25T00:09:10.227Z'
-                            // dados.addRow( 
-                            //     [
-                            //         registro.momento,
-                            //         registro.uso
-                            //     ],[
-                            //         teste,
-                            //         100
-                            //     ]
-                               
-                            // );
-                            var dados = new google.visualization.arrayToDataTable([['Total', 'Hours'],[registro.momento, registro.uso],['Total livre',(100-registro.uso)]]);
+                            var dados = new google.visualization.arrayToDataTable([
+                                ['Total', 'Hours'],
+                                ['Total usado', registro.uso],
+                                ['Total livre',(100-registro.uso)]]);
+                            if(registro.uso<75){
+                                colorTree='#547D92';
+                            }
+                            disco=registro.uso;
                         }
-                        // console.log("dados "+dados[])
                         plotarGraficoTree(dados);
                     });
                 } else {
@@ -368,7 +389,6 @@
 
         }
 
-        // só altere aqui se souber o que está fazendo!
         function plotarGraficoTree(dados) {
             console.log('iniciando plotagem do gráfico...');
 
@@ -379,17 +399,11 @@
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoFour
         });
-        // Não mexa nessas 3 linhas! 
-
-        // só mexer se quiser alterar o tempo de atualização
-        // ou se souber o queMemória está fazendo!
         function atualizarGraficoFour() {
             obterDadosGraficoFour();
             setTimeout(atualizarGraficoFour, 5000);
         }
 
-        // altere aqui as configurações do gráfico
-        // (tamanhos, cores, textos, etc)
         function configurarGraficoFour() {
             var altura = 250;
             var largura = 400;
@@ -404,7 +418,7 @@
                 },
                 title: 'GPU',
                 legend: { position: 'bottom' },
-                colors: ['#547D92'],
+                colors: [colorFour],
                 isStacked: true,
                 width: largura,
                 height: altura,
@@ -430,8 +444,6 @@
             return configuracoes;
         }
 
-        // altere aqui como os dados serão exibidos
-        // e como são recuperados do BackEnd
         function obterDadosGraficoFour() {
             var dados = new google.visualization.DataTable();
             dados.addColumn('string', 'Momento');
@@ -447,13 +459,14 @@
 
                         for (i = 0; i < resposta.length; i++) {
                             var registro = resposta[i];
-                            // aqui, após registro. use os nomes 
-                            // dos atributos que vem no JSON 
-                            // que gerou na consulta ao banco de dados
                             dados.addRow([
                                 registro.momento,
                                 registro.uso
                             ]);
+                            if(registro.uso<80){
+                                colorFour='#547D92';
+                            }
+                            gpu=registro.uso;
                         }
 
                         plotarGraficoFour(dados);
@@ -468,7 +481,6 @@
 
         }
 
-        // só altere aqui se souber o que está fazendo!
         function plotarGraficoFour(dados) {
             console.log('iniciando plotagem do gráfico...');
 
@@ -488,12 +500,12 @@
                                 vetor.push(resposta.hostname)
                             });
                             
-                        //    vetor.push(resposta[i]) 
                         const languagesSelect = document.getElementById("tentativa");
                         vetor.forEach((language) => {
                         option = new Option(language, language.toLowerCase());
                         languagesSelect.options[languagesSelect.options.length] = option;
                         });
+                        x = languagesSelect.value;
                         console.log("VETOR TESTE: "+vetor)
                         
                 })
@@ -501,6 +513,78 @@
             .catch((error)=>{
                 console.log(error)
             })
+        }
+        google.load('visualization', '1', {
+            packages: ['corechart', 'line'],
+            callback: obterDadosGraficoFive
+        });
+        function atualizarGraficoFive() {
+            obterDadosGraficoFive();
+            setTimeout(atualizarGraficoFive, 5000);
+        }
+        function configurarGraficoFive() {
+            var altura = 250;
+            var largura = 600;
+            var configuracoes = {
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
+                width: largura,
+                height: altura,
+                title : 'Processos',
+                titleTextStyle:{color:'white'},
+                chartArea: {
+                    left: 50,
+                    top: 20,
+                    right:20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                },
+                vAxis: {title: 'Uso',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                hAxis: {title: 'Momento',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                seriesType: 'bars',
+                series: {5: {type: 'line'}},
+                backgroundColor:'black'
+            };
+
+            return configuracoes;
+        }
+        function obterDadosGraficoFive() {
+            fetch('/leituras/processos', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+                            var dados =new google.visualization.arrayToDataTable([
+                                ['Hora','CPU','Mem','Disco','Gpu','Processos','Temperatura CPU'],
+                                [resposta[0].momento,cpu, mem, disco, gpu, resposta[0].processos, resposta[0].uso],
+                                [resposta[1].momento,cpu, mem, disco, gpu, resposta[1].processos,resposta[1].uso],
+                                [resposta[2].momento,cpu, mem, disco, gpu, resposta[2].processos,resposta[2].uso],
+                                
+                            ]);
+                        console.log("OLHA PARA MIM "+resposta[0].processos)
+                        plotarGraficoFive(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        function plotarGraficoFive(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.ComboChart(div_grafico_five);
+            chart.draw(dados, configurarGraficoFive());
         }
     </script>
 </body>

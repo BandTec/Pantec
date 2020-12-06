@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
 		momento_grafico: {
 			type: DataTypes.VIRTUAL, // campo 'falso' (não existe na tabela). Deverá ser preenchido 'manualmente' no select
 			allowNull: true
+		},
+		processos: {
+			field: 'processos',
+			type: DataTypes.INTEGER,
+			allowNull: false
 		}
 	}, 
 	{

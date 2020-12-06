@@ -20,7 +20,9 @@
     "mysql2": "^2.1.0",
     "os": "^0.1.1",
     "sequelize": "^5.21.2",
-    "tedious": "^6.6.0"
+    "t-storage": "^1.1.4",
+    "tedious": "^6.6.0",
+    "web-storage-es6": "^1.2.0"
   },
   "devDependencies": {
     "babel-loader": "8.0.0-beta.0",

@@ -3,10 +3,24 @@ var router = express.Router();
 var sequelize = require('../models').sequelize;
 var Leitura = require('../models').Leitura;
 var Maquina = require('../models').Maquina;
-var os = require('os');
+const WebStorageES6 = require('web-storage-es6');
+var sessionStorage = new WebStorageES6('Session');
+
+var hostname;
+var id;
+var email;
+router.post('/enviar', (req, res)=>{
+	hostname = req.body.tentativa;
+	id = req.body.inp;
+	email = req.body.usuario;
+	console.log("VALOR   "+hostname)
+	console.log("VALOR ID "+ id)
+	console.log("VALOR ID "+ email)
+})
 
 router.get('/select', (req, res)=>{
-	const instrucaoSql =`select hostname from maquina where usuario_id=(select id from usuario where email='vitoria@gmail.com')`;
+	
+	const instrucaoSql =`select hostname from maquina where usuario_id=(select id from usuario where email='${email}')`;
 	sequelize.query(instrucaoSql, {
 		model: Maquina,
 		mapToModel: true 
@@ -20,53 +34,135 @@ router.get('/select', (req, res)=>{
 	  });
 })
 
-/* Recuperar as últimas N leituras */
-router.get('/cpu', function(req, res, next) {
+// /* Recuperar as últimas N leituras */
+ router.get('/cpu',(req, res, next) => {
    
-	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 7;
-	// console.log("VEJA ISSO "+sessionStorage.getItem('id'))
-	// const id = sessionStorage.getItem('id');
-	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+ 	// quantas são as últimas leituras que quer? 8 está bom?
+ 	const limite_linhas = 7;
+ 	//  console.log("VEJA ISSO "+sessionLocal.getItem('key'))
+ 	//  const id = sessionStorage.getItem('id');
+ 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
    
 	
 
-	const instrucaoSql = `select top 7
+ 	const instrucaoSql = `select top 7
+ 							componente, 
+ 							uso, 
+ 							momento,
+ 							maquina_id,
+ 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+ 							from registro where componente=1 and maquina_id=(select id from maquina where hostname='${hostname}' and usuario_id='${id}') order by id desc`;
+
+ 	sequelize.query(instrucaoSql, {
+ 		model: Leitura,
+ 		mapToModel: true 
+ 	  })
+ 	  .then(resultado => {
+ 			console.log(`Encontrados: ${resultado.length}`);
+ 			res.json(resultado);
+ 	  }).catch(erro => {
+ 			console.error(erro);
+ 			res.status(500).send(erro.message);
+ 	  });
+ });
+
+ /* Recuperar as últimas N leituras */
+ router.get('/disco',(req, res, next) => {
+   
+ //	 quantas são as últimas leituras que quer? 8 está bom?
+ 	const limite_linhas = 1;
+
+ 	console.log(`Recuperando a última leituras`);
+   
+ 	const instrucaoSql = `select top ${limite_linhas}
+ 							componente, 
+ 							uso, 
+ 							momento,
+ 							maquina_id,
+ 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+ 							from registro where componente=2 and maquina_id=(select id from maquina where hostname='${hostname}' and usuario_id='${id}') order by id desc`;
+
+ 	sequelize.query(instrucaoSql, {
+ 		model: Leitura,
+ 		mapToModel: true 
+ 	  })
+ 	  .then(resultado => {
+ 			console.log(`Encontrados: ${resultado.length}`);
+ 			res.json(resultado);
+ 	  }).catch(erro => {
+ 			console.error(erro);
+ 			res.status(500).send(erro.message);
+ 	  });
+ });
+
+ router.get('/mem',(req, res, next) => {
+   
+ //	 quantas são as últimas leituras que quer? 8 está bom?
+ 	const limite_linhas = 1;
+
+ 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+   
+ 	const instrucaoSql = `select top ${limite_linhas}
+ 							componente, 
+ 							uso, 
+ 							momento,
+ 							maquina_id,
+ 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+ 							from registro where componente=3 and maquina_id=(select id from maquina where hostname='${hostname}' and usuario_id='${id}') order by id desc`;
+
+ 	sequelize.query(instrucaoSql, {
+ 		model: Leitura,
+ 		mapToModel: true 
+ 	  })
+ 	  .then(resultado => {
+ 			console.log(`Encontrados: ${resultado.length}`);
+ 			res.json(resultado);
+ 	  }).catch(erro => {
+ 			console.error(erro);
+ 			res.status(500).send(erro.message);
+ 	  });
+ });
+
+
+ router.get('/gpu',(req, res, next) => {
+   
+ //	 quantas são as últimas leituras que quer? 8 está bom?
+ 	const limite_linhas = 7;
+
+ 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+   
+ 	const instrucaoSql = `select top 7
+ 							componente, 
+ 							uso, 
+ 							momento,
+ 							maquina_id,
+ 							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+ 							from registro where componente=4 and maquina_id=(select id from maquina where hostname='${hostname}' and usuario_id='${id}') order by id desc`;
+
+ 	sequelize.query(instrucaoSql, {
+ 		model: Leitura,
+ 		mapToModel: true 
+ 	  })
+ 	  .then(resultado => {
+ 			console.log(`Encontrados: ${resultado.length}`);
+ 			res.json(resultado);
+ 	  }).catch(erro => {
+ 			console.error(erro);
+ 			res.status(500).send(erro.message);
+ 	  });
+ });
+
+
+ router.get('/processos',(req,res) => {
+	const instrucaoSql = `select top 3
 							componente, 
 							uso, 
 							momento,
 							maquina_id,
-							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=1; `;
-
-	sequelize.query(instrucaoSql, {
-		model: Leitura,
-		mapToModel: true 
-	  })
-	  .then(resultado => {
-			console.log(`Encontrados: ${resultado.length}`);
-			res.json(resultado);
-	  }).catch(erro => {
-			console.error(erro);
-			res.status(500).send(erro.message);
-	  });
-});
-
-/* Recuperar as últimas N leituras */
-router.get('/disco', function(req, res, next) {
-   
-	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 1;
-
-	console.log(`Recuperando a última leituras`);
-   
-	const instrucaoSql = `select top ${limite_linhas}
-							componente, 
-							uso, 
 							momento,
-							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=2`;
-
+							processos 
+							from registro where componente=5 and maquina_id=(select id from maquina where hostname='${hostname}' and usuario_id='${id}') order by id desc
+	`;
 	sequelize.query(instrucaoSql, {
 		model: Leitura,
 		mapToModel: true 
@@ -78,105 +174,6 @@ router.get('/disco', function(req, res, next) {
 			console.error(erro);
 			res.status(500).send(erro.message);
 	  });
-});
-
-router.get('/mem', function(req, res, next) {
-   
-	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 1;
-
-	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
-   
-	const instrucaoSql = `select top ${limite_linhas}
-							componente, 
-							uso, 
-							momento,
-							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=3`;
-
-	sequelize.query(instrucaoSql, {
-		model: Leitura,
-		mapToModel: true 
-	  })
-	  .then(resultado => {
-			console.log(`Encontrados: ${resultado.length}`);
-			res.json(resultado);
-	  }).catch(erro => {
-			console.error(erro);
-			res.status(500).send(erro.message);
-	  });
-});
-
-
-router.get('/gpu', function(req, res, next) {
-   
-	// quantas são as últimas leituras que quer? 8 está bom?
-	const limite_linhas = 7;
-
-	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
-   
-	const instrucaoSql = `select top ${limite_linhas}
-							componente, 
-							uso, 
-							momento,
-							FORMAT(momento,'HH:mm:ss') as momento_grafico 
-							from registro where componente=4`;
-
-	sequelize.query(instrucaoSql, {
-		model: Leitura,
-		mapToModel: true 
-	  })
-	  .then(resultado => {
-			console.log(`Encontrados: ${resultado.length}`);
-			res.json(resultado);
-	  }).catch(erro => {
-			console.error(erro);
-			res.status(500).send(erro.message);
-	  });
-});
-
-// tempo real (último valor de cada leitura)
-router.get('/tempo-real', function (req, res, next) {
-   
-	console.log(`Recuperando a última leitura`);
-
-	const instrucaoSql = `select top 1 componente, uso, FORMAT(momento,'HH:mm:ss') as momento_grafico  
-						from registro order by id desc`;
-
-	sequelize.query(instrucaoSql, { type: sequelize.QueryTypes.SELECT })
-		.then(resultado => {
-			res.json(resultado[0]);
-		}).catch(erro => {
-			console.error(erro);
-			res.status(500).send(erro.message);
-		});
- 
-});
-
-
-// estatísticas (max, min, média, mediana, quartis etc)
-router.get('/estatisticas', function (req, res, next) {
-   
-	console.log(`Recuperando as estatísticas atuais`);
-
-	const instrucaoSql = `select 
-							max(componente) as temp_maxima, 
-							min(componente) as temp_minima, 
-							avg(componente) as temp_media,
-							max(uso) as uso_maxima, 
-							min(uso) as uso_minima, 
-							avg(uso) as uso_media 
-						from registro`;
-
-	sequelize.query(instrucaoSql, { type: sequelize.QueryTypes.SELECT })
-		.then(resultado => {
-			res.json(resultado[0]);
-		}).catch(erro => {
-			console.error(erro);
-			res.status(500).send(erro.message);
-		});
- 
-});
-
+ })
 
 module.exports = router;

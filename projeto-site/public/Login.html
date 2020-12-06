@@ -115,11 +115,10 @@
     }).then(resposta => {
         
         if (resposta.ok) {
-
             resposta.json().then(json => {
 
                 sessionStorage.id = json.id;
-                sessionStorage.login = json.login;
+                sessionStorage.login_usuario_meuapp = json.email;
                 
                 window.location.href = '/Estatistica.html';
             });
