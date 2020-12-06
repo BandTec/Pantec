@@ -25,7 +25,7 @@ public class ControllerLog {
             = new File(FileSystemView.getFileSystemView().getDefaultDirectory() + barra + "Pantec" + barra);
     public File arquivo;
 
-    public void printarLog(String textoLog, String tipoDeLog) {
+    public void printarLog(String textoLog, String tipoLog) {
         getCaminhoPasta.mkdir();
 
         try {
@@ -50,7 +50,7 @@ public class ControllerLog {
                         + "\n%s"
                         + "\n==========================================================\n",
                         getDia, getMes, getAno, getHora, getMinuto, getSegundo,
-                        getNomeClasse, tipoDeLog, textoLog));
+                        getNomeClasse, tipoLog, textoLog));
                 setEncoding.newLine();
             }
 

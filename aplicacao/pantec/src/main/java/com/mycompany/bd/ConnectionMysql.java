@@ -23,6 +23,7 @@ public class ConnectionMysql {
         this.dataSource.setUsername("root"); 
         this.dataSource.setPassword("bandtec"); 
     } public BasicDataSource getDataSource() { 
+        System.out.println("Conectado com sucesso");
         return dataSource; 
     } 
 }

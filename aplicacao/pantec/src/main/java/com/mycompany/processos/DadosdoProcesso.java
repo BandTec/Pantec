@@ -75,7 +75,7 @@ public class DadosdoProcesso {
                 modelo.setValueAt("Em andamento", i, 1);
                 modelo.setValueAt(processosList.get(i).getProcessID(), i, 2);
                 modelo.setValueAt(processosList.get(i).getName(), i, 3);
-
+                
             }
         }
     
@@ -84,6 +84,10 @@ public class DadosdoProcesso {
     
     public DefaultTableModel getModelo() {
         return modelo;
+    }
+
+    public List<OSProcess> getProcessosList() {
+        return processosList;
     }
 
 }

@@ -8,11 +8,15 @@ package com.mycompany.bd;
 import com.mycompany.api.Monitoramento;
 import com.mycompany.api.MonitoramentoHardware;
 import com.mycompany.log.ControllerLog;
+import com.mycompany.processos.DadosdoProcesso;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import oshi.SystemInfo;
+import oshi.software.os.OSProcess;
 
 /**
  *
@@ -27,7 +31,9 @@ public class Select {
     PreparedStatement stmt = null;
     ResultSet rs = null;
     Integer maquina = 0;
-
+    SystemInfo si=new SystemInfo();
+    List<OSProcess> process= si.getOperatingSystem().getProcesses();
+    Integer proc=process.size();
     ControllerLog log = new ControllerLog();
     public boolean checkLogin(String login, String senha) {
 
@@ -112,10 +118,11 @@ public class Select {
            try {
         
                
-            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 4);
             stmt.setDouble(2, gpu);
             stmt.setInt(3, id);
+            stmt.setInt(4, proc);
 
             stmt.executeUpdate();
      
@@ -130,35 +137,44 @@ public class Select {
         
         
            try {
-        
+               System.out.println(proc);
                
-            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 1);
             stmt.setDouble(2, cpu);
             stmt.setInt(3, id);
+            stmt.setInt(4, proc);
 
             stmt.executeUpdate();
             
                       
-            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 2);
             stmt.setDouble(2, disco);
             stmt.setInt(3, id);
+            stmt.setInt(4, proc);
+
 
             stmt.executeUpdate();
             
                      
-            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 3);
             stmt.setDouble(2, mem);
             stmt.setInt(3, id);
+            stmt.setInt(4, proc);
+
 
             stmt.executeUpdate();
             
-            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id)VALUES(?,?,GETDATE(),?)");
+            
+            
+            stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 5);
             stmt.setDouble(2, tempCpu);
             stmt.setInt(3, id);
+            stmt.setInt(4, proc);
+
 
             stmt.executeUpdate();
             
