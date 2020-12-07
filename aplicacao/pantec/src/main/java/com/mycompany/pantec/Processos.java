@@ -27,15 +27,26 @@ public class Processos extends javax.swing.JFrame {
     TabelaProcesso tabela = new TabelaProcesso();
     DadosdoProcesso dados = new DadosdoProcesso();
     Integer idmaquina;
+    Integer contador;
 
     /**
      * Creates new form Processos
+     * @param id
+     * @param cont
      */
-    public Processos(Integer id) {
+    public Processos(Integer id, Integer cont) {
         initComponents();
         Thread threadDados = new Thread(this::atualizarDados);
         threadDados.start();
        idmaquina =id;
+       contador = cont;
+         if (contador == 0) {
+            changeTheme(contador);
+            ++contador;
+        } else {
+            changeTheme(contador);
+            --contador;
+        }
     }
 
     /**
@@ -176,7 +187,7 @@ public class Processos extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        new Graficos(idmaquina).setVisible(true);
+        new Graficos(idmaquina, contador).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
@@ -237,7 +248,6 @@ public class Processos extends javax.swing.JFrame {
 
     }
 
-    private Integer contador = 0;
 
     private void changeTheme(Integer tema) {
         if (tema == 0) {
@@ -250,7 +260,7 @@ public class Processos extends javax.swing.JFrame {
             jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/escuro.PNG")));
             jPanel1.setBackground(Color.decode("#00113C"));
             lblTitulo.setForeground(Color.white);
-             lblNome.setForeground(Color.white);
+            lblNome.setForeground(Color.white);
             btnSair.setForeground(Color.white);
         }
     }

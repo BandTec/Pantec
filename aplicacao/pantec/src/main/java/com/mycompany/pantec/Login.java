@@ -14,12 +14,21 @@ import java.awt.Color;
  * @author sarah
  */
 public class Login extends javax.swing.JFrame {
-
+Integer contador;
     /**
      * Creates new form TESTE
+     * @param cont
      */
-    public Login() {
+    public Login(Integer cont) {
         initComponents();
+        contador = cont;
+          if (contador == 0) {
+            changeTheme(contador);
+            ++contador;
+        } else {
+            changeTheme(contador);
+            --contador;
+        }
     }
     ControllerLog log = new ControllerLog();
     /**
@@ -195,7 +204,7 @@ public class Login extends javax.swing.JFrame {
         
         
         if (con.checkLogin(login, senha)) {
-            new Graficos(con.getMaquina()).setVisible(true);
+            new Graficos(con.getMaquina(), contador).setVisible(true);
             dispose();
         
 
@@ -212,7 +221,7 @@ public class Login extends javax.swing.JFrame {
     private void txtEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtEmailInputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailInputMethodTextChanged
-    private Integer contador = 0;
+
 
     private void changeTheme(Integer tema) {
         if (tema == 0) {
@@ -282,7 +291,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login(1).setVisible(true);
             }
         });
     }

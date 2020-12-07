@@ -34,6 +34,7 @@ public class DadosdoProcesso {
                 return column == 0;
             }
 
+            @Override
             public Class<?> getColumnClass(int column) {
                 switch (column) {
                     case 0:

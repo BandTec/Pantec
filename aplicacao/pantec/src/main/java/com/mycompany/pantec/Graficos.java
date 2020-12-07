@@ -25,6 +25,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,13 +37,15 @@ public class Graficos extends javax.swing.JFrame {
     Select select = new Select();
     ControllerLog log = new ControllerLog();
     Integer idmaquina = 0;
+    Integer contador;
 
     /**
      * Creates new form Graficos
      *
      * @param maquina
+     * @param cont
      */
-    public Graficos(Integer maquina) {
+    public Graficos(Integer maquina, Integer cont) {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -73,6 +76,15 @@ public class Graficos extends javax.swing.JFrame {
         threadBarra.start();
 
         idmaquina = maquina;
+        contador = cont;
+
+        if (contador == 0) {
+            changeTheme(contador);
+            ++contador;
+        } else {
+            changeTheme(contador);
+            --contador;
+        }
 
     }
 
@@ -265,10 +277,9 @@ public class Graficos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private Integer contador = 0;
 
     private void changeTheme(Integer tema) {
-        if (tema == 0) {
+        if (tema == 1) {
             jPanel1.setBackground(Color.white);
             lblData.setForeground(Color.black);
             lblHora.setForeground(Color.black);
@@ -323,7 +334,7 @@ public class Graficos extends javax.swing.JFrame {
         }
     }
     private void btnProcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessosActionPerformed
-        new Processos(idmaquina).setVisible(true);
+        new Processos(idmaquina, contador).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnProcessosActionPerformed
 
@@ -355,7 +366,7 @@ public class Graficos extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        new Login().setVisible(true);
+        new Login(contador).setVisible(true);
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
@@ -376,39 +387,76 @@ public class Graficos extends javax.swing.JFrame {
                 bot.chat("Não inicionou o monitoramento");
                 log.printarLog(String.format("Monitoramento não iniciado: %s", e), "Erro");
             }
-            //bot.chat("Iniciou o monitoramento");
+  
             Monitoramento inicio = new Monitoramento();
+            Color cor = new Color(0, 128, 128);
             pgbCpuTemperatura.setValue(inicio.getTempCpu().intValue());
             pgbCpuTemperatura.setString(String.format("%.1f °C", inicio.getTempCpu()));
 
             if (inicio.getTempCpu() >= 72) {
                 bot.chat("Temperatura elevada da CPU");
+                pgbCpuTemperatura.setForeground(Color.red);
             } else if (inicio.getTempCpu() >= 60) {
                 bot.chat("Temeperatura irregular da CPU");
+                pgbCpuTemperatura.setForeground(Color.yellow);
+            } else {
+                if (contador == 0) {
+                    pgbCpuTemperatura.setForeground(cor);
+                } else {
+                      pgbCpuTemperatura.setForeground(Color.decode("#6D90AE"));
+                }
+
             }
 
             pgbDisco.setValue(inicio.getTamanhoDiscoUsado().intValue());
 
             if (inicio.getTamanhoDiscoUsado() >= 50) {
                 bot.chat("Pouco espaço de armazenamento do HD");
+                pgbDisco.setForeground(Color.red);
             } else if (inicio.getTamanhoDiscoUsado() >= 45) {
                 bot.chat("Espaço de armazenamento do HD irregular");
+                pgbDisco.setForeground(Color.yellow);
+            }else {
+                if (contador == 0) {
+                    pgbDisco.setForeground(cor);
+                } else {
+                    pgbDisco.setForeground(Color.decode("#6D90AE"));
+                }
+
             }
 
             pgbMemoria.setValue(inicio.getPorcMemRam().intValue());
 
             if (inicio.getPorcMemRam() >= 80) {
                 bot.chat("Pouco espaço de armazenamento da memória RAM");
+                pgbMemoria.setForeground(Color.red);
             } else if (inicio.getPorcMemRam() >= 75) {
+                pgbMemoria.setForeground(Color.yellow);
                 bot.chat("Espaço de armazenamento da memória RAM irregular");
+            }else{
+                if (contador == 0) {
+                    pgbMemoria.setForeground(cor);
+                } else {
+                    pgbMemoria.setForeground(Color.decode("#6D90AE"));
+                }
+
             }
 
             pgbCpu.setValue(inicio.getPorcCpu().intValue());
 
             if (inicio.getPorcCpu() >= 90) {
                 bot.chat("Utilização exagerada da CPU");
+                pgbCpu.setForeground(Color.red);
             } else if (inicio.getPorcCpu() >= 80) {
+                pgbCpu.setForeground(Color.yellow);
                 bot.chat("Utilização irregular da CPU");
+            }else{
+                if (contador == 0) {
+                    pgbCpu.setForeground(cor);
+                } else {
+                    pgbCpu.setForeground(Color.decode("#6D90AE"));
+                }
+
             }
 
             MonitoramentoHardware hardwareMemoria = new MonitoramentoHardware();
@@ -421,9 +469,18 @@ public class Graficos extends javax.swing.JFrame {
 
                 if (gpu.getTemperaturaGPU() >= 90) {
                     bot.chat("Temperatura elevada da placa de vídeo");
+                    pgbGpuTemperatura.setForeground(Color.red);
                 } else if (gpu.getTemperaturaGPU() >= 80) {
+                    pgbGpuTemperatura.setForeground(Color.yellow);
                     bot.chat("Temepratura irregular da placa de vídeo");
+                }else{
+                if (contador == 0) {
+                    pgbGpuTemperatura.setForeground(cor);
+                } else {
+                    pgbGpuTemperatura.setForeground(Color.decode("#6D90AE"));
                 }
+
+            }
 
             }
 
@@ -459,7 +516,6 @@ public class Graficos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Graficos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        new Login().setVisible(true);
 
     }
 

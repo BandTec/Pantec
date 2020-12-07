@@ -137,7 +137,6 @@ public class Select {
         
         
            try {
-               System.out.println(proc);
                
             stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
             stmt.setInt(1, 1);
