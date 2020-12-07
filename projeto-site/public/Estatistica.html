@@ -136,28 +136,36 @@
                     }
                 },
                 title: 'CPU',
-                legend: { position: 'bottom' },
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
                 colors: [colorOne],
+                areaOpacity:0.8,
                 isStacked: true,
                 width: largura,
+                titleTextStyle:{color:'white'},
                 height: altura,
                 vAxis: {
                     textStyle: {
-                        fontSize: 12
-                    }
+                        fontSize: 12,
+                        color: 'white'
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 hAxis: {
                     slantedTextAngle: 45,
                     textStyle: {
-                        fontSize: 10
-                    }
+                        fontSize: 10,
+                        color: 'white'
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 chartArea: {
                     left: 30,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
-                }
+                },
+                backgroundColor:'black'
             };
 
             return configuracoes;
@@ -227,21 +235,25 @@
                     }
                 },
                 title: 'Disco',
-                legend: { position: 'bottom' },
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
                 colors: ['#bd9cbd', colorTwo],
                 isStacked: true,
                 width: largura,
+                titleTextStyle:{color:'white'},
                 height: altura,
                 vAxis: {
                     textStyle: {
                         fontSize: 12
-                    }
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 hAxis: {
                     slantedTextAngle: 45,
                     textStyle: {
                         fontSize: 10
-                    }
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 chartArea: {
                     left: 30,
@@ -253,6 +265,7 @@
                 pieSliceTextStyle: {
                     color: 'black',
           },
+          backgroundColor:'black'
             };
 
             return configuracoes;
@@ -322,21 +335,27 @@
                     }
                 },
                 title: 'Memória',
-                legend: { position: 'bottom' },
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
+                titleTextStyle:{color:'white'},
                 colors: [colorTree, '#bd9cbd'],
                 isStacked: true,
                 width: largura,
                 height: altura,
                 vAxis: {
                     textStyle: {
-                        fontSize: 12
-                    }
+                        fontSize: 12,
+                        color: 'white'
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 hAxis: {
                     slantedTextAngle: 45,
                     textStyle: {
-                        fontSize: 10
-                    }
+                        fontSize: 10,
+                        color: 'white'
+                    },
+                    titleTextStyle:{color:'white'}
                 },
                 chartArea: {
                     left: 30,
@@ -348,6 +367,7 @@
                 pieSliceTextStyle: {
                     color: 'black',
           },
+          backgroundColor:'black'
             };
 
             return configuracoes;
@@ -417,28 +437,35 @@
                     }
                 },
                 title: 'GPU',
-                legend: { position: 'bottom' },
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
                 colors: [colorFour],
+                titleTextStyle:{color:'white'},
                 isStacked: true,
                 width: largura,
                 height: altura,
                 vAxis: {
                     textStyle: {
-                        fontSize: 12
-                    }
+                        fontSize: 12,
+                        color: 'white'
+                    },
+                titleTextStyle:{color:'white'}
                 },
                 hAxis: {
                     slantedTextAngle: 45,
                     textStyle: {
-                        fontSize: 10
-                    }
+                        fontSize: 10,
+                        color: 'white'
+                    },
+                titleTextStyle:{color:'white'}
                 },
                 chartArea: {
-                    left: 30    ,
+                    left: 30,
                     top: 20,
                     width: (largura - 10),
                     height: (altura - 90)
-                }
+                },
+                backgroundColor:'black'
             };
 
             return configuracoes;

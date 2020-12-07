@@ -106,7 +106,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.mycompany.pantec.Graficos</mainClass>
+                            <mainClass>com.mycompany.pantec.Login</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

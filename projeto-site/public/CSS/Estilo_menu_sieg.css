@@ -148,7 +148,7 @@ body {
     transition: all .5s;
     text-align: left;
     position: fixed;
-    z-index: 1;
+    z-index: 10001;
   
 
 }
@@ -222,7 +222,7 @@ opacity: 0.6;
     background-color: white;
     float: left;
     position: fixed;
-   
+    z-index: 1000;
  
 }
 
