@@ -119,6 +119,34 @@ router.get('/cpu',(req, res, next) => {
  	  });
  });
 
+ router.get('/comparacao-disco',(req, res, next) => {
+   
+
+	const limite_linhas = 3;
+
+	console.log(`Recuperando a última leituras`);
+  
+	const instrucaoSql = `select top ${limite_linhas}
+							componente, 
+							uso, 
+							momento,
+							maquina_id,
+							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+							from registro where componente=2 and maquina_id=(select id from maquina where hostname='${hostname_two}' and usuario_id='${id}') order by id desc`;
+
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	  })
+	  .then(resultado => {
+			console.log(`Encontrados: ${resultado.length}`);
+			res.json(resultado);
+	  }).catch(erro => {
+			console.error(erro);
+			res.status(500).send(erro.message);
+	  });
+});
+
  router.get('/mem',(req, res, next) => {
    
  	const limite_linhas = 1;
@@ -146,6 +174,32 @@ router.get('/cpu',(req, res, next) => {
  	  });
  });
 
+ router.get('/comparacao-mem',(req, res, next) => {
+   
+	const limite_linhas = 1;
+
+	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
+  
+	const instrucaoSql = `select top ${limite_linhas}
+							componente, 
+							uso, 
+							momento,
+							maquina_id,
+							FORMAT(momento,'HH:mm:ss') as momento_grafico 
+							from registro where componente=3 and maquina_id=(select id from maquina where hostname='${hostname_two}' and usuario_id='${id}') order by id desc`;
+
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	  })
+	  .then(resultado => {
+			console.log(`Encontrados: ${resultado.length}`);
+			res.json(resultado);
+	  }).catch(erro => {
+			console.error(erro);
+			res.status(500).send(erro.message);
+	  });
+});
 
  router.get('/gpu',(req, res, next) => {
    

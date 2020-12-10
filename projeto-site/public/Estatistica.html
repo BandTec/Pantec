@@ -14,7 +14,7 @@
     <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
-<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive(), atualizarGraficoSix(), atualizarGraficoSeven()">
+<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive(), atualizarGraficoSix(), atualizarGraficoSeven(), atualizarGraficoHeigth()">
     <div class="caixa_menu">
        
             
@@ -71,6 +71,7 @@
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_five">Dados sendo obtidos...</div>
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_six">Dados sendo obtidos...</div>
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_seven">Dados sendo obtidos...</div>
+            <div style="margin-left: 100px; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_heigth">Dados sendo obtidos...</div>
         </center>
         
         <script>
@@ -88,6 +89,7 @@
         }
 
         function discoComparacao(){
+            document.getElementById('div_grafico_heigth').style.display="block";
             document.getElementById('div_grafico_five').style.display="none";
             document.getElementById('graficosLine').style.display="none";
             document.getElementById('graficosColumn').style.display="none";
@@ -842,6 +844,78 @@
             chart.draw(dados, configurarGraficoSeven());
         }
 
+
+        google.load('visualization', '1', {
+            packages: ['corechart', 'column'],
+            callback: obterDadosGraficoHeigth
+        });
+        function atualizarGraficoHeigth() {
+            obterDadosGraficoHeigth();
+            setTimeout(atualizarGraficoHeigth, 5000);
+        }
+        function configurarGraficoHeigth() {
+            var altura = 250;
+            var largura = 600;
+            var configuracoes = {
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
+                width: largura,
+                height: altura,
+                title : 'Comparação Disco',
+                titleTextStyle:{color:'white'},
+                chartArea: {
+                    left: 50,
+                    top: 20,
+                    right:20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                },
+                vAxis: {title: 'Uso',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                hAxis: {title: 'Momento',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                // bars: 'vertical',
+                backgroundColor:'black'
+            };
+
+            return configuracoes;
+        }
+        function obterDadosGraficoHeigth() {
+            fetch('/leituras/comparacao-disco', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+                            var dados =new google.visualization.arrayToDataTable([
+                                ['Hora','CPU','CPU 2'],
+                                [resposta[0].momento,disco,resposta[0].uso],
+                                [resposta[1].momento,disco,resposta[1].uso],
+                                [resposta[2].momento,disco,resposta[2].uso],
+                            ]);
+                        console.log("OLHA PARA ISTO EU PRECISO DISSO "+resposta[0].uso+" "+ disco)
+                        disco_two=resposta[0].uso;
+                        plotarGraficoHeigth(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        function plotarGraficoHeigth(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.ColumnChart(div_grafico_heigth);
+            chart.draw(dados, configurarGraficoHeigth());
+        }
     </script>
 </body>
 
