@@ -14,7 +14,7 @@
     <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
-<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive() ">
+<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive(), atualizarGraficoSix(), atualizarGraficoSeven()">
     <div class="caixa_menu">
        
             
@@ -47,11 +47,19 @@
             Hostname máquina:
             <select name="tentativa" id="tentativa">
                 <option value="" disabled selected>Máquina</option>
-            </select><br></form>
+            </select><br>
+            Hostname máquina:
+            <select name="segunda" id="segunda">
+                <option value="" disabled selected>Máquina</option>
+            </select>
+        </form>
             <button id="but" style="margin-top: 10%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;" onclick="validar()">
             Escolher máquina
             </button>
-            
+            <button onclick="discoComparacao()" id="btn1" style="display: none; margin-top: 5%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação disco</button>
+            <button onclick="memComparacao()" id="btn2" style="display: none; background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação memória</button>
+            <button onclick="cpuComparacao()" id="btn3" style="display: none; background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação cpu</button>
+            <button onclick="todosComparacao()" id="btn4" style="display: none; background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação todos</button>
             <div id="graficosLine" style="width:75%; margin-top: 5%; display: none;">
                 <div style="display: inline-block;" id="div_grafico_one">Dados sendo obtidos...</div>
                 <div style="display: inline-block; margin-left: 100px;" id="div_grafico_two">Dados sendo obtidos...</div>
@@ -61,9 +69,36 @@
                 <div style="display: inline-block; margin-left: 100px;" id="div_grafico_four">Dados sendo obtidos...</div>
             </div>
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_five">Dados sendo obtidos...</div>
+            <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_six">Dados sendo obtidos...</div>
+            <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_seven">Dados sendo obtidos...</div>
         </center>
         
         <script>
+        function cpuComparacao(){
+            document.getElementById('div_grafico_six').style.display="block";
+            document.getElementById('graficosLine').style.display="none";
+            document.getElementById('graficosColumn').style.display="none";
+        }
+
+        function todosComparacao(){
+            document.getElementById('div_grafico_seven').style.display="block";
+            document.getElementById('graficosLine').style.display="none";
+            document.getElementById('div_grafico_five').style.display="none";
+            document.getElementById('graficosColumn').style.display="none";
+        }
+
+        function discoComparacao(){
+            document.getElementById('div_grafico_five').style.display="none";
+            document.getElementById('graficosLine').style.display="none";
+            document.getElementById('graficosColumn').style.display="none";
+        }
+
+        function memComparacao(){
+            document.getElementById('div_grafico_five').style.display="none";
+            document.getElementById('graficosLine').style.display="none";
+            document.getElementById('graficosColumn').style.display="none";
+        }
+
         function verificar_autenticacao() {
             login_usuario = sessionStorage.login_usuario_meuapp;
             
@@ -81,21 +116,22 @@
         document.getElementById('graficosLine').style.display="block";
         document.getElementById('div_grafico_five').style.display="block";  
         document.getElementById('form_cadastro').style.display="block";
+        document.getElementById('btn1').style.display="inline-block";
+        document.getElementById('btn2').style.display="inline-block";
+        document.getElementById('btn3').style.display="inline-block";
+        document.getElementById('btn4').style.display="inline-block";
+        
         document.getElementById('but').style.display="none";
         document.getElementById('data').innerHTML = sessionStorage.getItem('id');
         document.querySelector("[name='inp']").value = document.getElementById('data').innerText
         document.querySelector("[name='usuario']").value = document.getElementById('b_usuario').innerText
         console.log("OLHE AQUI "+tentativa.value)
-        if(tentativa.value==""){
-            console.log('f')
-            select()
-        }
+
         var formulario = new URLSearchParams(new FormData(form_cadastro));
         fetch("/leituras/enviar", {
             method: "POST",
             body: formulario
         }).then(function (response) {
-
             if (response.ok) {
 
                console.log('foi')
@@ -104,6 +140,14 @@
                 console.log('Erro de cadastro!');
             }
         });
+            if(tentativa.value==""){
+                console.log('f')
+                select()
+            }
+            if(segunda.value==""){
+                console.log('f')
+                selectTwo()
+            }
         return false;
     }
 
@@ -115,6 +159,9 @@
     var mem=0;
     var disco=0;
     var gpu=0;
+    var processos=0;
+    var temperatura=0;
+    var cpu_two=0;
         google.load('visualization', '1', {
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoOne
@@ -527,7 +574,7 @@
                                 vetor.push(resposta.hostname)
                             });
                             
-                        const languagesSelect = document.getElementById("tentativa");
+                            const languagesSelect = document.getElementById("tentativa");
                         vetor.forEach((language) => {
                         option = new Option(language, language.toLowerCase());
                         languagesSelect.options[languagesSelect.options.length] = option;
@@ -541,6 +588,38 @@
                 console.log(error)
             })
         }
+        function selectTwo(){
+            fetch('leituras/select',{ cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados TESTE: ${JSON.stringify(resposta)}`);
+                        const vetor=[];
+                       
+                            resposta.map(resposta => {
+                                console.log(resposta.hostname)
+                                vetor.push(resposta.hostname)
+                            });
+                            
+                            const langsSelect = document.getElementById("segunda");
+                        vetor.forEach((language) => {
+                        option = new Option(language, language.toLowerCase());
+                        langsSelect.options[langsSelect.options.length] = option;
+                        });
+                        x = langsSelect.value;
+                        console.log("VETOR TESTE: "+vetor)
+                        
+                })
+            }})
+            .catch((error)=>{
+                console.log(error)
+            })
+        }
+        function atualizarSelect() {
+            select();
+            setTimeout(atualizarSelect,5000);
+        }
+
         google.load('visualization', '1', {
             packages: ['corechart', 'line'],
             callback: obterDadosGraficoFive
@@ -594,6 +673,8 @@
                                 [resposta[2].momento,cpu, mem, disco, gpu, resposta[2].processos,resposta[2].uso],
                                 
                             ]);
+                            processos=resposta[0].processos;
+                            temperatura=resposta[0].uso;
                         console.log("OLHA PARA MIM "+resposta[0].processos)
                         plotarGraficoFive(dados);
                     });
@@ -613,6 +694,154 @@
             var chart = new google.visualization.ComboChart(div_grafico_five);
             chart.draw(dados, configurarGraficoFive());
         }
+
+
+        google.load('visualization', '1', {
+            packages: ['corechart', 'column'],
+            callback: obterDadosGraficoSix
+        });
+        function atualizarGraficoSix() {
+            obterDadosGraficoSix();
+            setTimeout(atualizarGraficoSix, 5000);
+        }
+        function configurarGraficoSix() {
+            var altura = 250;
+            var largura = 600;
+            var configuracoes = {
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
+                width: largura,
+                height: altura,
+                title : 'Comparação CPU',
+                titleTextStyle:{color:'white'},
+                chartArea: {
+                    left: 50,
+                    top: 20,
+                    right:20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                },
+                vAxis: {title: 'Uso',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                hAxis: {title: 'Momento',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                // bars: 'vertical',
+                backgroundColor:'black'
+            };
+
+            return configuracoes;
+        }
+        function obterDadosGraficoSix() {
+            fetch('/leituras/comparacao', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+                            var dados =new google.visualization.arrayToDataTable([
+                                ['Hora','CPU','CPU 2'],
+                                [resposta[0].momento,cpu,resposta[0].uso],
+                                [resposta[1].momento,cpu,resposta[1].uso],
+                                [resposta[2].momento,cpu,resposta[2].uso],
+                            ]);
+                        console.log("OLHA PARA ISTO "+resposta[0].uso)
+                        cpu_two=resposta[0].uso;
+                        plotarGraficoSix(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        function plotarGraficoSix(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.ColumnChart(div_grafico_six);
+            chart.draw(dados, configurarGraficoSix());
+        }
+
+        google.load('visualization', '1', {
+            packages: ['corechart', 'line'],
+            callback: obterDadosGraficoSeven
+        });
+        function atualizarGraficoSeven() {
+            obterDadosGraficoSeven();
+            setTimeout(atualizarGraficoSeven, 5000);
+        }
+        function configurarGraficoSeven() {
+            var altura = 350;
+            var largura = 1000;
+            var configuracoes = {
+                legend: { position: 'bottom',
+                textStyle: { color: 'white'} },
+                width: largura,
+                height: altura,
+                title : 'Processos',
+                titleTextStyle:{color:'white'},
+                chartArea: {
+                    left: 50,
+                    top: 20,
+                    right:20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                },
+                vAxis: {title: 'Uso',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                hAxis: {title: 'Momento',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                seriesType: 'bars',
+                series: {5: {type: 'line'},
+                        7: {type: 'line'}},
+                backgroundColor:'black'
+            };
+
+            return configuracoes;
+        }
+        function obterDadosGraficoSeven() {
+            fetch('/leituras/processos-duo', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+                            var dados =new google.visualization.arrayToDataTable([
+                                ['Hora','CPU','Mem','Disco','Gpu','Processos','Temperatura CPU', 'CPU 2','Temperatura CPU','Processos 2'],
+                                [resposta[0].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[0].uso, cpu_two,resposta[0].processos],
+                                [resposta[1].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[1].uso, cpu_two,resposta[1].processos],
+                                [resposta[2].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[2].uso, cpu_two,resposta[2].processos],
+                                
+                            ]);
+                        console.log("OLHA PARA MIM "+resposta[0].processos)
+                        plotarGraficoSeven(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        function plotarGraficoSeven(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.ComboChart(div_grafico_seven);
+            chart.draw(dados, configurarGraficoSeven());
+        }
+
     </script>
 </body>
 
