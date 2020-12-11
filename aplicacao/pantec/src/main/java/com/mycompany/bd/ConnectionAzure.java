@@ -34,10 +34,7 @@ public class ConnectionAzure {
         } catch (ClassNotFoundException | SQLException ex) {
             ControllerLog log= new ControllerLog();
             log.printarLog("Erro na conexão", "Erro");
-            ConnectionMysql con=new ConnectionMysql();
-            con.getDataSource();
             throw new RuntimeException("Erro na conexão: ", ex);
-//            log.printarLog("jgjmg", "loju,lju");
         }
     }
     
