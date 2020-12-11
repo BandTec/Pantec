@@ -23,7 +23,7 @@ import oshi.software.os.OSProcess;
  * @author sakurah
  */
 public class Select {
-    java.sql.Connection con = ConnectionAzure.getConnection();
+    java.sql.Connection con;
     Usuario user = new Usuario();
     Maquina maq = new Maquina();
     MonitoramentoHardware hard = new MonitoramentoHardware();
@@ -35,8 +35,17 @@ public class Select {
     List<OSProcess> process= si.getOperatingSystem().getProcesses();
     Integer proc=process.size();
     ControllerLog log = new ControllerLog();
+    public void check(){
+        try{
+        con = ConnectionAzure.getConnection();
+        }
+        catch(Exception e){
+            con = ConnectionMysql.getConnectMysql();
+            System.out.println(e);
+        }
+    }
     public boolean checkLogin(String login, String senha) {
-
+        check();
         boolean check = false;
 
         try {
@@ -69,7 +78,7 @@ public class Select {
     }
 
     public void verificarMaquina() throws SQLException {
-
+        check();
         stmt = con.prepareStatement("SELECT * FROM maquina WHERE usuario_id = ? and hostname = ?", PreparedStatement.RETURN_GENERATED_KEYS);
 
         stmt.setInt(1, user.getId());
@@ -92,7 +101,7 @@ public class Select {
     }
 
     public void salvaMaquina() {
-
+        check();
         try {
 
             stmt = con.prepareStatement("INSERT INTO maquina (hostname, usuario_id)VALUES(?,?)");
@@ -113,7 +122,7 @@ public class Select {
     }
     
      public void insereGpu(Integer id, Double gpu){
-        
+        check();
         
            try {
         
@@ -135,7 +144,7 @@ public class Select {
     
     public void insereRegistro(Integer id, Double cpu, Double mem, Double disco, Double tempCpu){
         
-        
+        check();
            try {
                
             stmt = con.prepareStatement("INSERT INTO registro (componente,uso, momento,maquina_id, processos)VALUES(?,?,GETDATE(),?,?)");
