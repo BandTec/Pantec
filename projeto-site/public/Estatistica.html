@@ -14,7 +14,7 @@
     <script src="./JavaScript/Funções-menu-sieg.js"></script>
 </head>
 
-<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive(), atualizarGraficoSix(), atualizarGraficoSeven(), atualizarGraficoHeigth()">
+<body onload="atualizarGraficoOne(), atualizarGraficoTwo(), atualizarGraficoTree(), atualizarGraficoFour(), atualizarGraficoFive(), atualizarGraficoSix(), atualizarGraficoSeven(), atualizarGraficoHeigth(), atualizarGraficoNine()">
     <div class="caixa_menu">
        
             
@@ -56,6 +56,7 @@
             <button id="but" style="margin-top: 10%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;" onclick="validar()">
             Escolher máquina
             </button>
+            <button onclick="validar()" id="btnPessoal" style="display: none; margin-top: 5%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Máquina pessoal</button>
             <button onclick="discoComparacao()" id="btn1" style="display: none; margin-top: 5%;background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação disco</button>
             <button onclick="memComparacao()" id="btn2" style="display: none; background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação memória</button>
             <button onclick="cpuComparacao()" id="btn3" style="display: none; background-color: white; border: 2px black; border-radius: 5px; height: 25px; cursor: pointer;">Comparação cpu</button>
@@ -71,33 +72,51 @@
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_five">Dados sendo obtidos...</div>
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_six">Dados sendo obtidos...</div>
             <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_seven">Dados sendo obtidos...</div>
-            <div style="margin-left: 100px; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_heigth">Dados sendo obtidos...</div>
+            <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_heigth">Dados sendo obtidos...</div>
+            <div style="margin-left: 100px; display: none; margin-top: 5%; margin-bottom: 5%;" id="div_grafico_nine">Dados sendo obtidos...</div>
         </center>
         
         <script>
         function cpuComparacao(){
             document.getElementById('div_grafico_six').style.display="block";
+            document.getElementById('btnPessoal').style.display="inline-block";
+            document.getElementById('div_grafico_seven').style.display="none";
+            document.getElementById('div_grafico_nine').style.display="none";
             document.getElementById('graficosLine').style.display="none";
+            document.getElementById('div_grafico_heigth').style.display="none";
             document.getElementById('graficosColumn').style.display="none";
         }
 
         function todosComparacao(){
+            document.getElementById('btnPessoal').style.display="inline-block";
+            document.getElementById('div_grafico_six').style.display="none";
+            document.getElementById('div_grafico_heigth').style.display="none";
             document.getElementById('div_grafico_seven').style.display="block";
-            document.getElementById('graficosLine').style.display="none";
+            document.getElementById('div_grafico_nine').style.display="none";
             document.getElementById('div_grafico_five').style.display="none";
+            document.getElementById('graficosLine').style.display="none";
             document.getElementById('graficosColumn').style.display="none";
         }
 
         function discoComparacao(){
+            document.getElementById('div_grafico_six').style.display="none";
             document.getElementById('div_grafico_heigth').style.display="block";
+            document.getElementById('div_grafico_seven').style.display="none";
             document.getElementById('div_grafico_five').style.display="none";
+            document.getElementById('btnPessoal').style.display="inline-block";
             document.getElementById('graficosLine').style.display="none";
+            document.getElementById('div_grafico_nine').style.display="none";
             document.getElementById('graficosColumn').style.display="none";
         }
 
         function memComparacao(){
+            document.getElementById('div_grafico_nine').style.display="block";
+            document.getElementById('div_grafico_six').style.display="none";
+            document.getElementById('div_grafico_heigth').style.display="none";
+            document.getElementById('div_grafico_seven').style.display="none";
             document.getElementById('div_grafico_five').style.display="none";
             document.getElementById('graficosLine').style.display="none";
+            document.getElementById('btnPessoal').style.display="inline-block";
             document.getElementById('graficosColumn').style.display="none";
         }
 
@@ -114,6 +133,11 @@
         verificar_autenticacao()
 
         function validar() {
+        document.getElementById('btnPessoal').style.display="none";
+        document.getElementById('div_grafico_six').style.display="none";
+        document.getElementById('div_grafico_heigth').style.display="none";
+        document.getElementById('div_grafico_seven').style.display="none";
+        document.getElementById('div_grafico_nine').style.display="none";
         document.getElementById('graficosColumn').style.display="block";
         document.getElementById('graficosLine').style.display="block";
         document.getElementById('div_grafico_five').style.display="block";  
@@ -164,6 +188,8 @@
     var processos=0;
     var temperatura=0;
     var cpu_two=0;
+    var mem_two=0;
+    var disco_two=0;
         google.load('visualization', '1', {
             packages: ['corechart', 'SteppedArea'],
             callback: obterDadosGraficoOne
@@ -729,7 +755,7 @@
                 hAxis: {title: 'Momento',
                 textStyle: { color: 'white'},
                 titleTextStyle:{color:'white'}},
-                // bars: 'vertical',
+                colors: ['#547D92','white'],
                 backgroundColor:'black'
             };
 
@@ -818,10 +844,10 @@
 
                         resposta.reverse();
                             var dados =new google.visualization.arrayToDataTable([
-                                ['Hora','CPU','Mem','Disco','Gpu','Processos','Temperatura CPU', 'CPU 2','Temperatura CPU','Processos 2'],
-                                [resposta[0].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[0].uso, cpu_two,resposta[0].processos],
-                                [resposta[1].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[1].uso, cpu_two,resposta[1].processos],
-                                [resposta[2].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[2].uso, cpu_two,resposta[2].processos],
+                                ['Hora','CPU','Mem','Disco','Gpu','Processos','Temperatura CPU', 'CPU 2','Temperatura CPU','Disco 2', 'Memória 2','Processos 2'],
+                                [resposta[0].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[0].uso, cpu_two, disco_two, mem_two,resposta[0].processos],
+                                [resposta[1].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[1].uso, cpu_two, disco_two, mem_two,resposta[1].processos],
+                                [resposta[2].momento,cpu, mem, disco, gpu, processos, temperatura,resposta[2].uso, cpu_two, disco_two, mem_two,resposta[2].processos],
                                 
                             ]);
                         console.log("OLHA PARA MIM "+resposta[0].processos)
@@ -846,7 +872,7 @@
 
 
         google.load('visualization', '1', {
-            packages: ['corechart', 'column'],
+            packages: ['corechart','column'],
             callback: obterDadosGraficoHeigth
         });
         function atualizarGraficoHeigth() {
@@ -876,7 +902,7 @@
                 hAxis: {title: 'Momento',
                 textStyle: { color: 'white'},
                 titleTextStyle:{color:'white'}},
-                // bars: 'vertical',
+                colors: ['#547D92','white'],
                 backgroundColor:'black'
             };
 
@@ -891,7 +917,7 @@
 
                         resposta.reverse();
                             var dados =new google.visualization.arrayToDataTable([
-                                ['Hora','CPU','CPU 2'],
+                                ['Hora','Disco','Disco 2'],
                                 [resposta[0].momento,disco,resposta[0].uso],
                                 [resposta[1].momento,disco,resposta[1].uso],
                                 [resposta[2].momento,disco,resposta[2].uso],
@@ -915,6 +941,79 @@
 
             var chart = new google.visualization.ColumnChart(div_grafico_heigth);
             chart.draw(dados, configurarGraficoHeigth());
+        }
+
+        google.load('visualization', '1', {
+            packages: ['corechart', 'column'],
+            callback: obterDadosGraficoNine
+        });
+        function atualizarGraficoNine() {
+            obterDadosGraficoNine();
+            setTimeout(atualizarGraficoNine, 5000);
+        }
+        function configurarGraficoNine() {
+            var altura = 250;
+            var largura = 600;
+            var configuracoes = {
+                legend: { position: 'bottom',
+                colors: ['#547D92','white'],
+                textStyle: { color: 'white'} },
+                width: largura,
+                height: altura,
+                title : 'Comparação Disco',
+                titleTextStyle:{color:'white'},
+                chartArea: {
+                    left: 50,
+                    top: 20,
+                    right:20,
+                    width: (largura - 10),
+                    height: (altura - 90)
+                },
+                vAxis: {title: 'Uso',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                hAxis: {title: 'Momento',
+                textStyle: { color: 'white'},
+                titleTextStyle:{color:'white'}},
+                colors: ['#547D92','white'],
+                backgroundColor:'black'
+            };
+
+            return configuracoes;
+        }
+        function obterDadosGraficoNine() {
+            fetch('/leituras/comparacao-mem', { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+
+                        console.log(`Dados recebidos: ${JSON.stringify(dados)}`);
+
+                        resposta.reverse();
+                            var dados =new google.visualization.arrayToDataTable([
+                                ['Hora','Memória','Memória 2'],
+                                [resposta[0].momento,mem,resposta[0].uso],
+                                [resposta[1].momento,mem,resposta[1].uso],
+                                [resposta[2].momento,mem,resposta[2].uso],
+                            ]);
+                        console.log("OLHA PARA ISTO É SÉRIO "+resposta[0].uso+" "+ resposta[0].momento)
+                        mem_two=resposta[0].uso;
+                        plotarGraficoNine(dados);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+        }
+
+        function plotarGraficoNine(dados) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var chart = new google.visualization.ColumnChart(div_grafico_nine);
+            chart.draw(dados, configurarGraficoNine());
         }
     </script>
 </body>

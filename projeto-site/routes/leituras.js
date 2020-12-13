@@ -176,7 +176,7 @@ router.get('/cpu',(req, res, next) => {
 
  router.get('/comparacao-mem',(req, res, next) => {
    
-	const limite_linhas = 1;
+	const limite_linhas = 3;
 
 	console.log(`Recuperando as últimas ${limite_linhas} leituras`);
   
