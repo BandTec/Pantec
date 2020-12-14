@@ -21,9 +21,9 @@ public class ConnectionMysql {
             String driverName = "com.mysql.jdbc.Driver";
             Class.forName(driverName);
             try {
-                String url = "jdbc:mysql://localhost:3306/mysqljdbc";
+                String url = "jdbc:mysql://localhost:3306/pantec";
                 String user = "root";
-                String passwd = "+93619129@Lex";
+                String passwd = "urubu100";
                 con = DriverManager.getConnection(url, user, passwd);
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
