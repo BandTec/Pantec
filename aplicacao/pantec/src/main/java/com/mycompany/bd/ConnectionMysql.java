@@ -28,14 +28,10 @@ public class ConnectionMysql {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             } finally {
-                try {
                     if (con != null) {
                         System.out.println("Conectado");
-                        con.close();
                     }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
+                
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
